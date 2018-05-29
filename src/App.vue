@@ -46,6 +46,11 @@
       outline: none;
     }
   }
+  #app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
   .app-content {
     padding: 0 75px;
     @include transition(border, background .2s linear);

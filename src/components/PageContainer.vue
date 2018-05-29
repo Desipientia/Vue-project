@@ -11,4 +11,8 @@
   /* eslint-disable */
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .page-container {
+    flex-grow: 1;
+  }
+</style>
