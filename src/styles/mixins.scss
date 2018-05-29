@@ -1,0 +1,65 @@
+//TODO: Remove unused
+@mixin media($media...) {
+  @each $breakpoint in $media {
+    @if $breakpoint == mobile {
+      @media only screen and (max-width: $break-tablet) {
+        @content;
+      }
+    }
+    @else if $breakpoint == tablet {
+      @media only screen and (min-width: $break-tablet) and (max-width: $break-desktop) {
+        @content;
+      }
+    }
+    @else if $breakpoint == desktop {
+      @media only screen and (min-width: $break-desktop) and (max-width: $break-wide) {
+        @content;
+      }
+    }
+    @else if $breakpoint == wide {
+      @media only screen and (min-width: $break-wide) and (max-width: $break-x-wide) {
+        @content;
+      }
+    }
+    @else if $breakpoint == x-wide {
+      @media only screen and (min-width: $break-x-wide) {
+        @content;
+      }
+    }
+    @else if $breakpoint == not-mobile {
+      @media only screen and (min-width: $break-tablet) {
+        @content;
+      }
+    }
+    @else if $breakpoint == short {
+      @media only screen and (max-height: 550px) {
+        @content;
+      }
+    }
+    @else if $breakpoint == shorter {
+      @media only screen and (max-height: 460px) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin background($name, $size: contain, $position: center, $repeat: no-repeat) {
+  background-image: url($name + "@3x.png");
+  background-repeat: $repeat;
+  background-position: $position;
+  background-size: $size;
+
+  @include media(mobile) {
+    background-image: url($name + ".png");
+    background-size: $size;
+  }
+  @include media(tablet) {
+    background-image: url($name + "@2x.png");
+    background-size: $size;
+  }
+  @media only screen and (min-resolution: 2dppx) {
+    background-image: url($name + "@3x.png");
+    background-size: $size;
+  }
+}
