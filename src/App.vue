@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <page-header class="app-content"></page-header>
-    <page-container class="app-content"></page-container>
+    <page-container></page-container>
     <page-footer class="app-content"></page-footer>
   </div>
 </template>
@@ -24,7 +24,7 @@
 
 <style lang="scss">
   html {
-    overflow-x: hidden;
+    min-width: 800px;
     box-sizing: border-box;
     color: #42423c;
     font-size: 16px;
@@ -38,8 +38,6 @@
     position: relative;
     margin: 0;
     width: 100%;
-    min-width: 240px;
-    overflow-x: hidden;
   
     a:focus,
     button:focus {
