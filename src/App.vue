@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <page-header></page-header>
-    <page-container></page-container>
-    <page-footer></page-footer>
+    <page-header class="app-content"></page-header>
+    <page-container class="app-content"></page-container>
+    <page-footer class="app-content"></page-footer>
   </div>
 </template>
 
@@ -45,6 +45,10 @@
     button:focus {
       outline: none;
     }
+  }
+  .app-content {
+    padding: 0 75px;
+    transition: background .2s linear, border .2s linear;;
   }
 </style>
 

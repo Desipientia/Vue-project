@@ -14,8 +14,6 @@
 
   &:focus {
     outline: none;
-    -webkit-box-shadow: 0 10 5px -3px rgb(188, 225, 255);
-    -moz-box-shadow: 0 10 5px -3px rgb(188, 225, 255);
     box-shadow: 0 10 5px -3px rgb(188, 225, 255);
   }
   %placeholder {
@@ -40,7 +38,9 @@
 
 .e-button {
   border-radius: 4px;
+  border: none;
   box-shadow: 0 2px 4px 0 rgba(188, 188, 188, 0.54);
+  cursor: pointer;
 
   &.-black,
   &.-grey {
@@ -49,6 +49,10 @@
     font-family: "Open Sans", sans-serif;
     font-weight: 700;
     font-size: 16px;
+  }
+  &.-black,
+  &.-white {
+    text-transform: uppercase;
   }
   &.-black {
     background-color: #000;
@@ -59,13 +63,21 @@
     color: #0e0e0e;
   }
   &.-white {
-    min-width: 300px;
-    height: 70px;
     background-color: #fff;
     color: #0e0e0e;
     font-family: "Cabin", sans-serif;
     font-weight: 600;
-    font-size: 24px;
+
+    &.-l {
+      min-width: 300px;
+      height: 70px;
+      font-size: 24px;
+    }
+    &.-m {
+      min-width: 166px;
+      height: 40px;
+      font-size: 16px;
+    }
   }
 }
 
@@ -111,4 +123,11 @@
   color: #bcbcbc;
   font-family: "Open Sans", sans-serif;
   font-size: 18px;
+}
+
+.e-fade-enter-active, .e-fade-leave-active {
+  transition: opacity .25s
+}
+.e-fade-enter, .e-fade-leave-to {
+  opacity: 0
 }
