@@ -48,7 +48,7 @@
   }
   .app-content {
     padding: 0 75px;
-    transition: background .2s linear, border .2s linear;;
+    @include transition(border, background .2s linear);
   }
 </style>
 

@@ -63,3 +63,19 @@
     background-size: $size;
   }
 }
+
+@mixin transition($types...) {
+  $transition: ();
+  @each $t in $types {
+    @if $t == text {
+      $transition: append($transition, color .15s linear, comma);
+    } @else if $t == svg {
+      $transition: append($transition, fill .25s linear, comma);
+    } @else if $t == border {
+      $transition: append($transition, border-color .25s linear, comma);
+    } @else {
+      $transition: append($transition, $t, comma);
+    }
+  }
+  transition: $transition;
+}
