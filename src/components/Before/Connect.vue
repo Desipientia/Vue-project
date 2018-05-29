@@ -1,6 +1,6 @@
 <template>
   <div class="before-connect e-inside-content-block">
-    <h2 class="m-header-text">Connect with CryptoID</h2>
+    <h2 class="e-header-text">Connect with CryptoID</h2>
     <p class="e-base-text">
       <!-- eslint-disable-next-line max-len -->
       By applying for a CryptoID, you go through KYC (the identity verification procedure) only once. All data is secured by end-to-end encryption and is verified by Authorised Verification Agents. CryptoID follows the global privacy regulations and is GDPR compliant by design.
