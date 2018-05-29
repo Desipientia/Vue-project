@@ -12,8 +12,9 @@
       <span class="_logo-text">CryptoID</span>
     </div>
     <transition name="e-fade">
-      <button class="e-button -white -m"
-              v-if="$route.name === 'landing'">Get full access</button>
+      <router-link class="e-button -white -m"
+                   :to="{ name: 'connect' }"
+                   v-if="$route.name === 'landing'">Get full access</router-link>
     </transition>
     <transition name="e-fade">
       <ul class="_link-menu" v-if="isAuthorized">
