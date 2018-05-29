@@ -3,10 +3,10 @@
     <div class="_logo">
       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" viewBox="0 0 40 20">
         <g class="_logo-svg">
-          <!-- eslint-disable  max-len !-->
+          <!-- eslint-disable  max-len -->
           <path d="M13 0h14v5H13V0zm-1.5 0v5H10a5 5 0 1 0 0 10h12V6.5h5V20H10C4.477 20 0 15.523 0 10S4.477 0 10 0h1.5z"/>
           <path d="M27 20H13v-5h14v5zm1.5 0v-5H30a5 5 0 0 0 0-10H18v8.5h-5V0h17c5.523 0 10 4.477 10 10s-4.477 10-10 10h-1.5z"/>
-          <!-- eslint-enable  max-len !-->
+          <!-- eslint-enable  max-len -->
         </g>
       </svg>
       <span class="_logo-text">CryptoID</span>
@@ -29,9 +29,9 @@
       <button class="_sign-out-button" v-if="isAuthorized">
         <span class="_sign-out-text">Sign Out</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18">
-          <!-- eslint-disable  max-len !-->
+          <!-- eslint-disable  max-len -->
           <path class="_sign-out-svg" fill-rule="evenodd" d="M13 5h-2V2H2v14h9v-3h2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v3zm3.93 5.008H8a1 1 0 1 1 0-2h8.937l-1.705-2.383a.999.999 0 0 1 .157-1.405.999.999 0 0 1 1.405.155l3 4.004a.996.996 0 0 1 0 1.25l-3 4.003a1 1 0 1 1-1.562-1.251l1.698-2.373z"/>
-          <!-- eslint-enable  max-len !-->
+          <!-- eslint-enable  max-len -->
         </svg>
       </button>
     </transition>

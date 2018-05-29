@@ -2,10 +2,10 @@
   <footer class="page-footer" :class="background">
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="15" viewBox="0 0 40 20">
       <g class="_logo-svg">
-        <!-- eslint-disable  max-len !-->
+        <!-- eslint-disable  max-len -->
         <path d="M13 0h14v5H13V0zm-1.5 0v5H10a5 5 0 1 0 0 10h12V6.5h5V20H10C4.477 20 0 15.523 0 10S4.477 0 10 0h1.5z"/>
         <path d="M27 20H13v-5h14v5zm1.5 0v-5H30a5 5 0 0 0 0-10H18v8.5h-5V0h17c5.523 0 10 4.477 10 10s-4.477 10-10 10h-1.5z"/>
-        <!-- eslint-enable  max-len !-->
+        <!-- eslint-enable  max-len -->
       </g>
     </svg>
     <p class="_text">© 2018 CID. All rights reserved.</p>
