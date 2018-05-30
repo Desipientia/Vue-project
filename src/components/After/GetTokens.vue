@@ -10,17 +10,17 @@
       </div>
       <div class="_element">
         <p class="e-label-text">Total Tokens sold in this stage</p>
-        <p class="_number-text">250,000 CIDX</p>
+        <p class="e-number-text">250,000 CIDX</p>
       </div>
       <div class="_element">
         <p class="e-label-text">Total Ether received</p>
-        <p class="_number-text">2,661.24 ETH</p>
+        <p class="e-number-text">2,661.24 ETH</p>
       </div>
     </div>
     <form class="_send-block e-white-content-block" @submit.prevent="">
       <div>
-        <input class="e-input" type="text" placeholder="0" value="10.55"/>
-        <span class="_number-text -black">ETH</span>
+        <input class="e-input -l" type="text" placeholder="0" value="10.55"/>
+        <span class="e-number-text -black">ETH</span>
       </div>
       <button class="e-button -black" type="submit">Send</button>
     </form>
@@ -28,9 +28,9 @@
     <div class="e-white-content-block">
       <div class="_text-line">
         <div>
-          <span class="_number-text -black">$2500</span>
-          <span class="_number-text">(4.1 ETH)</span>
-          <span class="_number-text -smaller">(of $5000)</span>
+          <span class="e-number-text -black">$2500</span>
+          <span class="e-number-text">(4.1 ETH)</span>
+          <span class="e-number-text -smaller">(of $5000)</span>
         </div>
         <span class="_modal-link-text e-label-text"
               @click="$modal.show('info')">How to increase?</span>
@@ -80,25 +80,6 @@
       font-family: "Cabin", sans-serif;
       font-weight: 600;
       font-size: 20px;
-    }
-    ._number-text {
-      margin: 0;
-      font-family: "Cabin", sans-serif;
-      font-weight: 600;
-      
-      &.-black {
-        color: #0e0e0e;
-      }
-      &.-smaller {
-        line-height: 1.56;
-        font-size: 16px;
-      }
-      &:not(.-black) {
-        color: #767676;
-      }
-      &:not(.-smaller) {
-        font-size: 20px;
-      }
     }
     ._modal-link-text {
       line-height: 1.79;
