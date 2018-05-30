@@ -176,7 +176,7 @@
       font-weight: 700;
       font-size: 14px;
     }
-    .logo-text,
+    ._logo-text,
     ._sign-out-text {
       @include transition(text);
     }
