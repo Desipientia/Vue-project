@@ -25,6 +25,7 @@
 
 <style lang="scss" scoped>
   .before-landing {
+    width: 100%;
     margin: 50px 0 50px;
     
     .e-landing-header-text,

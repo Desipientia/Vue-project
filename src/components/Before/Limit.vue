@@ -56,7 +56,7 @@
 <style lang="scss" scoped>
   .before-limit {
     ._not-accredited-block {
-      margin: 40px 0 60px;
+      margin: 40px 0 0;
       border-top: solid 1px #bcbcbc;
     }
   }

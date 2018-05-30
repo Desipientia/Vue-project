@@ -11,6 +11,7 @@
     line-height: 1.5;
     font-weight: 700;
     font-size: 40px;
+    text-align: right;
   }
   &.-m {
     width: 390px;
@@ -196,6 +197,7 @@
 }
 
 .e-inside-content-block {
+  width: 100%;
   max-width: 650px;
 
   &:not(.-left) {
@@ -205,7 +207,7 @@
 }
 
 .e-white-content-block {
-  padding: 25px 30px;
+  padding: 25px 25px;
   border-radius: 4px;
   background-color: #fff;
 }
