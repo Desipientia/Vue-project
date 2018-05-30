@@ -61,8 +61,10 @@
       @include transition(background);
     }
     ._content-block {
+      display: flex;
       position: relative;
       z-index: 10;
+      height: 100%;
     }
   }
 </style>
