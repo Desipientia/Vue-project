@@ -1,6 +1,5 @@
 <template>
   <div class="after-main">
-    <!--TODO: Synchronize animation with page header -->
     <div class="_header-block app-content">
       <div class="e-inside-content-block -left">
         <h1 class="e-landing-header-text">

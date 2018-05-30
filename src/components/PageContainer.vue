@@ -1,8 +1,11 @@
 <template>
   <div class="page-container" :class="background">
-    <transition name="e-fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <div class="_background-block"></div>
+    <div class="_content-block">
+      <transition name="e-fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -11,7 +14,17 @@
     name: 'PageContainer',
     computed: {
       background() {
-        return this.$route.name === 'landing' ? '-black' : '-white';
+        switch (this.$route.name) {
+          case 'landing':
+            return '-black';
+          case 'main':
+            return '-white -half';
+          case 'get-tokens':
+          case 'referrals':
+            return '-grey';
+          default:
+            return '-white';
+        }
       },
     },
   };
@@ -20,6 +33,7 @@
 
 <style lang="scss" scoped>
   .page-container {
+    position: relative;
     flex-grow: 1;
     @include transition(background);
     
@@ -28,6 +42,27 @@
     }
     &.-white {
       background-color: #fff;
+      
+      &.-half {
+        ._background-block {
+          width: 100%;
+          height: 500px;
+          background-color: #000;
+        }
+      }
+    }
+    &.-grey {
+      background-color: #f6f6f6;
+    }
+    ._background-block {
+      position: absolute;
+      z-index: 0;
+      background-color: #fff;
+      @include transition(background);
+    }
+    ._content-block {
+      position: relative;
+      z-index: 10;
     }
   }
 </style>
