@@ -1,15 +1,23 @@
 .e-input {
-  width: 330px;
-  line-height: 1.5;
   border: none;
   border-bottom: 2px solid #bcbcbc;
   background-color: #fff;
   color: #0e0e0e;
   font-family: "Cabin", sans-serif;
-  font-weight: 700;
-  font-size: 40px;
   transition: box-shadow .3s linear;
 
+  &.-l {
+    width: 330px;
+    line-height: 1.5;
+    font-weight: 700;
+    font-size: 40px;
+  }
+  &.-m {
+    width: 390px;
+    line-height: 1.2;
+    font-weight: 600;
+    font-size: 30px;
+  }
   &:focus {
     outline: none;
     box-shadow: 0 10 5px -3px rgb(188, 225, 255);
@@ -37,7 +45,6 @@
 .e-button {
   border-radius: 4px;
   border: none;
-  box-shadow: 0 2px 4px 0 rgba(188, 188, 188, 0.54);
   cursor: pointer;
   text-decoration: none;
 
@@ -56,6 +63,7 @@
   &.-black {
     background-color: #000;
     color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(188, 188, 188, 0.54);
   }
   &.-grey {
     background-color: #f6f6f6;
@@ -192,7 +200,7 @@
 
   &:not(.-left) {
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 10px 100px;
   }
 }
 
