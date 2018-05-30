@@ -1,6 +1,8 @@
 <template>
   <div class="page-container" :class="background">
-    <router-view></router-view>
+    <transition name="e-fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -19,6 +21,7 @@
 <style lang="scss" scoped>
   .page-container {
     flex-grow: 1;
+    @include transition(background);
     
     &.-black {
       background-color: #000;

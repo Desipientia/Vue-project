@@ -71,6 +71,8 @@
       $transition: append($transition, color .15s linear, comma);
     } @else if $t == svg {
       $transition: append($transition, fill .25s linear, comma);
+    } @else if $t == background {
+      $transition: append($transition, background .25s linear, comma);
     } @else if $t == border {
       $transition: append($transition, border-color .25s linear, comma);
     } @else {
