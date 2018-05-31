@@ -74,10 +74,13 @@
       },
       generateNewQRcode() {
         this.$store.dispatch('auth/getUserProject').then((response) => {
+          if (this.$socket){
+            this.$disconnect()
+          }
           this.qrCode = JSON.stringify(response.body);
           const wsUrl = `ws://ciddev.tabularasa.host/api/user/${response.body.pk}/`;
-          Vue.use(VueNativeSock, wsUrl, { store: this.$store, format: 'json' })
-
+          Vue.use(VueNativeSock, wsUrl, { store: this.$store, format: 'json' ,   connectManually: true})
+          this.$connect()
         });
       },
     }),
