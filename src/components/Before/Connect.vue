@@ -22,15 +22,13 @@
       </li>
       <li class="_element">
         <h4 class="e-caption-text">Scan the code below</h4>
-        <div class="qr-code">
-          <qrcode v-model="qrCode" :options="{ size: 100 }"></qrcode>
-          <button @click="generateNewQRcode()">Generate New</button>
-        </div>
-        {{sendMessage}}
         <p class="e-base-text">
           <!-- eslint-disable-next-line max-len -->
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pretium libero vel efficitur ultrices. Vestibulum accumsan fringilla velit, molestie tempor dui pharetra id.
         </p>
+        <div v-if="qrCode !== null"  class="qr-code">
+          <qrcode v-model="qrCode" :options="{ size: 200 }"></qrcode>
+        </div>
       </li>
     </ol>
   </div>
@@ -48,18 +46,20 @@
     name: 'Connect',
     data() {
       return {
-        qrCode: '',
+        qrCode: null,
       };
     },
     watch: {
       sendMessage: {
         handler() {
-          this.login(); // call it in the context of your component object
+          this.login();
         },
         deep: true,
       },
     },
-
+    created() {
+      this.generateNewQRcode()
+    },
     computed: {
       sendMessage() {
         return this.$store.state.socket.socket.message;
