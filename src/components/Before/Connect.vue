@@ -27,7 +27,7 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pretium libero vel efficitur ultrices. Vestibulum accumsan fringilla velit, molestie tempor dui pharetra id.
         </p>
         <div class="_qr-code-block" v-if="qrCode !== null">
-          <qrcode :options="{ size: 200 }" v-model="qrCode"></qrcode>
+          <qrcode :options="{ size: 160 }" v-model="qrCode"></qrcode>
         </div>
       </li>
     </ol>
@@ -87,4 +87,13 @@
       this.generateNewQRcode();
     },
   };
+  /* eslint-disable */
 </script>
+
+<style lang="scss" scoped>
+  .before-connect {
+    ._qr-code-block {
+      margin: 20px 0 0 -5px;
+    }
+  }
+</style>
