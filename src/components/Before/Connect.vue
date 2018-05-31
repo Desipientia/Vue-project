@@ -37,8 +37,6 @@
 </template>
 
 <script>
-  import { mapMutations, mapActions, mapState } from 'vuex';
-
   import Vue from 'vue';
   import VueQrcode from '@xkeshi/vue-qrcode';
   import VueNativeSock from 'vue-native-websocket';
@@ -55,32 +53,32 @@
     },
     watch: {
       sendMessage: {
-          handler: function(val, oldVal) {
-              this.login(); // call it in the context of your component object
-          },
-          deep: true
-      }
+        handler() {
+          this.login(); // call it in the context of your component object
+        },
+        deep: true,
+      },
     },
- 
+
     computed: {
-     sendMessage(){
-        return this.$store.state.socket.socket.message
-     }
+      sendMessage() {
+        return this.$store.state.socket.socket.message;
+      },
 
     },
     methods: Object.assign({
-      login(){
-          this.$router.push('get-tokens')
+      login() {
+        this.$router.push('get-tokens');
       },
       generateNewQRcode() {
         this.$store.dispatch('auth/getUserProject').then((response) => {
-          if (this.$socket){
-            this.$disconnect()
+          if (this.$socket) {
+            this.$disconnect();
           }
           this.qrCode = JSON.stringify(response.body);
           const wsUrl = `ws://ciddev.tabularasa.host/api/user/${response.body.pk}/`;
-          Vue.use(VueNativeSock, wsUrl, { store: this.$store, format: 'json' ,   connectManually: true})
-          this.$connect()
+          Vue.use(VueNativeSock, wsUrl, { store: this.$store, format: 'json', connectManually: true });
+          this.$connect();
         });
       },
     }),
