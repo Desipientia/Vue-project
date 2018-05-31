@@ -57,6 +57,7 @@
   .before-limit {
     ._not-accredited-block {
       margin: 40px 0 0;
+      padding: 20px 0 0;
       border-top: solid 1px #bcbcbc;
     }
   }

@@ -8,7 +8,14 @@
          @keydown.esc.prevent="hide()"
          @click.self="hide()">
       <div class="m-window" :class="type">
-        <button class="m-close-button" @click="hide">✕</button>
+        <button class="m-close-button" @click="hide">
+          <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#bcbcbc" stroke-width="1.5">
+              <line x1="0" y1="20" x2="20" y2="0"></line>
+              <line x1="0" y1="0" x2="20" y2="20"></line>
+            </g>
+          </svg>
+        </button>
         <transition name="m-fade" mode="out-in">
           <component class="m-content"
                      :is="type"
