@@ -1,6 +1,25 @@
 <template>
   <form class="buy-tokens-modal" @submit.prevent="$modal.accept">
     <p class="m-header-text">Buy Tokens</p>
+    <p class="e-label-text">Price</p>
+    <p class="_price-text">
+      <span class="_number">10.55</span>
+      <span class="_suffix">ETH</span>
+    </p>
+    <p class="e-label-text">Send a payment to the wallet address</p>
+    <p class="_wallet-address-text">0x088fc1806a82c599d36bfcb5189d4909f3480a19</p>
+    <p class="e-label-text">
+      <span class="_rounded-text">i</span>
+      <span class="_indented-text">
+        <!-- eslint-disable-next-line max-len -->
+        Please set the gas to at least <b>55 GWEI</b> and <b>210.000</b> (two hundred and ten thousand) blocks.
+      </span>
+    </p>
+    <p class="e-label-text">Send with browser plugin</p>
+    <div class="_grey-block">
+      <p class="_text">Send Transaction with MetaMask</p>
+    </div>
+    <p class="e-label-text">To confirm you transaction, please click on the button</p>
     <button class="e-button -black" type="submit">I sent</button>
   </form>
 </template>
@@ -9,4 +28,71 @@
   export default {
     name: 'DialogModal',
   };
+  /* eslint-disable */
 </script>
+
+<style lang="scss" scoped>
+  .buy-tokens-modal {
+    .e-button {
+      width: 100%;
+      margin-top: 15px;
+    }
+    .e-label-text {
+      line-height: 1.43;
+    }
+    ._price-text {
+      margin: 0 0 8px;
+      color: #0e0e0e;
+      font-family: "Open Sans", sans-serif;
+      
+      ._number {
+        font-weight: 600;
+        font-size: 30px;
+      }
+      ._suffix {
+        font-size: 20px;
+      }
+    }
+    ._wallet-address-text {
+      margin: 15px 0;
+      padding: 13px 0;
+      border-top: solid 1px rgba(188, 188, 188, 0.3);
+      border-bottom: solid 1px rgba(188, 188, 188, 0.3);
+      color: #0e0e0e;
+      font-family: "Cabin", sans-serif;
+      font-weight: 600;
+      font-size: 19px;
+    }
+    ._rounded-text {
+      float: left;
+      display: block;
+      width: 17px;
+      height: 17px;
+      line-height: 16px;
+      border-radius: 100%;
+      border: solid 1px #8d8d8d;
+      font-size: 12px;
+      text-align: center;
+    }
+    ._indented-text {
+      display: block;
+      margin-left: 22px;
+      margin-bottom: 20px;
+    }
+    ._grey-block {
+      margin: 15px 0 25px;
+      padding: 14px 5px;
+      border-radius: 4px;
+      background-color: #f6f6f6;
+      
+      ._text {
+        margin: 0;
+        color: #0e0e0e;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+  }
+</style>
