@@ -12,6 +12,6 @@ export default new Vuex.Store({
   strict: debug,
   modules: {
     auth,
-    socket
+    socket,
   },
 });

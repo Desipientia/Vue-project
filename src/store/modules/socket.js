@@ -1,5 +1,4 @@
 export default {
-
   state: {
     socket: {
       isConnected: false,
@@ -8,13 +7,14 @@ export default {
     },
   },
   mutations: {
-    SOCKET_ONOPEN(state, event) {
+    SOCKET_ONOPEN(state) {
       state.socket.isConnected = true;
     },
-    SOCKET_ONCLOSE(state, event) {
+    SOCKET_ONCLOSE(state) {
       state.socket.isConnected = false;
     },
     SOCKET_ONERROR(state, event) {
+      // eslint-disable-next-line no-console
       console.error(state, event);
     },
     // default handler called for all methods
@@ -23,6 +23,7 @@ export default {
     },
     // mutations for reconnect methods
     SOCKET_RECONNECT(state, count) {
+      // eslint-disable-next-line no-console
       console.info(state, count);
     },
     SOCKET_RECONNECT_ERROR(state) {

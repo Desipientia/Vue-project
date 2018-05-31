@@ -26,8 +26,8 @@
           <!-- eslint-disable-next-line max-len -->
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pretium libero vel efficitur ultrices. Vestibulum accumsan fringilla velit, molestie tempor dui pharetra id.
         </p>
-        <div v-if="qrCode !== null"  class="qr-code">
-          <qrcode v-model="qrCode" :options="{ size: 200 }"></qrcode>
+        <div class="_qr-code-block" v-if="qrCode !== null">
+          <qrcode :options="{ size: 200 }" v-model="qrCode"></qrcode>
         </div>
       </li>
     </ol>
@@ -39,8 +39,9 @@
   import VueQrcode from '@xkeshi/vue-qrcode';
   import VueNativeSock from 'vue-native-websocket';
 
-  Vue.component('qrcode', VueQrcode);
+  import { wsRoot } from '../../config';
 
+  Vue.component('qrcode', VueQrcode);
 
   export default {
     name: 'Connect',
@@ -48,6 +49,11 @@
       return {
         qrCode: null,
       };
+    },
+    computed: {
+      sendMessage() {
+        return this.$store.state.socket.socket.message;
+      },
     },
     watch: {
       sendMessage: {
@@ -57,16 +63,7 @@
         deep: true,
       },
     },
-    created() {
-      this.generateNewQRcode()
-    },
-    computed: {
-      sendMessage() {
-        return this.$store.state.socket.socket.message;
-      },
-
-    },
-    methods: Object.assign({
+    methods: {
       login() {
         this.$router.push('get-tokens');
       },
@@ -76,11 +73,18 @@
             this.$disconnect();
           }
           this.qrCode = JSON.stringify(response.body);
-          const wsUrl = `ws://ciddev.tabularasa.host/api/user/${response.body.pk}/`;
-          Vue.use(VueNativeSock, wsUrl, { store: this.$store, format: 'json', connectManually: true });
+          const wsUrl = `${wsRoot}${response.body.pk}/`;
+          Vue.use(VueNativeSock, wsUrl, {
+            store: this.$store,
+            format: 'json',
+            connectManually: true,
+          });
           this.$connect();
         });
       },
-    }),
+    },
+    created() {
+      this.generateNewQRcode();
+    },
   };
 </script>

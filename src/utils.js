@@ -7,8 +7,6 @@ import ScrollJump from './plugins/scroll-jump/scroll-jump';
 
 import { root } from './config';
 
-// Vue.http.options.root = 'http://ciddev.tabularasa.host/api';
-
 Vue.use(VueResource);
 
 Vue.use(Modal);
