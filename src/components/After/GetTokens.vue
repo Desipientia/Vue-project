@@ -2,25 +2,46 @@
   <div class="after-get-tokens e-inside-content-block">
     <h2 class="e-header-text">Get Tokens</h2>
     <div class="_info-block e-white-content-block">
-      <div class="_element">
+      <div class="_info-element">
         <p class="e-label-text">Duration</p>
+        <div class="_duration-block">
+          <div>
+            <p class="e-number-text -m -black">23 Jun</p>
+            <p class="e-number-text -s">06:00 am</p>
+          </div>
+          <p class="_line">–</p>
+          <div>
+            <p class="e-number-text -m -black">25 Jun</p>
+            <p class="e-number-text -s">11:59 pm</p>
+          </div>
+        </div>
       </div>
-      <div class="_element">
+      <div class="_info-element">
         <p class="e-label-text">Closing in</p>
+        <div class="_closing-in-block">
+          <div class="_element" :key="e" v-for="(e, i) in timerElements">
+            <div>
+              <p class="e-number-text -l -black"
+                 :class="{ '-center': i > 0 }">{{ timerData[e] }}</p>
+              <p class="_inscription e-number-text -xs -center">{{ e }}</p>
+            </div>
+            <span class="_colon-divider" v-if="i < timerElements.length - 1">:</span>
+          </div>
+        </div>
       </div>
-      <div class="_element">
+      <div class="_info-element">
         <p class="e-label-text">Total Tokens sold in this stage</p>
-        <p class="e-number-text">250,000 CIDX</p>
+        <p class="e-number-text -s">250,000 CIDX</p>
       </div>
-      <div class="_element">
+      <div class="_info-element">
         <p class="e-label-text">Total Ether received</p>
-        <p class="e-number-text">2,661.24 ETH</p>
+        <p class="e-number-text -s">2,661.24 ETH</p>
       </div>
     </div>
     <form class="_send-block e-white-content-block" @submit.prevent="">
       <div>
         <input class="e-input -l" type="text" placeholder="0" value="10.55"/>
-        <span class="e-number-text -black">ETH</span>
+        <span class="e-number-text -s -black">ETH</span>
       </div>
       <button class="e-button -black" type="submit">Send</button>
     </form>
@@ -28,9 +49,9 @@
     <div class="e-white-content-block">
       <div class="_text-line">
         <div>
-          <span class="e-number-text -black">$2500</span>
-          <span class="e-number-text">(4.1 ETH)</span>
-          <span class="e-number-text -smaller">(of $5000)</span>
+          <span class="e-number-text -s -black">$2500</span>
+          <span class="e-number-text -s">(4.1 ETH)</span>
+          <span class="_suffix-text">(of $5000)</span>
         </div>
         <span class="_modal-link-text e-label-text"
               @click="$modal.show('info')">How to increase?</span>
@@ -42,6 +63,17 @@
 <script>
   export default {
     name: 'GetTokens',
+    data() {
+      return {
+        timerElements: ['days', 'hours', 'mins', 'secs'],
+        timerData: {
+          days: '00',
+          hours: '12',
+          mins: '23',
+          secs: '59',
+        },
+      };
+    },
   };
   /* eslint-disable */
 </script>
@@ -55,9 +87,39 @@
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       
-      ._element {
+      ._info-element {
         margin: 10px 0 20px;
         width: 50%;
+      }
+    }
+    ._duration-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 210px;
+      
+      ._line {
+        margin: 0;
+        color: #bcbcbc;
+        font-family: "Cabin", sans-serif;
+        font-size: 25px;
+      }
+    }
+    ._closing-in-block {
+      display: flex;
+      
+      ._element {
+        display: flex;
+      }
+      ._colon-divider {
+        margin: 10px 3px 0;
+        color: #767676;
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      ._inscription {
+        margin: -5px 0 0;
       }
     }
     ._send-block {
@@ -73,6 +135,14 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      
+      ._suffix-text {
+        margin: 0;
+        line-height: 1.56;
+        color: #767676;
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+      }
     }
     ._block-caption {
       margin: 25px 0 15px;

@@ -20,12 +20,12 @@
     <h4 class="e-caption-text">Statistics</h4>
     <div class="e-white-content-block">
       <p class="_statistics-text">
-        <span class="e-number-text">Invited</span>
-        <span class="e-number-text -black">10 people</span>
+        <span class="e-number-text -s">Invited</span>
+        <span class="e-number-text -s -black">10 people</span>
       </p>
       <p class="_statistics-text">
-        <span class="e-number-text">Bonus is</span>
-        <span class="e-number-text -black">30000 CID</span>
+        <span class="e-number-text -s">Bonus is</span>
+        <span class="e-number-text -s -black">30000 CID</span>
       </p>
     </div>
   </div>
