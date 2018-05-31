@@ -1,6 +1,7 @@
 <template>
   <transition name="m-fade">
     <div class="modal"
+         id="modal"
          ref="modal"
          tabindex="1"
          v-show="visible"
@@ -9,7 +10,7 @@
          @click.self="hide()">
       <div class="m-window" :class="type">
         <button class="m-close-button" @click="hide">
-          <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
             <g stroke="#bcbcbc" stroke-width="1.5">
               <line x1="0" y1="20" x2="20" y2="0"></line>
               <line x1="0" y1="0" x2="20" y2="20"></line>
@@ -52,17 +53,21 @@
         this.onHide = onHide;
         this.onAccept = onAccept;
         this.visible = true;
+        this.$modal.isVisible = true;
+        this.$scrollJump.resizeJumpingBlocks('modal-show');
+        // document.body.style.overflowY = 'hidden';
         setTimeout(() => {
           this.$refs.modal.focus();
         }, 100);
-        document.body.style.overflowY = 'hidden';
       },
       hide(silent) {
         if (this.onHide && !silent) this.onHide();
         this.visible = false;
+        this.$modal.isVisible = false;
         this.params = {};
         this.returnFocus();
-        document.body.style.overflowY = 'auto';
+        // document.body.style.overflowY = 'auto';
+        this.$scrollJump.resizeJumpingBlocks('modal-hide');
       },
       accept() {
         if (this.onAccept) {

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <page-header class="app-content"></page-header>
-    <page-container></page-container>
+    <page-header class="app-content" id="header"></page-header>
+    <page-container id="container"></page-container>
     <page-footer class="app-content"></page-footer>
   </div>
 </template>
@@ -12,12 +12,12 @@
   import PageContainer from './components/PageContainer';
 
   export default {
+    name: 'App',
     components: {
       PageContainer,
       PageFooter,
       PageHeader,
     },
-    name: 'App',
   };
 /* eslint-disable */
 </script>

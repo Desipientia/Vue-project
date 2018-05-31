@@ -6,11 +6,12 @@ export default {
     const Modal = new Constructor();
     const vm = Modal.$mount();
 
-    document.querySelector('body').appendChild(vm.$el);
+    document.body.appendChild(vm.$el);
 
     // eslint-disable-next-line no-param-reassign, no-multi-assign
     Vue.modal = Vue.prototype.$modal = {
       focusOn: null,
+      isVisible: false,
       params() {
         return Modal.params;
       },
