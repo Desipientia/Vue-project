@@ -22,6 +22,11 @@
       </li>
       <li class="_element">
         <h4 class="e-caption-text">Scan the code below</h4>
+        <div class="qr-code">
+          <qrcode v-model="qrCode" :options="{ size: 100 }"></qrcode>
+          <button @click="generateNewQRcode()">Generate New</button>
+        </div>
+        {{sendMessage}}
         <p class="e-base-text">
           <!-- eslint-disable-next-line max-len -->
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pretium libero vel efficitur ultrices. Vestibulum accumsan fringilla velit, molestie tempor dui pharetra id.
@@ -32,7 +37,49 @@
 </template>
 
 <script>
+  import { mapMutations, mapActions, mapState } from 'vuex';
+
+  import Vue from 'vue';
+  import VueQrcode from '@xkeshi/vue-qrcode';
+  import VueNativeSock from 'vue-native-websocket';
+
+  Vue.component('qrcode', VueQrcode);
+
+
   export default {
     name: 'Connect',
+    data() {
+      return {
+        qrCode: '',
+      };
+    },
+    watch: {
+      sendMessage: {
+          handler: function(val, oldVal) {
+              this.login(); // call it in the context of your component object
+          },
+          deep: true
+      }
+    },
+ 
+    computed: {
+     sendMessage(){
+        return this.$store.state.socket.socket.message
+     }
+
+    },
+    methods: Object.assign({
+      login(){
+          this.$router.push('get-tokens')
+      },
+      generateNewQRcode() {
+        this.$store.dispatch('auth/getUserProject').then((response) => {
+          this.qrCode = JSON.stringify(response.body);
+          const wsUrl = `ws://ciddev.tabularasa.host/api/user/${response.body.pk}/`;
+          Vue.use(VueNativeSock, wsUrl, { store: this.$store, format: 'json' })
+
+        });
+      },
+    }),
   };
 </script>
