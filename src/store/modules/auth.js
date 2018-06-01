@@ -24,7 +24,7 @@ export default {
   },
   actions: {
     getUserProject() {
-      return Vue.http.get('project/dsadad/new_user_project/');
+      return Vue.http.get('project/cid/new_user_project/');
     },
   },
 };
