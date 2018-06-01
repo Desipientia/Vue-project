@@ -19,19 +19,19 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/landing',
+      path: '/',
       name: 'landing',
       component: Landing,
       meta: { hideWhenAuth: true },
     },
     {
-      path: '/connect',
+      path: '/connect-with-cryptoid',
       name: 'connect',
       component: Connect,
       meta: { hideWhenAuth: true },
     },
     {
-      path: '/limit',
+      path: '/you-need-to-increase-your-limit',
       name: 'limit',
       component: Limit,
       meta: { hideWhenAuth: true },
@@ -49,7 +49,7 @@ const router = new Router({
       meta: { requiresAuth: true },
     },
     {
-      path: '/referrals',
+      path: '/referral-program',
       name: 'referrals',
       component: Referrals,
       meta: { requiresAuth: true },
