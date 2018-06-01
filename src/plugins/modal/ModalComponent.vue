@@ -55,7 +55,6 @@
         this.visible = true;
         this.$modal.isVisible = true;
         this.$scrollJump.resizeJumpingBlocks('modal-show');
-        // document.body.style.overflowY = 'hidden';
         setTimeout(() => {
           this.$refs.modal.focus();
         }, 100);
@@ -66,7 +65,6 @@
         this.$modal.isVisible = false;
         this.params = {};
         this.returnFocus();
-        // document.body.style.overflowY = 'auto';
         this.$scrollJump.resizeJumpingBlocks('modal-hide');
       },
       accept() {

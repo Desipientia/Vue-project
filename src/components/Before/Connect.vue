@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
+  import { mapState, mapGetters, mapActions } from 'vuex';
   import Vue from 'vue';
   import VueQrcode from '@xkeshi/vue-qrcode';
   import VueNativeSock from 'vue-native-websocket';
@@ -27,25 +27,27 @@
       };
     },
     computed: {
-      sendMessage() {
+      socketMessage() {
         return this.$store.state.socket.socket.message;
       },
       ...mapState('pages', ['connect']),
+      ...mapGetters('auth', ['isAuthorized']),
     },
     components: { VueMarkdown },
     watch: {
-      sendMessage: {
+      socketMessage: {
         handler() {
-          this.login();
+          if (this.socketMessage) {
+            this.login(this.socketMessage);
+            this.$router.push({ name: 'get-tokens' });
+          }
         },
         deep: true,
       },
     },
     methods: {
-      login() {
-        this.$router.push('get-tokens');
-      },
       generateNewQRcode() {
+        // TODO: Find some way to reconnect after logout without page reload
         this.getUserProject().then((r) => {
           if (this.$socket) {
             this.$disconnect();
@@ -60,10 +62,10 @@
           this.$connect();
         });
       },
-      ...mapActions('auth', ['getUserProject']),
+      ...mapActions('auth', ['getUserProject', 'login']),
       ...mapActions('pages', ['getConnectPageData']),
     },
-    created() {
+    mounted() {
       this.generateNewQRcode();
       this.getConnectPageData();
     },

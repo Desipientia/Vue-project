@@ -12,6 +12,7 @@ export default {
     },
     SOCKET_ONCLOSE(state) {
       state.socket.isConnected = false;
+      state.socket.message = '';
     },
     SOCKET_ONERROR(state, event) {
       // eslint-disable-next-line no-console

@@ -1,6 +1,6 @@
 <template>
   <header class="page-header" :class="background">
-    <div class="_logo">
+    <router-link class="_logo" :to="{ name: 'landing' }">
       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" viewBox="0 0 40 20">
         <g class="_logo-svg">
           <!-- eslint-disable  max-len -->
@@ -10,7 +10,7 @@
         </g>
       </svg>
       <span class="_logo-text">CryptoID</span>
-    </div>
+    </router-link>
     <transition name="e-fade">
       <router-link class="e-button -white -m"
                    :to="{ name: 'connect' }"
@@ -26,7 +26,7 @@
       </ul>
     </transition>
     <transition name="e-fade">
-      <button class="_sign-out-button" v-if="isAuthorized">
+      <button class="_sign-out-button" v-if="isAuthorized" @click="logoutAndGo">
         <span class="_sign-out-text">Sign Out</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18">
           <!-- eslint-disable  max-len -->
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
+
   export default {
     name: 'PageHeader',
     data() {
@@ -61,9 +63,14 @@
             return '-white';
         }
       },
-      isAuthorized() {
-        return this.links.some(e => e.name === this.$route.name);
+      ...mapGetters('auth', ['isAuthorized']),
+    },
+    methods: {
+      logoutAndGo() {
+        this.logout();
+        this.$router.push({ name: 'landing' });
       },
+      ...mapActions('auth', ['logout']),
     },
   };
   /* eslint-disable */
@@ -134,6 +141,7 @@
       align-items: center;
       justify-content: space-between;
       width: 122px;
+      text-decoration: none;
     }
     ._logo-text {
       font-family: "Cabin", sans-serif;
