@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { projectName } from '../../config';
 
 const TOKEN_KEY = 'cid_token';
 
@@ -43,7 +44,7 @@ export default {
       commit('removeUserData');
     },
     getUserProject() {
-      return Vue.http.get('project/cid/new_user_project/');
+      return Vue.http.get(`project/${projectName}/new_user_project/`);
     },
   },
 };

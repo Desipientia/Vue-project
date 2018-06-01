@@ -1,6 +1,7 @@
 import Vue from 'vue';
+import { projectName } from '../../config';
 
-const URL = 'project/cid/page/';
+const URL = `project/${projectName}/page/`;
 
 export default {
   namespaced: true,
