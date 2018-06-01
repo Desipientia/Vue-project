@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import auth from './modules/auth';
 import socket from './modules/socket';
+import pages from './modules/pages';
 
 import { debug } from '../config';
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
   modules: {
     auth,
     socket,
+    pages,
   },
 });
