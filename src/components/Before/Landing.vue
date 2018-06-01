@@ -1,10 +1,6 @@
 <template>
   <div class="before-landing app-content">
-    <h1 class="e-landing-header-text">
-      Turn a crypto wallet into a "bank" account you can use in the fiat world</h1>
-    <p class="e-landing-base-text">
-      Buy anything with crypto, without having to convert to €, $, £ or other currencies and bypass
-      KYC & AML procedures at exchanges, token-sales and services.</p>
+    <vue-markdown class="e-markdown-block -landing" :source="landing"></vue-markdown>
     <div class="_content-block">
       <router-link class="e-button -white -l"
                    :to="{ name: 'connect' }">Get full access</router-link>
@@ -17,22 +13,33 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex';
+
+  const VueMarkdown = () => import('vue-markdown');
+
   export default {
     name: 'Landing',
+    computed: mapState('pages', ['landing']),
+    components: { VueMarkdown },
+    methods: mapActions('pages', ['getLandingPageData']),
+    mounted() {
+      this.getLandingPageData();
+    },
   };
   /* eslint-disable */
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .before-landing {
     width: 100%;
     margin: 50px 0 50px;
     
-    .e-landing-header-text,
-    .e-landing-base-text {
-      margin: 30px auto;
-      max-width: 820px;
-      text-align: center;
+    .e-markdown-block {
+      h1, p {
+        margin: 30px auto;
+        max-width: 820px;
+        text-align: center;
+      }
     }
     ._content-block {
       margin: 60px auto 0;

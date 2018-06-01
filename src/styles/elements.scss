@@ -204,6 +204,22 @@
   }
 }
 
+.e-markdown-block {
+  &.-landing {
+    h1 {
+      @extend .e-landing-header-text;
+    }
+  }
+  &.-default {
+    h1 {
+      @extend .e-header-text;
+    }
+  }
+  p {
+    @extend .e-landing-base-text;
+  }
+}
+
 .e-inside-content-block {
   width: 100%;
   max-width: 650px;
