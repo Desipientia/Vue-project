@@ -6,13 +6,13 @@
         <p class="e-label-text">Duration</p>
         <div class="_duration-block">
           <div>
-            <p class="e-number-text -m -black">23 Jun</p>
-            <p class="e-number-text -s">06:00 am</p>
+            <p class="e-number-text -m -black">{{ ito.start_date | date }}</p>
+            <p class="e-number-text -s">{{ ito.start_date | time }}</p>
           </div>
           <p class="_line">–</p>
           <div>
-            <p class="e-number-text -m -black">25 Jun</p>
-            <p class="e-number-text -s">11:59 pm</p>
+            <p class="e-number-text -m -black">{{ ito.end_date | date }}</p>
+            <p class="e-number-text -s">{{ ito.end_date | time }}</p>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
           <div class="_element" :key="e" v-for="(e, i) in timerElements">
             <div>
               <p class="e-number-text -l -black"
-                 :class="{ '-center': i > 0 }">{{ timerData[e] }}</p>
+                 :class="{ '-center': i > 0 }">{{ timerData[e] | twoDigits }}</p>
               <p class="_inscription e-number-text -xs -center">{{ e }}</p>
             </div>
             <span class="_colon-divider" v-if="i < timerElements.length - 1">:</span>
@@ -31,11 +31,11 @@
       </div>
       <div class="_info-element">
         <p class="e-label-text">Total Tokens sold in this stage</p>
-        <p class="e-number-text -s">250,000 CIDX</p>
+        <p class="e-number-text -s">{{ ito.token_for_sale | number }} CIDX</p>
       </div>
       <div class="_info-element">
         <p class="e-label-text">Total Ether received</p>
-        <p class="e-number-text -s">2,661.24 ETH</p>
+        <p class="e-number-text -s">{{ ito.received_money | number }} ETH</p>
       </div>
     </div>
     <form class="_send-block e-white-content-block" @submit.prevent="">
@@ -61,18 +61,64 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex';
+
   export default {
     name: 'GetTokens',
     data() {
       return {
         timerElements: ['days', 'hours', 'mins', 'secs'],
-        timerData: {
-          days: '00',
-          hours: '12',
-          mins: '23',
-          secs: '59',
-        },
+        timerInterval: null,
+        currentDate: Math.trunc((new Date()).getTime() / 1000),
       };
+    },
+    computed: {
+      timerData() {
+        const t = this.endDate - this.currentDate || 0;
+        const secs = Math.floor(t % 60);
+        const mins = Math.floor((t / 60) % 60);
+        const hours = Math.floor((t / 60 / 60) % 24);
+        const days = Math.floor(t / 60 / 60 / 24);
+
+        if (this.endDate && t <= 0) clearInterval(this.timerInterval);
+        return { days, hours, mins, secs };
+      },
+      endDate() {
+        return Math.trunc((Date.parse(this.ito.end_date) / 1000));
+      },
+      ...mapState('project', ['ito']),
+    },
+    filters: {
+      twoDigits(value) {
+        const str = value.toString();
+        if (str.length <= 1) {
+          return `0${str}`;
+        }
+        return str;
+      },
+      time(dateString) {
+        return (new Date(dateString || 0)).toLocaleTimeString('en', {
+          hour: 'numeric',
+          minute: 'numeric',
+        }).replace('AM', 'am').replace('PM', 'pm');
+      },
+      date(dateString) {
+        return (new Date(dateString || 0)).toLocaleDateString('en', {
+          day: 'numeric',
+          month: 'short',
+        });
+      },
+      number(value) {
+        return (value || 0).toLocaleString('en');
+      },
+    },
+    methods: mapActions('project', ['getITO']),
+    mounted() {
+      this.getITO().then(() => {
+        this.timerInterval = setInterval(() => {
+          this.currentDate = Math.trunc((new Date()).getTime() / 1000);
+        }, 1000);
+      });
     },
   };
   /* eslint-disable */
@@ -108,6 +154,10 @@
     ._closing-in-block {
       display: flex;
       
+      .e-number-text,
+      ._inscription {
+        width: 40px;
+      }
       ._element {
         display: flex;
       }
