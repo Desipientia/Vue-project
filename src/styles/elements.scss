@@ -100,11 +100,10 @@
 }
 
 .e-ordered-list {
-  counter-reset: li;
   margin-top: 32px;
   padding: 0;
 
-  ._element {
+  li {
     position: relative;
     padding-left: 30px;
     list-style: none;
@@ -211,8 +210,19 @@
     }
   }
   &.-default {
+    counter-reset: li;
+
     h1 {
       @extend .e-header-text;
+    }
+    h3 {
+      @extend .e-caption-text;
+    }
+    ol {
+      @extend .e-ordered-list;
+      & + p {
+        padding-left: 30px;
+      }
     }
   }
   p {
