@@ -8,6 +8,7 @@ export default {
   namespaced: true,
   state: {
     ito: {},
+    limit: {},
   },
   mutations: {
     setStateData(state, { type, data }) {
@@ -22,6 +23,11 @@ export default {
         if (r.status === 403) {
           router.push({ name: 'limit' });
         }
+      });
+    },
+    getLimitData({ commit }) {
+      Vue.http.get(`${URL}allowed_limit/`).then((r) => {
+        commit('setStateData', { type: 'limit', data: r.body });
       });
     },
   },

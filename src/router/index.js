@@ -34,7 +34,7 @@ const router = new Router({
       path: '/you-need-to-increase-your-limit',
       name: 'limit',
       component: Limit,
-      meta: { hideWhenAuth: true },
+      meta: { requiresAuth: true },
     },
     {
       path: '/main',
