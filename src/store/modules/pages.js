@@ -10,6 +10,7 @@ export default {
     connect: '',
     limit: '',
     documentation: '',
+    referral: '',
   },
   mutations: {
     setPageData(state, { data, field }) {
@@ -30,6 +31,11 @@ export default {
     getLimitPageData({ commit }) {
       Vue.http.get(`${URL}you-need-increase-your-limit`).then((r) => {
         commit('setPageData', { data: r.body.contents[0].body, field: 'limit' });
+      });
+    },
+    getReferralPageData({ commit }) {
+      Vue.http.get(`${URL}referal-program`).then((r) => {
+        commit('setPageData', { data: r.body.contents[0].body, field: 'referral' });
       });
     },
     getDocumentationPageData({ commit }) {

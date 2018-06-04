@@ -9,6 +9,7 @@ export default {
   state: {
     ito: {},
     limit: {},
+    referral: {},
   },
   mutations: {
     setStateData(state, { type, data }) {
@@ -28,6 +29,11 @@ export default {
     getLimitData({ commit }) {
       Vue.http.get(`${URL}allowed_limit/`).then((r) => {
         commit('setStateData', { type: 'limit', data: r.body });
+      });
+    },
+    getReferral({ commit }) {
+      Vue.http.get(`${URL}referal/`).then((r) => {
+        commit('setStateData', { type: 'referral', data: r.body });
       });
     },
   },

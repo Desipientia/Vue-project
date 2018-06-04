@@ -1,14 +1,17 @@
 <template>
   <div class="after-referrals e-inside-content-block">
     <h2 class="e-header-text">Referral program</h2>
-    <p class="e-base-text">
-      <!-- eslint-disable-next-line max-len -->
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet sit amet sapien ac semper. Nam tortor dui, rutrum at laoreet eget, mattis ut dui. Nam eu nibh sed massa gravida porttitor ac sed metus.
-    </p>
+    <vue-markdown class="e-markdown-block -default"
+                  :source="referralText"></vue-markdown>
     <h4 class="e-caption-text">Your Referral Link</h4>
     <div class="_referral-link-block e-white-content-block">
-      <input class="e-input -m" type="text" value="cryptoid.ch/?r=824"/>
-      <button class="e-button -grey">Copy</button>
+      <input class="e-input -m"
+             type="text"
+             title="linkInput"
+             ref="linkInput"
+             v-model="referralLink"
+             @keydown.prevent=""/>
+      <button class="e-button -grey" @click="copyLink">Copy</button>
     </div>
     <p class="e-label-text">
       Got questions? Contact us at
@@ -21,19 +24,45 @@
     <div class="e-white-content-block">
       <p class="_statistics-text">
         <span class="e-number-text -s">Invited</span>
-        <span class="e-number-text -s -black">10 people</span>
+        <span class="e-number-text -s -black">{{ referral.referal_count }} people</span>
       </p>
       <p class="_statistics-text">
         <span class="e-number-text -s">Bonus is</span>
-        <span class="e-number-text -s -black">30000 CID</span>
+        <span class="e-number-text -s -black">{{ referral.coin_count }} CID</span>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex';
+
+  const VueMarkdown = () => import('vue-markdown');
+
   export default {
     name: 'Referrals',
+    computed: {
+      referralLink() {
+        return `${window.location.host}/?r=${this.referral.referal_number}`;
+      },
+      ...mapState('project', ['referral']),
+      ...mapState('pages', {
+        referralText: s => s.referral,
+      }),
+    },
+    components: { VueMarkdown },
+    methods: {
+      copyLink() {
+        this.$refs.linkInput.select();
+        document.execCommand('copy');
+      },
+      ...mapActions('project', ['getReferral']),
+      ...mapActions('pages', ['getReferralPageData']),
+    },
+    mounted() {
+      this.getReferral();
+      this.getReferralPageData();
+    },
   };
   /* eslint-disable */
 </script>
