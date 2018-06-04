@@ -2,32 +2,52 @@
   <div class="after-documentation">
     <!-- TODO: Check out if Table of contents should be as links or not (can use radio then?) -->
     <div class="_table-of-contents-block">
-      <p class="e-number-text"
-         :class="{ '-black': c === 'Terms & Conditions' }"
+      <p class="e-number-text -s"
+         :class="{ '-black': currentParagraph === 'all' }"
+         @click="currentParagraph = 'all'">One Pager</p>
+      <p class="e-number-text -s"
+         :class="{ '-black': currentParagraph === i }"
          :key="i"
-         v-for="(c, i) in contents">{{ c }}</p>
+         v-for="(d, i) in documentation"
+         @click="currentParagraph = i">{{ d.head }}</p>
     </div>
     <div class="_content-block">
-      <h2 class="e-header-text">Terms & Conditions</h2>
-      <p class="e-base-text">
-        <!-- eslint-disable-next-line max-len -->
-        By installing the CryptoID apps for iOS or Android and applying for a CryptoID you explicitly agree to these terms described in this document.
-      </p>
+      <vue-markdown class="e-markdown-block -default"
+                    :source="text"></vue-markdown>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex';
+
+  const VueMarkdown = () => import('vue-markdown');
+
   export default {
     name: 'Documentation',
     data() {
       return {
-        contents: [
-          'One Pager',
-          'Terms & Conditions',
-          'Tokensale Smart Contract',
-        ],
+        currentParagraph: 0,
       };
+    },
+    computed: {
+      text() {
+        if (this.currentParagraph === 'all') {
+          return this.documentation.reduce((textArray, e) => {
+            textArray.push(e.body);
+            return textArray;
+          }, []).join('');
+        }
+        return this.documentation[this.currentParagraph]
+          ? this.documentation[this.currentParagraph].body
+          : '';
+      },
+      ...mapState('pages', ['documentation']),
+    },
+    components: { VueMarkdown },
+    methods: mapActions('pages', ['getDocumentationPageData']),
+    mounted() {
+      this.getDocumentationPageData();
     },
   };
   /* eslint-disable */
@@ -43,6 +63,7 @@
     .e-number-text {
       margin-bottom: 16px;
       cursor: pointer;
+      @include transition(text);
     }
     ._table-of-contents-block {
       min-width: 365px;

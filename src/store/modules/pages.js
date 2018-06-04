@@ -34,7 +34,7 @@ export default {
     },
     getDocumentationPageData({ commit }) {
       Vue.http.get(`${URL}documentation`).then((r) => {
-        commit('setPageData', { data: r.body.contents[0].body, field: 'documentation' });
+        commit('setPageData', { data: r.body.contents, field: 'documentation' });
       });
     },
   },
