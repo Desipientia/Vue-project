@@ -44,7 +44,7 @@ export default {
       commit('removeUserData');
     },
     getUserProject() {
-      return Vue.http.get(`project/${projectName}/new_user_project/`);
+      return Vue.http.get(`project/${projectName}/new-user-project/`);
     },
   },
 };
