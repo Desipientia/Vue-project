@@ -1,7 +1,6 @@
 <template>
   <div class="before-limit e-inside-content-block">
     <vue-markdown class="e-markdown-block -default" :source="limitString"></vue-markdown>
-    <!--TODO: Find out if it has to be centered, or moved to left like in model -->
   </div>
 </template>
 
@@ -13,17 +12,17 @@
   export default {
     name: 'Limit',
     computed: {
-      ...mapState('pages', {
-        limitString: (state) => {
-          const limit = state.limit;
-
-          Object.keys(this.limit || {}).forEach((key) => {
-            limit.replace(`\${${key}}`, this.limit[key]);
-          });
-          return limit;
-        },
+      limitString() {
+        let limit = this.limit;
+        Object.keys(this.limitVars).forEach((key) => {
+          limit = limit.replace(`\${${key}}`, this.limitVars[key]);
+        });
+        return limit;
+      },
+      ...mapState('pages', ['limit']),
+      ...mapState('project', {
+        limitVars: s => s.limit,
       }),
-      ...mapState('project', ['limit']),
     },
     components: { VueMarkdown },
     methods: {
