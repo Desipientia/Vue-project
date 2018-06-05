@@ -29,15 +29,7 @@
         <p class="e-number-text -s">{{ ito.received_money | number }} ETH</p>
       </div>
     </div>
-    <form class="_send-block e-white-content-block" @submit.prevent="">
-      <div>
-        <input class="e-input -l" type="text" placeholder="0" value="10.55"/>
-        <span class="e-number-text -s -black">ETH</span>
-      </div>
-      <button class="e-button -black" type="submit">Send</button>
-    </form>
-    <p class="_block-caption">Allocation</p>
-    <div class="e-white-content-block">
+    <div class="_allocation-block e-white-content-block">
       <div class="_text-line">
         <div>
           <span class="e-number-text -s -black">$2500</span>
@@ -48,6 +40,13 @@
               @click="$modal.show('info')">How to increase?</span>
       </div>
     </div>
+    <form class="_send-block e-white-content-block" @submit.prevent="">
+      <div>
+        <input class="e-input -l" type="text" placeholder="0" value="10.55"/>
+        <span class="e-number-text -s -black">ETH</span>
+      </div>
+      <button class="e-button -black" type="submit">Send</button>
+    </form>
   </div>
 </template>
 
@@ -111,6 +110,10 @@
         font-family: "Cabin", sans-serif;
         font-size: 25px;
       }
+    }
+    ._allocation-block {
+      margin: 2px 0;
+      border-radius: 0;
     }
     ._send-block {
       border-bottom-left-radius: 0;
