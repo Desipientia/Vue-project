@@ -20,9 +20,13 @@
   export default {
     name: 'Landing',
     computed: mapState('pages', ['landing']),
+    props: ['referral'],
     components: { VueMarkdown },
     methods: mapActions('pages', ['getLandingPageData']),
     mounted() {
+      if (this.referral) {
+        this.$router.replace({ name: 'connect', query: this.$route.query });
+      }
       this.getLandingPageData();
     },
   };

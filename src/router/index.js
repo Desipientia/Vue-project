@@ -23,12 +23,14 @@ const router = new Router({
       name: 'landing',
       component: Landing,
       meta: { hideWhenAuth: true },
+      props: route => ({ referral: route.query.r }),
     },
     {
       path: '/connect-with-cryptoid',
       name: 'connect',
       component: Connect,
       meta: { hideWhenAuth: true },
+      props: route => ({ referral: route.query.r }),
     },
     {
       path: '/you-need-to-increase-your-limit',

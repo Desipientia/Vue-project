@@ -33,6 +33,7 @@
       ...mapState('pages', ['connect']),
       ...mapGetters('auth', ['isAuthorized']),
     },
+    props: ['referral'],
     components: { VueMarkdown },
     watch: {
       socketMessage: {
@@ -52,8 +53,9 @@
           if (this.$socket) {
             this.$disconnect();
           }
-          this.qrCode = JSON.stringify(r.body);
-          const wsUrl = `${wsRoot}${r.body.pk}/`;
+          const data = { ...r.body, referal_number: this.referral || null };
+          this.qrCode = JSON.stringify(data);
+          const wsUrl = `${wsRoot}${data.pk}/`;
           Vue.use(VueNativeSock, wsUrl, {
             store: this.$store,
             format: 'json',
