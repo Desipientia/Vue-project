@@ -17,6 +17,7 @@
     "vue-native-websocket": "^2.0.7",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
+    "vue-simple-progress": "^1.1.0",
     "vue-websocket": "^0.2.2",
     "vuex": "^3.0.1"
   },

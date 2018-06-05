@@ -39,6 +39,11 @@
         <span class="_modal-link-text e-label-text"
               @click="$modal.show('info')">How to increase?</span>
       </div>
+      <vue-simple-progress class="_progress-bar"
+                           bg-color="#ededed"
+                           bar-color="#767676"
+                           size="4"
+                           :val="10"></vue-simple-progress>
     </div>
     <form class="_send-block e-white-content-block" @submit.prevent="">
       <div>
@@ -52,13 +57,14 @@
 
 <script>
   import { mapState, mapActions } from 'vuex';
+  import VueSimpleProgress from 'vue-simple-progress';
 
   const Timer = () => import('../Elements/Timer.vue');
 
   export default {
     name: 'GetTokens',
     computed: mapState('project', ['ito']),
-    components: { Timer },
+    components: { Timer, VueSimpleProgress },
     filters: {
       time(dateString) {
         return (new Date(dateString || 0)).toLocaleTimeString('en', {
@@ -148,6 +154,11 @@
       line-height: 1.79;
       text-decoration: underline;
       cursor: pointer;
+    }
+    ._progress-bar {
+      margin: 5px 0;
+      overflow: hidden;
+      border-radius: 2px;
     }
   }
 </style>
