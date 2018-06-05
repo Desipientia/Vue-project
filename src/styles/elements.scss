@@ -78,7 +78,7 @@
     text-align: center;
 
     &.-l {
-      min-width: 300px;
+      min-width: 330px;
       height: 70px;
       line-height: 70px;
       font-size: 24px;
@@ -186,20 +186,11 @@
   &:not(.-black) {
     color: #767676;
   }
-  &.-l {
-    font-size: 30px;
-  }
   &.-m {
     font-size: 23px;
   }
   &.-s {
     font-size: 20px;
-  }
-  &.-xs {
-    font-size: 16px;
-  }
-  &.-center {
-    text-align: center;
   }
 }
 

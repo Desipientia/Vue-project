@@ -5,8 +5,8 @@
       <router-link class="e-button -white -l"
                    :to="{ name: 'connect' }">Get full access</router-link>
       <div class="_timer">
-        <p class="_label">First stage of the ITO will start</p>
-        <p class="_time">00:12:33:29</p>
+        <p class="_label">Time to pass the KYC process</p>
+        <timer class="-landing" ending-at="Jun 25, 2018"></timer>
       </div>
     </div>
   </div>
@@ -15,13 +15,17 @@
 <script>
   import { mapState, mapActions } from 'vuex';
 
+  const Timer = () => import('../Elements/Timer.vue');
   const VueMarkdown = () => import('vue-markdown');
 
   export default {
     name: 'Landing',
     computed: mapState('pages', ['landing']),
     props: ['referral'],
-    components: { VueMarkdown },
+    components: {
+      Timer,
+      VueMarkdown,
+    },
     methods: mapActions('pages', ['getLandingPageData']),
     mounted() {
       if (this.referral) {
@@ -52,28 +56,20 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      align-items: center;
     }
     ._timer {
-      min-width: 300px;
-      height: 70px;
+      min-width: 330px;
+      height: 120px;
       padding: 8px 5px;
       border-radius: 4px;
       border: none;
-      background-color: #313131;
-      text-align: center;
   
       ._label {
         margin: 0;
         color: #bcbcbc;
         font-family: "Open Sans", sans-serif;
         font-size: 14px;
-      }
-      ._time {
-        margin: 0;
-        color: #fff;
-        font-family: "Cabin", sans-serif;
-        font-weight: 600;
-        font-size: 24px;
       }
     }
   }

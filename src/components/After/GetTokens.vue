@@ -18,16 +18,7 @@
       </div>
       <div class="_info-element">
         <p class="e-label-text">Closing in</p>
-        <div class="_closing-in-block">
-          <div class="_element" :key="e" v-for="(e, i) in timerElements">
-            <div>
-              <p class="e-number-text -l -black"
-                 :class="{ '-center': i > 0 }">{{ timerData[e] | twoDigits }}</p>
-              <p class="_inscription e-number-text -xs -center">{{ e }}</p>
-            </div>
-            <span class="_colon-divider" v-if="i < timerElements.length - 1">:</span>
-          </div>
-        </div>
+        <timer :ending-at="ito.end_date"></timer>
       </div>
       <div class="_info-element">
         <p class="e-label-text">Total Tokens sold in this stage</p>
@@ -63,39 +54,13 @@
 <script>
   import { mapState, mapActions } from 'vuex';
 
+  const Timer = () => import('../Elements/Timer.vue');
+
   export default {
     name: 'GetTokens',
-    data() {
-      return {
-        timerElements: ['days', 'hours', 'mins', 'secs'],
-        timerInterval: null,
-        currentDate: Math.trunc((new Date()).getTime() / 1000),
-      };
-    },
-    computed: {
-      timerData() {
-        const t = this.endDate - this.currentDate || 0;
-        const secs = Math.floor(t % 60);
-        const mins = Math.floor((t / 60) % 60);
-        const hours = Math.floor((t / 60 / 60) % 24);
-        const days = Math.floor(t / 60 / 60 / 24);
-
-        if (this.endDate && t <= 0) clearInterval(this.timerInterval);
-        return { days, hours, mins, secs };
-      },
-      endDate() {
-        return Math.trunc((Date.parse(this.ito.end_date) / 1000));
-      },
-      ...mapState('project', ['ito']),
-    },
+    computed: mapState('project', ['ito']),
+    components: { Timer },
     filters: {
-      twoDigits(value) {
-        const str = value.toString();
-        if (str.length <= 1) {
-          return `0${str}`;
-        }
-        return str;
-      },
       time(dateString) {
         return (new Date(dateString || 0)).toLocaleTimeString('en', {
           hour: 'numeric',
@@ -114,11 +79,7 @@
     },
     methods: mapActions('project', ['getITO']),
     mounted() {
-      this.getITO().then(() => {
-        this.timerInterval = setInterval(() => {
-          this.currentDate = Math.trunc((new Date()).getTime() / 1000);
-        }, 1000);
-      });
+      this.getITO();
     },
   };
   /* eslint-disable */
@@ -149,27 +110,6 @@
         color: #bcbcbc;
         font-family: "Cabin", sans-serif;
         font-size: 25px;
-      }
-    }
-    ._closing-in-block {
-      display: flex;
-      
-      .e-number-text,
-      ._inscription {
-        width: 40px;
-      }
-      ._element {
-        display: flex;
-      }
-      ._colon-divider {
-        margin: 10px 3px 0;
-        color: #767676;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
-        font-weight: bold;
-      }
-      ._inscription {
-        margin: -5px 0 0;
       }
     }
     ._send-block {
