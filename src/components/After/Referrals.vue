@@ -20,6 +20,14 @@
     <h4 class="e-caption-text">Share Your Link</h4>
     <p class="e-base-text">
       Share your personal reference by clicking on the social media icons below.</p>
+    <div class="_share-link-block">
+      <svg-icon class="_share-link" name="facebook"></svg-icon>
+      <svg-icon class="_share-link" name="twitter"></svg-icon>
+      <svg-icon class="_share-link" name="linked-in"></svg-icon>
+      <svg-icon class="_share-link" name="bitcoin"></svg-icon>
+      <svg-icon class="_share-link" name="discord"></svg-icon>
+      <svg-icon class="_share-link" name="telegram"></svg-icon>
+    </div>
     <h4 class="e-caption-text">Statistics</h4>
     <div class="e-white-content-block">
       <p class="_statistics-text">
@@ -38,6 +46,7 @@
   import { mapState, mapActions } from 'vuex';
 
   const VueMarkdown = () => import('vue-markdown');
+  const SvgIcon = () => import('../Elements/SvgIcon');
 
   export default {
     name: 'Referrals',
@@ -50,7 +59,7 @@
         referralText: s => s.referral,
       }),
     },
-    components: { VueMarkdown },
+    components: { VueMarkdown, SvgIcon },
     methods: {
       copyLink() {
         this.$refs.linkInput.select();
@@ -67,7 +76,7 @@
   /* eslint-disable */
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .after-referrals {
     .e-white-content-block {
       margin: 5px 0 10px;
@@ -84,6 +93,28 @@
     }
     ._link-text {
       color: inherit;
+    }
+    ._share-link-block {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 20px;
+    }
+    ._share-link {
+      margin-right: 30px;
+      fill: #bcbcbc;
+      cursor: pointer;
+      @include transition(svg);
+      
+      &:hover {
+        fill: #2a7bb6;
+      }
+      &.discord svg {
+        height: 36px;
+      }
+      svg {
+        width: auto;
+        height: 30px;
+      }
     }
   }
 </style>

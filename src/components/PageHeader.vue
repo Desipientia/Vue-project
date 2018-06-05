@@ -12,11 +12,6 @@
       <span class="_logo-text">CryptoID</span>
     </router-link>
     <transition name="e-fade">
-      <router-link class="e-button -white -m"
-                   :to="{ name: 'connect' }"
-                   v-if="$route.name === 'landing'">Get full access</router-link>
-    </transition>
-    <transition name="e-fade">
       <ul class="_link-menu" v-if="isAuthorized">
         <li v-for="l in links" :key="l.name">
           <router-link class="_link"
@@ -24,6 +19,18 @@
                        :to="{ name: l.name }">{{ l.text }}</router-link>
         </li>
       </ul>
+      <div class="_share-link-block" v-else-if="$route.name === 'landing'">
+        <span class="_share-text">Share on</span>
+        <svg-icon class="_share-link" name="twitter"></svg-icon>
+        <svg-icon class="_share-link" name="facebook"></svg-icon>
+        <svg-icon class="_share-link" name="linked-in"></svg-icon>
+        <svg-icon class="_share-link" name="telegram"></svg-icon>
+      </div>
+    </transition>
+    <transition name="e-fade">
+      <router-link class="e-button -white -m"
+                   :to="{ name: 'connect' }"
+                   v-if="$route.name === 'landing'">Get full access</router-link>
     </transition>
     <transition name="e-fade">
       <button class="_sign-out-button" v-if="isAuthorized" @click="logoutAndGo">
@@ -40,6 +47,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
+
+  const SvgIcon = () => import('./Elements/SvgIcon');
 
   export default {
     name: 'PageHeader',
@@ -65,6 +74,7 @@
       },
       ...mapGetters('auth', ['isAuthorized']),
     },
+    components: { SvgIcon },
     methods: {
       logoutAndGo() {
         this.logout();
@@ -107,6 +117,13 @@
         }
         &:not(.-active) {
           color: #767676;
+        }
+      }
+      ._share-link {
+        fill: #767676;
+        
+        &:hover {
+          fill: #fff;
         }
       }
     }
@@ -170,6 +187,22 @@
       text-decoration: none;
       @include transition(text, border);
     }
+    ._share-link-block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    ._share-text {
+      color: #767676;
+      font-family: "Open Sans", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    ._share-link {
+      height: 20px;
+      margin-left: 20px;
+      cursor: pointer;
+    }
     ._sign-out-button {
       display: flex;
       justify-content: space-between;
@@ -189,7 +222,8 @@
       @include transition(text);
     }
     ._logo-svg,
-    ._sign-out-svg {
+    ._sign-out-svg,
+    ._share-link {
       @include transition(svg);
     }
   }
