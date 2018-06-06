@@ -78,6 +78,9 @@
 
 <style lang="scss">
   .after-referrals {
+    .e-caption-text {
+      margin: 32px 0 6px;
+    }
     .e-white-content-block {
       margin: 5px 0 10px;
     }
