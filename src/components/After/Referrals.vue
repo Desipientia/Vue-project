@@ -1,9 +1,8 @@
 <template>
   <div class="after-referrals e-inside-content-block">
-    <h2 class="e-header-text">Referral program</h2>
+    <h2 class="e-header-text">Earn Tokens</h2>
     <vue-markdown class="e-markdown-block -default"
                   :source="referralText"></vue-markdown>
-    <h4 class="e-caption-text">Your Referral Link</h4>
     <div class="_referral-link-block e-white-content-block">
       <input class="e-input -m"
              type="text"
@@ -11,7 +10,18 @@
              ref="linkInput"
              v-model="referralLink"
              @keydown.prevent=""/>
-      <button class="e-button -grey" @click="copyLink">Copy</button>
+      <button class="e-button -grey" @click="copyLink">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="15"
+             height="12.5"
+             v-show="copyButtonText === 'Copied'">
+          <g stroke="#3ab94a" stroke-width="3">
+            <line x1="1" y1="6" x2="7" y2="11"></line>
+            <line x1="5" y1="11" x2="14" y2="1"></line>
+          </g>
+        </svg>
+        {{ copyButtonText }}
+      </button>
     </div>
     <p class="e-label-text">
       Got questions? Contact us at
@@ -24,8 +34,7 @@
       <svg-icon class="_share-link" name="facebook"></svg-icon>
       <svg-icon class="_share-link" name="twitter"></svg-icon>
       <svg-icon class="_share-link" name="linked-in"></svg-icon>
-      <svg-icon class="_share-link" name="bitcoin"></svg-icon>
-      <svg-icon class="_share-link" name="discord"></svg-icon>
+      <svg-icon class="_share-link" name="bitcoin-talk"></svg-icon>
       <svg-icon class="_share-link" name="telegram"></svg-icon>
     </div>
     <h4 class="e-caption-text">Statistics</h4>
@@ -35,7 +44,7 @@
         <span class="e-number-text -s -black">{{ referral.referal_count }} people</span>
       </p>
       <p class="_statistics-text">
-        <span class="e-number-text -s">Bonus is</span>
+        <span class="e-number-text -s">Earned</span>
         <span class="e-number-text -s -black">{{ referral.coin_count }} CID</span>
       </p>
     </div>
@@ -50,6 +59,11 @@
 
   export default {
     name: 'Referrals',
+    data() {
+      return {
+        copyButtonText: 'Copy',
+      };
+    },
     computed: {
       referralLink() {
         return `${window.location.host}/?r=${this.referral.referal_number}`;
@@ -64,6 +78,8 @@
       copyLink() {
         this.$refs.linkInput.select();
         document.execCommand('copy');
+        this.copyButtonText = 'Copied';
+        setTimeout(() => { this.copyButtonText = 'Copy'; }, 5000);
       },
       ...mapActions('project', ['getReferral']),
       ...mapActions('pages', ['getReferralPageData']),
@@ -88,6 +104,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      margin: 25px 0 15px;
     }
     ._statistics-text {
       display: inline-block;
@@ -109,10 +126,21 @@
       @include transition(svg);
       
       &:hover {
-        fill: #2a7bb6;
-      }
-      &.discord svg {
-        height: 36px;
+        &.facebook {
+          fill: #3b5998;
+        }
+        &.twitter {
+          fill: #1da1f2;
+        }
+        &.linked-in {
+          fill: #0077b5;
+        }
+        &.bitcoin-talk {
+          fill: #f8b62b;
+        }
+        &.telegram {
+          fill: #0088cc;
+        }
       }
       svg {
         width: auto;
