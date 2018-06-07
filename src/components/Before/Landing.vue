@@ -50,13 +50,13 @@
       }
     }
     ._content-block {
-      margin: 60px auto 0;
-      max-width: 700px;
-      min-width: 630px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      max-width: 700px;
+      min-width: 630px;
+      margin: 60px auto 0;
     }
     ._timer {
       min-width: 330px;
