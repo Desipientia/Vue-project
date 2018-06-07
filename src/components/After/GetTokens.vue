@@ -31,10 +31,10 @@
     </div>
     <div class="_allocation-block e-white-content-block">
       <div class="_text-line">
-        <div>
-          <span class="e-number-text -s -black">$2500</span>
-          <span class="e-number-text -s">(4.1 ETH)</span>
-          <span class="_suffix-text">(of $5000)</span>
+        <div v-if="allocation.transactions_count">
+          <span class="e-number-text -s -black">${{ allocation.transactions_count.usd }}</span>
+          <span class="e-number-text -s">({{ allocation.transactions_count.eth }} ETH)</span>
+          <span class="_suffix-text">(of ${{ allocation.transaction_limit.usd_limit }})</span>
         </div>
         <span class="_modal-link-text e-label-text"
               @click="$modal.show('info')">How to increase?</span>
@@ -149,7 +149,10 @@
         ],
       };
     },
-    computed: mapState('project', ['ito']),
+    computed: mapState('project', [
+      'ito',
+      'allocation',
+    ]),
     components: {
       PieChart,
       Timer,
@@ -172,9 +175,13 @@
         return (value || 0).toLocaleString('en');
       },
     },
-    methods: mapActions('project', ['getITO']),
+    methods: mapActions('project', [
+      'getITO',
+      'getAllocation',
+    ]),
     mounted() {
       this.getITO();
+      this.getAllocation();
     },
   };
   /* eslint-disable */

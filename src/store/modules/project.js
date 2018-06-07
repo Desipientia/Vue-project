@@ -10,6 +10,7 @@ export default {
     ito: {},
     limit: {},
     referral: {},
+    allocation: {},
   },
   mutations: {
     setStateData(state, { type, data }) {
@@ -34,6 +35,11 @@ export default {
     getReferral({ commit }) {
       Vue.http.get(`${URL}referal/`).then((r) => {
         commit('setStateData', { type: 'referral', data: r.body });
+      });
+    },
+    getAllocation({ commit }) {
+      Vue.http.get(`${URL}allocation/`).then((r) => {
+        commit('setStateData', { type: 'allocation', data: r.body });
       });
     },
   },
