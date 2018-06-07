@@ -57,7 +57,7 @@
         links: [
           { text: 'Main', name: 'main' },
           { text: 'Get tokens', name: 'get-tokens' },
-          { text: 'Referrals', name: 'referrals' },
+          { text: 'Earn tokens', name: 'referrals' },
           { text: 'Documentation', name: 'documentation' },
         ],
       };

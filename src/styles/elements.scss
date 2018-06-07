@@ -198,6 +198,9 @@
     h1 {
       @extend .e-landing-header-text;
     }
+    p {
+      @extend .e-landing-base-text;
+    }
   }
   &.-default {
     counter-reset: li;
@@ -216,6 +219,9 @@
     h3 {
       @extend .e-caption-text;
     }
+    p {
+      @extend .e-base-text;
+    }
     ol {
       @extend .e-ordered-list;
       & + p {
@@ -227,9 +233,6 @@
       color: #bcbcbc;
       opacity: .5;
     }
-  }
-  p {
-    @extend .e-landing-base-text;
   }
 }
 
