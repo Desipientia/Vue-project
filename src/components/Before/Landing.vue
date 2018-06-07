@@ -3,7 +3,7 @@
     <vue-markdown class="e-markdown-block -landing" :source="landing"></vue-markdown>
     <div class="_content-block">
       <router-link class="e-button -white -l"
-                   :to="{ name: 'connect' }">Get full access</router-link>
+                   :to="{ name: 'connect', query: this.$route.query }">Get full access</router-link>
       <div class="_timer">
         <p class="_label">Time to pass the KYC process</p>
         <timer class="-landing" ending-at="Jun 25, 2018"></timer>
@@ -28,9 +28,6 @@
     },
     methods: mapActions('pages', ['getLandingPageData']),
     mounted() {
-      if (this.referral) {
-        this.$router.replace({ name: 'connect', query: this.$route.query });
-      }
       this.getLandingPageData();
     },
   };
