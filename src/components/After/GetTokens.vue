@@ -43,7 +43,7 @@
                            bg-color="#ededed"
                            bar-color="#767676"
                            size="4"
-                           :val="2500 / 5000 * 100"></vue-simple-progress>
+                           :val="progressValue"></vue-simple-progress>
     </div>
     <form class="_send-block e-white-content-block" @submit.prevent="">
       <div>
@@ -149,11 +149,12 @@
         ],
       };
     },
-    computed: mapState('project', [
-      'ito',
-      'allocation',
-    ]),
     computed: {
+      progressValue() {
+        const a = this.allocation;
+        if (!a.transactions_count) return 0;
+        return (a.transactions_count.usd / a.transaction_limit) * 100;
+      },
       ...mapState('project', [
         'ito',
         'allocation',
