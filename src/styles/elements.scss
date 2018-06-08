@@ -43,12 +43,69 @@
   }
 }
 
+.e-checkbox {
+  display: inline-block;
+  position: relative;
+
+  ._input {
+    display: none;
+
+    & + ._label:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      border: solid 2px #bcbcbc;
+      transition: background .2s linear, border .2s linear;
+    }
+    &:checked + ._label {
+      color: #464646;
+
+      &:before {
+        border-color: #000;
+        background-color: #000;
+        background-image: url("data:image/svg+xml;utf-8,\
+        <svg width='20' height='20' xmlns='http://www.w3.org/2000/svg'>\
+          <g stroke-width='2' stroke='white'>\
+            <line x1='2' y1='12' x2='8' y2='17'></line>\
+            <line x1='7' y1='17' x2='18' y2='3'></line>\
+          </g>\
+        </svg>");
+      }
+    }
+    &:not(checked) + ._label{
+      color: #767676;
+
+      &:before {
+        background-color: transparent;
+        background-image: none;
+      }
+    }
+  }
+  ._label {
+    display: block;
+    line-height: 1.54;
+    padding-left: 34px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: color .2s linear;
+  }
+}
+
 .e-button {
   border-radius: 4px;
   border: none;
   cursor: pointer;
   text-decoration: none;
+  transition: opacity .2s linear;
 
+  &:disabled {
+    opacity: .2;
+  }
   &.-black,
   &.-grey {
     min-width: 160px;
@@ -190,6 +247,31 @@
   }
   &.-s {
     font-size: 20px;
+  }
+}
+
+.e-info-text {
+  @extend .e-label-text;
+  position: relative;
+  line-height: 1.43;
+  margin: 20px 0;
+  padding-left: 24px;
+
+  &:before {
+    content: 'i';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    line-height: 17px;
+    border-radius: 100%;
+    border: solid 1px #8d8d8d;
+    color: #767676;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    text-align: center;
   }
 }
 

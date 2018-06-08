@@ -5,9 +5,9 @@
          ref="modal"
          tabindex="1"
          v-show="visible"
-         @keydown.enter="accept()"
-         @keydown.esc.prevent="hide()"
-         @click.self="hide()">
+         @keydown.enter="accept"
+         @keydown.esc.prevent="hide"
+         @click.self="hide">
       <div class="m-window" :class="type">
         <button class="m-close-button" @click="hide">
           <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
@@ -31,6 +31,8 @@
 <script>
   const BuyTokensModal = () => import('./Types/BuyTokensModal');
   const InfoModal = () => import('./Types/InfoModal');
+  const AgreementModal = () => import('./Types/AgreementModal');
+
   export default {
     name: 'ModalComponent',
     data() {
@@ -45,6 +47,7 @@
     components: {
       buy: BuyTokensModal,
       info: InfoModal,
+      agreement: AgreementModal,
     },
     methods: {
       show(type, params, onHide, onAccept) {
@@ -60,7 +63,7 @@
         }, 100);
       },
       hide(silent) {
-        if (this.onHide && !silent) this.onHide();
+        if (this.onHide && !(silent === 'silent')) this.onHide();
         this.visible = false;
         this.$modal.isVisible = false;
         this.params = {};
@@ -69,13 +72,10 @@
       },
       accept() {
         if (this.onAccept) {
-          this.onAccept();
-        } else if (this.type !== 'message') {
-          return;
-        } else {
+          if (this.onAccept()) this.hide('silent');
+        } else if (this.type === 'message') {
           this.hide();
         }
-        this.hide(true);
       },
       returnFocus() {
         if (this.$modal.focusOn) {
@@ -84,6 +84,14 @@
             this.$modal.focusOn.select();
           }, 100);
         }
+      },
+      addAcceptValidation(validation) {
+        const accept = this.onAccept;
+        this.onAccept = () => {
+          const v = validation();
+          if (v) accept();
+          return v;
+        };
       },
     },
   };

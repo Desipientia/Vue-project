@@ -1,15 +1,16 @@
 import Vue from 'vue';
 import { projectName } from '../../config';
 
-const TOKEN_KEY = 'cid_token';
+const AUTH_TOKEN_KEY = 'cid_token';
+const AGREEMENT_TOKEN_KEY = 'cid_agreement';
 
-const setUser = (token) => {
-  localStorage.setItem(TOKEN_KEY, token);
+const setStorageItem = (key, value) => {
+  localStorage.setItem(key, value);
 };
-const removeUser = () => {
-  localStorage.removeItem(TOKEN_KEY);
+const removeStorageItem = (key) => {
+  localStorage.removeItem(key);
 };
-const getToken = () => localStorage.getItem(TOKEN_KEY);
+const getStorageItem = key => localStorage.getItem(key);
 
 export default {
   namespaced: true,
@@ -18,21 +19,22 @@ export default {
   },
   getters: {
     isAuthorized: state => state.token !== null,
+    isAgreementConfirmed: () => getStorageItem(AGREEMENT_TOKEN_KEY) === 'Confirmed',
   },
   mutations: {
     setUserData(state, token) {
-      setUser(token);
+      setStorageItem(AUTH_TOKEN_KEY, token);
       state.token = token;
     },
     removeUserData(state) {
-      removeUser();
+      removeStorageItem(AUTH_TOKEN_KEY);
       state.token = null;
     },
   },
   actions: {
     verify({ dispatch }) {
-      if (getToken()) {
-        dispatch('login', { cid_token: getToken() });
+      if (getStorageItem(AUTH_TOKEN_KEY)) {
+        dispatch('login', { cid_token: getStorageItem(AUTH_TOKEN_KEY) });
       }
     },
     login({ commit }, user) {
@@ -45,6 +47,9 @@ export default {
     },
     getUserProject() {
       return Vue.http.get(`project/${projectName}/new-user-project/`);
+    },
+    confirmAgreement() {
+      localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
     },
   },
 };

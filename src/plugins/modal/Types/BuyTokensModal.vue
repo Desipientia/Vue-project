@@ -8,12 +8,9 @@
     </p>
     <p class="e-label-text">Send a payment to the wallet address</p>
     <p class="_wallet-address-text">0x088fc1806a82c599d36bfcb5189d4909f3480a19</p>
-    <p class="e-label-text">
-      <span class="_rounded-text">i</span>
-      <span class="_indented-text">
-        <!-- eslint-disable-next-line max-len -->
-        Please set the gas to at least <b>55 GWEI</b> and <b>210.000</b> (two hundred and ten thousand) blocks.
-      </span>
+    <p class="e-info-text">
+      <!-- eslint-disable-next-line max-len -->
+      Please set the gas to at least <b>55 GWEI</b> and <b>210.000</b> (two hundred and ten thousand) blocks.
     </p>
     <p class="e-label-text">Send with browser plugin</p>
     <div class="_grey-block">
@@ -62,22 +59,6 @@
       font-family: "Cabin", sans-serif;
       font-weight: 600;
       font-size: 19px;
-    }
-    ._rounded-text {
-      float: left;
-      display: block;
-      width: 17px;
-      height: 17px;
-      line-height: 16px;
-      border-radius: 100%;
-      border: solid 1px #8d8d8d;
-      font-size: 12px;
-      text-align: center;
-    }
-    ._indented-text {
-      display: block;
-      margin-left: 22px;
-      margin-bottom: 20px;
     }
     ._grey-block {
       margin: 15px 0 25px;

@@ -131,7 +131,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
+  import { mapState, mapGetters, mapActions } from 'vuex';
   import VueSimpleProgress from 'vue-simple-progress';
   import PieChart from '../Elements/PieChart';
 
@@ -153,6 +153,13 @@
       'ito',
       'allocation',
     ]),
+    computed: {
+      ...mapState('project', [
+        'ito',
+        'allocation',
+      ]),
+      ...mapGetters('auth', ['isAgreementConfirmed']),
+    },
     components: {
       PieChart,
       Timer,
@@ -175,11 +182,25 @@
         return (value || 0).toLocaleString('en');
       },
     },
-    methods: mapActions('project', [
-      'getITO',
-      'getAllocation',
-    ]),
+    methods: {
+      ...mapActions('project', [
+        'getITO',
+        'getAllocation',
+      ]),
+      ...mapActions('auth', ['confirmAgreement']),
+    },
     mounted() {
+      if (!this.isAgreementConfirmed) {
+        this.$modal.show({
+          type: 'agreement',
+          onAccept: () => { this.confirmAgreement(); },
+          onHide: () => {
+            if (!this.isAgreementConfirmed) {
+              this.$router.replace({ name: 'main' });
+            }
+          },
+        });
+      }
       this.getITO();
       this.getAllocation();
     },
