@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@xkeshi/vue-qrcode": "github:xkeshi/vue-qrcode",
+    "autonumeric": "^4.2.15",
     "vue": "^2.5.2",
     "vue-autonumeric": "^1.2.5",
     "vue-markdown": "^2.2.4",
