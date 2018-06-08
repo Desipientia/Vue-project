@@ -4,21 +4,21 @@
     <div class="_info-block e-white-content-block">
       <div class="_info-element">
         <p class="e-label-text">Duration</p>
-        <div class="_duration-block">
+        <div class="_duration-block" v-if="ito.current_date">
           <div>
-            <p class="e-number-text -m -black">{{ ito.start_date | date }}</p>
-            <p class="e-number-text -s">{{ ito.start_date | time }}</p>
+            <p class="e-number-text -m -black">{{ ito.current_date.start_date | date }}</p>
+            <p class="e-number-text -s">{{ ito.current_date.start_date | time }}</p>
           </div>
           <p class="_line">–</p>
           <div>
-            <p class="e-number-text -m -black">{{ ito.end_date | date }}</p>
-            <p class="e-number-text -s">{{ ito.end_date | time }}</p>
+            <p class="e-number-text -m -black">{{ ito.current_date.end_date | date }}</p>
+            <p class="e-number-text -s">{{ ito.current_date.end_date | time }}</p>
           </div>
         </div>
       </div>
-      <div class="_info-element">
+      <div class="_info-element" v-if="ito.current_date">
         <p class="e-label-text">Closing in</p>
-        <timer :ending-at="ito.end_date"></timer>
+        <timer :ending-at="ito.current_date.end_date"></timer>
       </div>
       <div class="_info-element">
         <p class="e-label-text">Total Tokens sold in this stage</p>
