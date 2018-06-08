@@ -5,7 +5,6 @@ export default {
     const Constructor = Vue.extend(ModalComponent);
     const Modal = new Constructor();
     const vm = Modal.$mount();
-    const toType = obj => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
 
     document.body.appendChild(vm.$el);
 
@@ -25,18 +24,15 @@ export default {
         Modal.show('dialogue', { text, accept, cancel }, onHide, onAccept);
         Vue.loader.hide();
       },
-      show(args) {
-        switch (toType(args)) {
-          case 'string':
-            Modal.show(args);
-            break;
-          case 'array': {
+      show(...args) {
+        switch (typeof args[0]) {
+          case 'string': {
             const [type, params] = args;
             Modal.show(type, params);
             break;
           }
           default: {
-            const { type, params, onHide, onAccept } = args;
+            const { type, params, onHide, onAccept } = args[0];
             Modal.show(type, params, onHide, onAccept);
             break;
           }

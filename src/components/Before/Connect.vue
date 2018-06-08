@@ -10,14 +10,11 @@
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex';
   import Vue from 'vue';
-  import VueQrcode from '@xkeshi/vue-qrcode';
   import VueNativeSock from 'vue-native-websocket';
-
   import { wsRoot } from '../../config';
 
+  const VueQrcode = () => import('@xkeshi/vue-qrcode');
   const VueMarkdown = () => import('vue-markdown');
-
-  Vue.component('qrcode', VueQrcode);
 
   export default {
     name: 'Connect',
@@ -34,7 +31,10 @@
       ...mapGetters('auth', ['isAuthorized']),
     },
     props: ['referral'],
-    components: { VueMarkdown },
+    components: {
+      VueMarkdown,
+      qrcode: VueQrcode,
+    },
     watch: {
       socketMessage: {
         handler() {

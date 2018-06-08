@@ -3,11 +3,14 @@
     <p class="m-header-text">Buy Tokens</p>
     <p class="e-label-text">Price</p>
     <p class="_price-text">
-      <span class="_number">10.55</span>
+      <span class="_number">{{ $modal.params().amount.toFixed(2) }}</span>
       <span class="_suffix">ETH</span>
     </p>
     <p class="e-label-text">Send a payment to the wallet address</p>
-    <p class="_wallet-address-text">0x088fc1806a82c599d36bfcb5189d4909f3480a19</p>
+    <qrcode class="_qr-code-block"
+            :options="{ size: 120 }"
+            v-model="$modal.params().address"></qrcode>
+    <p class="_wallet-address-text">{{ $modal.params().address }}</p>
     <p class="e-info-text">
       <!-- eslint-disable-next-line max-len -->
       Please set the gas to at least <b>55 GWEI</b> and <b>210.000</b> (two hundred and ten thousand) blocks.
@@ -22,8 +25,11 @@
 </template>
 
 <script>
+  const VueQrcode = () => import('@xkeshi/vue-qrcode');
+
   export default {
     name: 'DialogModal',
+    components: { qrcode: VueQrcode },
   };
   /* eslint-disable */
 </script>
@@ -74,6 +80,10 @@
         font-size: 16px;
         text-align: center;
       }
+    }
+    ._qr-code-block {
+      display: block;
+      margin: 20px auto;
     }
   }
 </style>

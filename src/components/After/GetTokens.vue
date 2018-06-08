@@ -31,7 +31,7 @@
     </div>
     <div class="_allocation-block e-white-content-block">
       <div class="_text-line">
-        <div v-if="allocation.transactions_count">
+        <div v-if="allocation.transactions_count && allocation.transaction_limit">
           <span class="e-number-text -s -black">${{ allocation.transactions_count.usd }}</span>
           <span class="e-number-text -s">({{ allocation.transactions_count.eth }} ETH)</span>
           <span class="_suffix-text">(of ${{ allocation.transaction_limit.usd_limit }})</span>
@@ -45,12 +45,24 @@
                            size="4"
                            :val="progressValue"></vue-simple-progress>
     </div>
-    <form class="_send-block e-white-content-block" @submit.prevent="">
+    <form class="_send-block e-white-content-block"
+          @submit.prevent="$modal.show('buy', { amount, address })">
       <div>
-        <input class="e-input -l" type="text" placeholder="0" value="10.55"/>
+        <vue-autonumeric class="e-input -l"
+                         type="tel"
+                         placeholder="0"
+                         :options="{
+                           digitGroupSeparator: ' ',
+                           decimalCharacter: ',',
+                           minimumValue: '0',
+                           onInvalidPaste: 'truncate'
+                         }"
+                         v-model="amount"></vue-autonumeric>
         <span class="e-number-text -s -black">ETH</span>
       </div>
-      <button class="e-button -black" type="submit">Send</button>
+      <button class="e-button -black"
+              type="submit"
+              :disabled="$v.$invalid">Send</button>
     </form>
     <h4 class="e-caption-text">CID Token Distribution</h4>
     <!-- eslint-disable -->
@@ -132,15 +144,19 @@
 
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex';
-  import VueSimpleProgress from 'vue-simple-progress';
+  import { validationMixin } from 'vuelidate';
   import PieChart from '../Elements/PieChart';
 
+  const VueSimpleProgress = () => import(/* webpackChunkName: "vue-simple-progress" */ 'vue-simple-progress');
+  const VueAutonumeric = () => import(/* webpackChunkName: "vue-autonumeric" */ 'vue-autonumeric');
   const Timer = () => import('../Elements/Timer.vue');
 
   export default {
     name: 'GetTokens',
     data() {
       return {
+        amount: 10.55,
+        address: '0x088fc1806a82c599d36bfcb5189d4909f3480a19',
         data: [
           { title: 'CID Tokens Distributed', value: 65 },
           { title: 'Advisors, Ecosystem, Partners', value: 10 },
@@ -165,6 +181,7 @@
       PieChart,
       Timer,
       VueSimpleProgress,
+      VueAutonumeric,
     },
     filters: {
       time(dateString) {
@@ -182,6 +199,12 @@
       number(value) {
         return (value || 0).toLocaleString('en');
       },
+    },
+    mixins: [validationMixin],
+    validations() {
+      return {
+        amount: { notZero: value => value > 0 },
+      };
     },
     methods: {
       ...mapActions('project', [
