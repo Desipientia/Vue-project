@@ -19,7 +19,7 @@ export default {
   },
   actions: {
     getITO({ commit }) {
-      Vue.http.get(`${URL}ito/`).then((r) => {
+      return Vue.http.get(`${URL}ito/`).then((r) => {
         commit('setStateData', { type: 'ito', data: r.body });
       }, (r) => {
         if (r.status === 403) {

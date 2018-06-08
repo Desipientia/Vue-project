@@ -156,7 +156,7 @@
     data() {
       return {
         amount: 10.55,
-        address: '0x088fc1806a82c599d36bfcb5189d4909f3480a19',
+        address: 'null',
         data: [
           { title: 'CID Tokens Distributed', value: 65 },
           { title: 'Advisors, Ecosystem, Partners', value: 10 },
@@ -225,8 +225,10 @@
           },
         });
       }
-      this.getITO();
       this.getAllocation();
+      this.getITO().then(() => {
+        this.address = this.ito.contract_address;
+      });
     },
   };
   /* eslint-disable */
