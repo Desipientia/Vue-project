@@ -1,6 +1,7 @@
 FROM node:8 AS build
 WORKDIR /app
 COPY . .
+RUN npm i npm@latest -g
 RUN npm install
 RUN npm run build
 FROM nginx:stable
