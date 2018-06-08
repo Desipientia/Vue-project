@@ -16,16 +16,12 @@
   import { mapState, mapActions } from 'vuex';
 
   const Timer = () => import('../Elements/Timer.vue');
-  const VueMarkdown = () => import('vue-markdown');
 
   export default {
     name: 'Landing',
     computed: mapState('pages', ['landing']),
     props: ['referral'],
-    components: {
-      Timer,
-      VueMarkdown,
-    },
+    components: { Timer },
     methods: mapActions('pages', ['getLandingPageData']),
     mounted() {
       this.getLandingPageData();

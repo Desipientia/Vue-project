@@ -7,8 +7,6 @@
 <script>
   import { mapState, mapActions } from 'vuex';
 
-  const VueMarkdown = () => import('vue-markdown');
-
   export default {
     name: 'Limit',
     computed: {
@@ -24,7 +22,6 @@
         limitVars: s => s.limit,
       }),
     },
-    components: { VueMarkdown },
     methods: {
       ...mapActions('pages', ['getLimitPageData']),
       ...mapActions('project', ['getLimitData']),

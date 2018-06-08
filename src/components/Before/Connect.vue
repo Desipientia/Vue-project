@@ -14,7 +14,6 @@
   import { wsRoot } from '../../config';
 
   const VueQrcode = () => import('@xkeshi/vue-qrcode');
-  const VueMarkdown = () => import('vue-markdown');
 
   export default {
     name: 'Connect',
@@ -31,10 +30,7 @@
       ...mapGetters('auth', ['isAuthorized']),
     },
     props: ['referral'],
-    components: {
-      VueMarkdown,
-      qrcode: VueQrcode,
-    },
+    components: { qrcode: VueQrcode },
     watch: {
       socketMessage: {
         handler() {

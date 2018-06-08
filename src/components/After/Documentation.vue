@@ -21,8 +21,6 @@
 <script>
   import { mapState, mapActions } from 'vuex';
 
-  const VueMarkdown = () => import('vue-markdown');
-
   export default {
     name: 'Documentation',
     data() {
@@ -44,7 +42,6 @@
       },
       ...mapState('pages', ['documentation']),
     },
-    components: { VueMarkdown },
     methods: mapActions('pages', ['getDocumentationPageData']),
     mounted() {
       this.getDocumentationPageData();

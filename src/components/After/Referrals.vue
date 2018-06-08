@@ -54,7 +54,6 @@
 <script>
   import { mapState, mapActions } from 'vuex';
 
-  const VueMarkdown = () => import('vue-markdown');
   const SvgIcon = () => import('../Elements/SvgIcon');
 
   export default {
@@ -73,7 +72,7 @@
         referralText: s => s.referral,
       }),
     },
-    components: { VueMarkdown, SvgIcon },
+    components: { SvgIcon },
     methods: {
       copyLink() {
         this.$refs.linkInput.select();
