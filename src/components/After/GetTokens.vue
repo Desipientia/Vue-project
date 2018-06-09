@@ -174,6 +174,7 @@
       ...mapState('project', [
         'ito',
         'allocation',
+        'agreement',
       ]),
       ...mapGetters('auth', ['isAgreementConfirmed']),
     },
@@ -210,19 +211,23 @@
       ...mapActions('project', [
         'getITO',
         'getAllocation',
+        'getAgreement',
       ]),
       ...mapActions('auth', ['confirmAgreement']),
     },
     mounted() {
       if (!this.isAgreementConfirmed) {
-        this.$modal.show({
-          type: 'agreement',
-          onAccept: () => { this.confirmAgreement(); },
-          onHide: () => {
-            if (!this.isAgreementConfirmed) {
-              this.$router.replace({ name: 'main' });
-            }
-          },
+        this.getAgreement().then(() => {
+          this.$modal.show({
+            type: 'agreement',
+            params: { data: this.agreement },
+            onAccept: () => { this.confirmAgreement(); },
+            onHide: () => {
+              if (!this.isAgreementConfirmed) {
+                this.$router.replace({ name: 'main' });
+              }
+            },
+          });
         });
       }
       this.getAllocation();

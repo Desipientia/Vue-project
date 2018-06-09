@@ -53,3 +53,9 @@
   font-weight: 600;
   font-size: 30px;
 }
+
+.m-markdown-block {
+  h2 {
+    @extend .m-header-text;
+  }
+}

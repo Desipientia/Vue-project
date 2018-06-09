@@ -93,6 +93,10 @@
     font-size: 13px;
     cursor: pointer;
     transition: color .2s linear;
+
+    p {
+      margin: 0;
+    }
   }
 }
 
@@ -314,6 +318,11 @@
       margin: 35px 0;
       color: #bcbcbc;
       opacity: .5;
+    }
+  }
+  &.-modal {
+    p, a {
+      @extend .e-base-text;
     }
   }
 }

@@ -26,8 +26,6 @@
   html {
     min-width: 800px;
     box-sizing: border-box;
-    color: #42423c;
-    font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
