@@ -325,6 +325,127 @@
       @extend .e-base-text;
     }
   }
+  &.-tokens {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    h3 {
+      @extend .e-caption-text;
+      margin: 50px 0 10px;
+    }
+    h4 {
+      margin: 10px 0;
+      color: #0e0e0e;
+      font-family: "Cabin", sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    h5 {
+      line-height: 1.56;
+      margin: 35px 0 0;
+      color: #767676;
+      font-family: "Open Sans", sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    p {
+      @extend .e-base-text;
+    }
+    ol, blockquote p {
+      @extend .e-label-text;
+    }
+    blockquote {
+      width: 30%;
+      margin: 30px 0 10px;
+
+      p {
+        line-height: 1.43;
+      }
+      br {
+        margin: 3px 0;
+      }
+      img {
+        display: block;
+        width: 60px;
+        height: 50px;
+        line-height: 50px;
+        margin: 10px 0 15px;
+        object-fit: contain;
+        color: #767676;
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+    ol {
+      counter-reset: li;
+      margin: 0;
+      padding: 0;
+
+      li {
+        position: relative;
+        margin: 5px 0;
+        padding-left: 20px;
+        list-style: none;
+
+        &:before {
+          content: counter(li)'.';
+          counter-increment: li;
+          position: absolute;
+          top: 0;
+          left: 0;
+          font-weight: 700;
+        }
+      }
+    }
+    ul {
+      display: flex;
+      width: 100%;
+      padding: 0;
+      list-style-type: none;
+
+      strong {
+        margin-right: 10px;
+      }
+      img {
+        width: 190px;
+        height: 190px;
+      }
+      li:first-child {
+        width: 70%;
+      }
+      ul {
+        display: block;
+
+        li {
+          width: 100% !important;
+          line-height: 2.5;
+          margin: 0;
+          color: #767676;
+          font-family: "Open Sans", sans-serif;
+          font-size: 16px;
+
+          &:before {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 100%;
+          }
+        }
+        $colors: #5b5b5b, #7d7d7d, #adadad, #dddddd;
+
+        @for $i from 1 through length($colors) {
+          li:nth-child(#{$i}):before {
+            background-color: nth($colors, $i);
+          }
+        }
+      }
+    }
+  }
 }
 
 .e-inside-content-block {

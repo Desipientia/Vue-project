@@ -4,6 +4,8 @@ import { projectName } from '../../config';
 const AUTH_TOKEN_KEY = 'cid_token';
 const AGREEMENT_TOKEN_KEY = 'cid_agreement';
 
+const URL = `project/${projectName}/`;
+
 const setStorageItem = (key, value) => {
   localStorage.setItem(key, value);
 };
@@ -46,7 +48,7 @@ export default {
       commit('removeUserData');
     },
     getUserProject() {
-      return Vue.http.get(`project/${projectName}/new-user-project/`);
+      return Vue.http.get(`${URL}new-user-project/`);
     },
     confirmAgreement() {
       localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');

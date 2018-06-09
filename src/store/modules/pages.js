@@ -9,15 +9,19 @@ export default {
     landing: '',
     connect: '',
     limit: '',
-    documentation: '',
+    documentation: {},
     referral: '',
     info: '',
+    tokens: {},
   },
   mutations: {
     setPageData(state, { data, field }) {
       state[field] = data;
     },
   },
+  // pages[…]
+  // 0landing
+  // start_ito2018-06-01T00:00:00Z
   actions: {
     getLandingPageData({ commit }) {
       Vue.http.get(`${URL}landing-short`).then((r) => {
@@ -47,6 +51,11 @@ export default {
     getInfoModalPageData({ commit }) {
       return Vue.http.get(`${URL}get-tokens-how-to-increase-your-limit-modal-box`).then((r) => {
         commit('setPageData', { data: r.body.contents[0].body, field: 'info' });
+      });
+    },
+    getGetTokensPageData({ commit }) {
+      return Vue.http.get(`${URL}get-tokens`).then((r) => {
+        commit('setPageData', { data: r.body.contents[0], field: 'tokens' });
       });
     },
   },
