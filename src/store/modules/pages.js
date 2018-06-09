@@ -19,9 +19,6 @@ export default {
       state[field] = data;
     },
   },
-  // pages[…]
-  // 0landing
-  // start_ito2018-06-01T00:00:00Z
   actions: {
     getLandingPageData({ commit }) {
       Vue.http.get(`${URL}landing-short`).then((r) => {
