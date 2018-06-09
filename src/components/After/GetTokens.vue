@@ -37,7 +37,7 @@
           <span class="_suffix-text">(of ${{ allocation.transaction_limit.usd_limit }})</span>
         </div>
         <span class="_modal-link-text e-label-text"
-              @click="$modal.show('info')">How to increase?</span>
+              @click="showInfoModal">How to increase?</span>
       </div>
       <vue-simple-progress class="_progress-bar"
                            bg-color="#ededed"
@@ -177,6 +177,7 @@
         'agreement',
       ]),
       ...mapGetters('auth', ['isAgreementConfirmed']),
+      ...mapState('pages', ['info']),
     },
     components: {
       PieChart,
@@ -208,12 +209,22 @@
       };
     },
     methods: {
+      showInfoModal() {
+        if (this.info) {
+          this.$modal.show('info', { data: this.info });
+        } else {
+          this.getInfoModalPageData().then(() => {
+            this.$modal.show('info', { data: this.info });
+          });
+        }
+      },
       ...mapActions('project', [
         'getITO',
         'getAllocation',
         'getAgreement',
       ]),
       ...mapActions('auth', ['confirmAgreement']),
+      ...mapActions('pages', ['getInfoModalPageData']),
     },
     mounted() {
       if (!this.isAgreementConfirmed) {

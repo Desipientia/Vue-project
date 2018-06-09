@@ -11,6 +11,7 @@ export default {
     limit: '',
     documentation: '',
     referral: '',
+    info: '',
   },
   mutations: {
     setPageData(state, { data, field }) {
@@ -41,6 +42,11 @@ export default {
     getDocumentationPageData({ commit }) {
       Vue.http.get(`${URL}documentation`).then((r) => {
         commit('setPageData', { data: r.body.contents, field: 'documentation' });
+      });
+    },
+    getInfoModalPageData({ commit }) {
+      return Vue.http.get(`${URL}get-tokens-how-to-increase-your-limit-modal-box`).then((r) => {
+        commit('setPageData', { data: r.body.contents[0].body, field: 'info' });
       });
     },
   },
