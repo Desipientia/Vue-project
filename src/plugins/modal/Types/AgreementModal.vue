@@ -5,8 +5,6 @@
     <!-- eslint-disable max-len -->
     <div class="_agreement-block-wrapper">
       <div class="_agreement-block">
-        <!-- TODO: Change plug to data -->
-        <p class="_updated-text">Last Updated: May 24th, 2018 <b>(!--PLUG--!)</b></p>
         <vue-markdown :source="data.body"></vue-markdown>
       </div>
     </div>
