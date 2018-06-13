@@ -1,5 +1,6 @@
 import Vue from 'vue';
-import { projectName } from '../../config';
+import VueNativeSock from 'vue-native-websocket';
+import { projectName, wsRoot } from '../../config';
 
 const AUTH_TOKEN_KEY = 'cid_token';
 const AGREEMENT_TOKEN_KEY = 'cid_agreement';
@@ -13,6 +14,7 @@ const removeStorageItem = (key) => {
   localStorage.removeItem(key);
 };
 const getStorageItem = key => localStorage.getItem(key);
+const vm = new Vue();
 
 export default {
   namespaced: true,
@@ -21,6 +23,7 @@ export default {
   },
   getters: {
     isAuthorized: state => state.token !== null,
+    authToken: () => getStorageItem(AUTH_TOKEN_KEY),
     isAgreementConfirmed: () => getStorageItem(AGREEMENT_TOKEN_KEY) === 'Confirmed',
   },
   mutations: {
@@ -40,12 +43,27 @@ export default {
       }
     },
     login({ commit }, user) {
-      Vue.http.headers.common.Authorization = user.cid_token;
-      // eslint-disable-next-line no-undef,no-console
-      commit('setUserData', user.cid_token);
-      if (user.purchase_agreement) {
-        localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
+      if (user) {
+        Vue.http.headers.common.Authorization = user.cid_token;
+        // eslint-disable-next-line no-undef,no-console
+        commit('setUserData', user.cid_token);
+        if (user.purchase_agreement) {
+          localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
+        }
       }
+    },
+    connectSocket({}, userPk) {
+      if (this.$socket) {
+        vm.$disconnect();
+      }
+
+      const wsUrl = `${wsRoot}${userPk}/`;
+      Vue.use(VueNativeSock, wsUrl, {
+        store: this,
+        format: 'json',
+        connectManually: true,
+      });
+      vm.$connect();
     },
     logout({ commit }) {
       Vue.http.options.headers = {};
