@@ -44,7 +44,6 @@
     },
     methods: {
       generateNewQRcode() {
-        // TODO: Find some way to reconnect after logout without page reload
         this.getUserProject().then((r) => {
           if (this.$socket) {
             this.$disconnect();

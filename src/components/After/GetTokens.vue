@@ -163,7 +163,9 @@
           this.$modal.show({
             type: 'agreement',
             params: { data: this.agreement },
-            onAccept: () => { this.confirmAgreement(); },
+            onAccept: (data) => {
+              this.confirmAgreement(data);
+            },
             onHide: () => {
               if (!this.isAgreementConfirmed) {
                 this.$router.replace({ name: 'main' });

@@ -85,11 +85,11 @@
           }, 100);
         }
       },
-      addAcceptValidation(validation) {
+      addAcceptValidation(validation, data) {
         const accept = this.onAccept;
-        this.onAccept = () => {
+        this.onAccept = (d = data()) => {
           const v = validation();
-          if (v) accept();
+          if (v) accept(d);
           return v;
         };
       },

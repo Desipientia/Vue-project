@@ -41,7 +41,11 @@ export default {
     },
     login({ commit }, user) {
       Vue.http.headers.common.Authorization = user.cid_token;
+      // eslint-disable-next-line no-undef,no-console
       commit('setUserData', user.cid_token);
+      if (user.purchase_agreement) {
+        localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
+      }
     },
     logout({ commit }) {
       Vue.http.options.headers = {};
@@ -50,8 +54,10 @@ export default {
     getUserProject() {
       return Vue.http.get(`${URL}new-user-project/`);
     },
-    confirmAgreement() {
-      localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
+    confirmAgreement({}, data) {
+      Vue.http.put(`${URL}license-agreement/`, { questions: data }).then(() => {
+        localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
+      });
     },
   },
 };

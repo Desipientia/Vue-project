@@ -1,5 +1,5 @@
 <template>
-  <form class="agreement-modal" @submit.prevent="$modal.accept()">
+  <form class="agreement-modal" @submit.prevent="$modal.accept(checks)">
     <vue-markdown class="m-markdown-block e-markdown-block -modal"
                   :source="data.head"></vue-markdown>
     <!-- eslint-disable max-len -->
@@ -9,7 +9,7 @@
       </div>
     </div>
     <label class="e-checkbox" :key="q.pk" v-for="q in data.questions">
-      <input class="_input" type="checkbox" v-model="checks[q.pk]"/>
+      <input class="_input" type="checkbox" :value="q.pk" v-model="checks"/>
       <span class="_label"><vue-markdown :source="q.head"></vue-markdown></span>
     </label>
     <p class="e-info-text"><vue-markdown :source="data.description"></vue-markdown></p>
@@ -22,7 +22,7 @@
 
 <script>
   import { validationMixin } from 'vuelidate';
-  import { sameAs } from 'vuelidate/lib/validators';
+  import { required, minLength } from 'vuelidate/lib/validators';
 
   export default {
     name: 'AgreementModal',
@@ -37,16 +37,16 @@
       },
     },
     mixins: [validationMixin],
-    validations: {
-      checks: {
-        $each: { checked: sameAs(() => true) },
-      },
+    validations() {
+      return {
+        checks: {
+          required,
+          lengthName: minLength(this.data.questions.length),
+        },
+      };
     },
     mounted() {
-      const checks = [];
-      this.data.questions.forEach((e) => { checks[e.pk] = false; });
-      this.checks = checks;
-      this.$modal.validateAcceptFromInside(() => !this.$v.$invalid);
+      this.$modal.validateAcceptFromInside(() => !this.$v.$invalid, () => this.checks);
     },
   };
   /* eslint-disable */

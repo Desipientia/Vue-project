@@ -44,8 +44,8 @@ export default {
       accept() {
         Modal.accept();
       },
-      validateAcceptFromInside(validation) {
-        Modal.addAcceptValidation(validation);
+      validateAcceptFromInside(validation, data) {
+        Modal.addAcceptValidation(validation, data);
       },
     };
   },
