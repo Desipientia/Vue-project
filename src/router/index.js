@@ -72,7 +72,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   store.dispatch('auth/verify').then(() => {
     if (store.getters['auth/isAuthorized']) {
-      store.dispatch('auth/connectSocket', store.getters['auth/authToken'] );
+      store.dispatch('auth/connectSocket', store.getters['auth/authToken']);
     }
     if (to.matched.some(record => record.meta.requiresAuth)
       && !store.getters['auth/isAuthorized']) {

@@ -23,6 +23,7 @@ export default {
     },
     // default handler called for all methods
     SOCKET_ONMESSAGE(state, message) {
+      // eslint-disable-next-line no-console
       console.log(message);
       state.socket.type = message.type;
       switch (message.type) {
