@@ -39,11 +39,7 @@
         <span class="_modal-link-text e-label-text"
               @click="showInfoModal">How to increase?</span>
       </div>
-      <vue-simple-progress class="_progress-bar"
-                           bg-color="#ededed"
-                           bar-color="#767676"
-                           size="4"
-                           :val="progressValue"></vue-simple-progress>
+      <progress-bar class="_progress-bar -default" :value="progressValue"></progress-bar>
     </div>
     <form class="_send-block e-white-content-block"
           @submit.prevent="$modal.show('buy', { amount, address })">
@@ -73,9 +69,9 @@
   import { mapState, mapGetters, mapActions } from 'vuex';
   import { validationMixin } from 'vuelidate';
 
-  const VueSimpleProgress = () => import(/* webpackChunkName: "vue-simple-progress" */ 'vue-simple-progress');
   const VueAutonumeric = () => import(/* webpackChunkName: "vue-autonumeric" */ 'vue-autonumeric');
-  const Timer = () => import('../Elements/Timer.vue');
+  const ProgressBar = () => import(/* webpackChunkName: "progress-bar" */ '../Elements/ProgressBar');
+  const Timer = () => import(/* webpackChunkName: "timer" */ '../Elements/Timer');
 
   export default {
     name: 'GetTokens',
@@ -95,7 +91,7 @@
       progressValue() {
         const a = this.allocation;
         if (!a.transactions_count) return 0;
-        return (a.transactions_count.usd / a.transaction_limit) * 100;
+        return (a.transactions_count.usd / a.transaction_limit.usd_limit) * 100;
       },
       ...mapState('project', [
         'ito',
@@ -110,7 +106,7 @@
     },
     components: {
       Timer,
-      VueSimpleProgress,
+      ProgressBar,
       VueAutonumeric,
     },
     filters: {
