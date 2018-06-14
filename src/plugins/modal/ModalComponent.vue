@@ -32,6 +32,7 @@
   const BuyTokensModal = () => import('./Types/BuyTokensModal');
   const InfoModal = () => import('./Types/InfoModal');
   const AgreementModal = () => import('./Types/AgreementModal');
+  const WalletModal = () => import('./Types/WalletModal');
 
   export default {
     name: 'ModalComponent',
@@ -48,6 +49,7 @@
       buy: BuyTokensModal,
       info: InfoModal,
       agreement: AgreementModal,
+      wallet: WalletModal,
     },
     methods: {
       show(type, params, onHide, onAccept) {
