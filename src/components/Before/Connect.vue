@@ -9,9 +9,6 @@
 
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex';
-  import Vue from 'vue';
-  import VueNativeSock from 'vue-native-websocket';
-  import { wsRoot } from '../../config';
 
   const VueQrcode = () => import('@xkeshi/vue-qrcode');
 
@@ -23,8 +20,8 @@
       };
     },
     computed: {
-      socketMessage() {
-        return this.$store.state.socket.socket.message;
+      socketAuth() {
+        return this.$store.state.socket.socket.user;
       },
       ...mapState('pages', ['connect']),
       ...mapGetters('auth', ['isAuthorized']),
@@ -32,10 +29,10 @@
     props: ['referral'],
     components: { qrcode: VueQrcode },
     watch: {
-      socketMessage: {
+      socketAuth: {
         handler() {
-          if (this.socketMessage) {
-            this.login(this.socketMessage);
+          if (this.socketAuth) {
+            this.login(this.socketAuth);
             this.$router.push({ name: 'get-tokens' });
           }
         },
@@ -45,21 +42,12 @@
     methods: {
       generateNewQRcode() {
         this.getUserProject().then((r) => {
-          if (this.$socket) {
-            this.$disconnect();
-          }
           const data = { ...r.body, referal_number: this.referral || null };
           this.qrCode = JSON.stringify(data);
-          const wsUrl = `${wsRoot}${data.pk}/`;
-          Vue.use(VueNativeSock, wsUrl, {
-            store: this.$store,
-            format: 'json',
-            connectManually: true,
-          });
-          this.$connect();
+          this.connectSocket(data.pk);
         });
       },
-      ...mapActions('auth', ['getUserProject', 'login']),
+      ...mapActions('auth', ['getUserProject', 'login', 'connectSocket']),
       ...mapActions('pages', ['getConnectPageData']),
     },
     mounted() {

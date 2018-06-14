@@ -68,10 +68,13 @@
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex';
   import { validationMixin } from 'vuelidate';
+  import Vue from 'vue';
+  import Toasted from 'vue-toasted';
 
   const VueAutonumeric = () => import(/* webpackChunkName: "vue-autonumeric" */ 'vue-autonumeric');
   const ProgressBar = () => import(/* webpackChunkName: "progress-bar" */ '../Elements/ProgressBar');
   const Timer = () => import(/* webpackChunkName: "timer" */ '../Elements/Timer');
+  Vue.use(Toasted);
 
   export default {
     name: 'GetTokens',
@@ -87,7 +90,11 @@
         ],
       };
     },
+
     computed: {
+      socketTransaction() {
+        return this.$store.state.socket.socket.amount;
+      },
       progressValue() {
         const a = this.allocation;
         if (!a.transactions_count) return 0;
@@ -103,6 +110,28 @@
         'tokens',
       ]),
       ...mapGetters('auth', ['isAgreementConfirmed']),
+    },
+    watch: {
+      socketTransaction: {
+        handler() {
+          let text = '';
+          const socketType = this.$store.state.socket.socket.type;
+          switch (socketType) {
+            case 'add_eth':
+              text = `You send ${this.socketTransaction} ETH`;
+              break;
+            case 'add_cid':
+              text = `You recieve ${this.socketTransaction} CID`;
+              break;
+            default:
+              break;
+          }
+
+          this.$toasted.show(text, {}).goAway(3000);
+          this.getAllocation();
+        },
+        deep: true,
+      },
     },
     components: {
       Timer,

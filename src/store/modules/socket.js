@@ -2,6 +2,9 @@ export default {
   state: {
     socket: {
       isConnected: false,
+      amount: '',
+      user: '',
+      type: '',
       message: '',
       reconnectError: false,
     },
@@ -20,7 +23,19 @@ export default {
     },
     // default handler called for all methods
     SOCKET_ONMESSAGE(state, message) {
-      state.socket.message = message.user;
+      console.log(message);
+      state.socket.type = message.type;
+      switch (message.type) {
+        case 'authorize':
+          state.socket.user = message.user;
+          break;
+        case 'add_cid':
+        case 'add_eth':
+          state.socket.amount = message.amount;
+          break;
+        default:
+          break;
+      }
     },
     // mutations for reconnect methods
     SOCKET_RECONNECT(state, count) {
