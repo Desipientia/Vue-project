@@ -17,29 +17,31 @@
         </div>
       </div>
       <div class="_info-element" v-if="ito.current_date">
-        <p class="e-label-text">Closing in</p>
+        <p class="e-label-text">Token distribution closes in</p>
         <timer :ending-at="ito.current_date.end_date"></timer>
       </div>
       <div class="_info-element">
-        <p class="e-label-text">Total Tokens sold in this stage</p>
+        <p class="e-label-text">Total tokens distributed in this stage</p>
         <p class="e-number-text -s">{{ ito.token_for_sale | number }} CIDX</p>
       </div>
       <div class="_info-element">
-        <p class="e-label-text">Total Ether received</p>
+        <p class="e-label-text">Ether received</p>
         <p class="e-number-text -s">{{ ito.received_money | number }} ETH</p>
       </div>
     </div>
     <div class="_allocation-block e-white-content-block">
       <div class="_text-line">
+        <p class="e-label-text">Your USD/ETH limit</p>
         <div v-if="allocation.transactions_count && allocation.transaction_limit">
           <span class="e-number-text -s -black">${{ allocation.transactions_count.usd }}</span>
-          <span class="e-number-text -s">({{ allocation.transactions_count.eth }} ETH)</span>
-          <span class="_suffix-text">(of ${{ allocation.transaction_limit.usd_limit }})</span>
+          <span class="e-number-text -s -black">
+            / {{ allocation.transactions_count.eth }} ETH</span>
+          <span class="e-number-text -s">remaining</span>
         </div>
-        <span class="_modal-link-text e-label-text"
-              @click="showInfoModal">How to increase?</span>
       </div>
       <progress-bar class="_progress-bar -default" :value="progressValue"></progress-bar>
+      <p class="_modal-link-text e-label-text"
+            @click="showInfoModal">How to increase?</p>
     </div>
     <form class="_send-block e-white-content-block"
           @submit.prevent="$modal.show('buy', { amount, address })">
@@ -232,7 +234,7 @@
     ._text-line {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: flex-start;
   
       ._suffix-text {
         margin: 0;
@@ -252,6 +254,7 @@
     ._modal-link-text {
       line-height: 1.79;
       text-decoration: underline;
+      text-align: right;
       cursor: pointer;
     }
     ._progress-bar {
