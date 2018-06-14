@@ -24,7 +24,7 @@
         <p class="e-label-text">Total tokens distributed in this stage</p>
         <p class="e-number-text -s">{{ ito.token_for_sale | number }} CIDX</p>
       </div>
-      <div class="_info-element">
+      <div class="_info-element" v-if="isActive">
         <p class="e-label-text">Ether received</p>
         <p class="e-number-text -s">{{ ito.received_money | number }} ETH</p>
       </div>
@@ -44,6 +44,7 @@
             @click="showInfoModal">How to increase?</p>
     </div>
     <form class="_send-block e-white-content-block"
+          v-if="isActive"
           @submit.prevent="$modal.show('buy', { amount, address })">
       <div>
         <vue-autonumeric class="e-input -l"
@@ -87,6 +88,7 @@
           { title: 'Team', value: 10 },
           { title: 'Reserved', value: 15 },
         ],
+        isActive: true,
       };
     },
 
