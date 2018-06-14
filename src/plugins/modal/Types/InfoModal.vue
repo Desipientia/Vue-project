@@ -1,5 +1,5 @@
 <template>
-  <form class="message-modal" @submit.prevent="$modal.hide">
+  <form class="info-modal" @submit.prevent="$modal.hide">
     <p class="m-header-text">How to increase allocation?</p>
     <vue-markdown class="e-markdown-block -modal"
                   :source="$modal.params().data"></vue-markdown>
