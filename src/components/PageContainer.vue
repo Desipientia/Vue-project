@@ -38,7 +38,7 @@
     @include transition(background);
     
     &.-black {
-      background-color: #000;
+      background-color: #0e0e0e;
     }
     &.-white {
       background-color: #fff;
@@ -47,7 +47,7 @@
         ._background-block {
           width: 100%;
           height: 500px;
-          background-color: #000;
+          background-color: #0e0e0e;
         }
       }
     }

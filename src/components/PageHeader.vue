@@ -95,7 +95,7 @@
     height: 80px;
     
     &.-black {
-      background-color: #000;
+      background-color: #0e0e0e;
       border-bottom: solid 1px rgba(57, 57, 57, 0.51);
   
       ._logo-text {

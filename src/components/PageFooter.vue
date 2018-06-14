@@ -46,7 +46,7 @@
     height: 160px;
     
     &.-black {
-      background-color: #000;
+      background-color: #0e0e0e;
       border-top: solid 1px rgba(57, 57, 57, 0.51);
   
       ._text {
