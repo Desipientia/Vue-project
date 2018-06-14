@@ -79,9 +79,12 @@
     &.-landing {
       --text-size: 40px;
       --text-width: 53px;
+      --colon-size: 18px;
+    }
+    &.-landing,
+    &.-main {
       --text-color: #fff;
       --legend-color: #bcbcbc;
-      --colon-size: 20px;
     }
     ._text {
       color: var(--text-color);

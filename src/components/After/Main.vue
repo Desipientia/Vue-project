@@ -1,21 +1,36 @@
 <template>
   <div class="after-main">
-    <div class="_header-block app-content">
-      <div class="e-inside-content-block -left">
-        <h1 class="e-landing-header-text">
-          Turn a crypto wallet into a "bank" account you can use in the fiat world</h1>
-        <p class="e-landing-base-text">
-          <!-- eslint-disable-next-line max-len -->
-          Buy anything with crypto, without having to convert to €, $, £ or other fiat currencies. Bypass KYC & AML procedures at exchanges, token-sales, and other services.
-          <br><br>
-          CryptoID uses end-to-end encryption to secure your data and is GDPR-compliant by design.
-        </p>
+    <div class="_header-block app-content" v-if="main.cover">
+      <vue-markdown class="e-markdown-block -landing" :source="main.cover.body"></vue-markdown>
+      <div class="_side-block">
+        <div class="_distributed-block">
+          <p class="e-caption-text">Total pre-seed token distribution</p>
+          <progress-bar class="-main"
+                        :label="`${$filters.number(progressValue)} CID`"
+                        :max="progressMax"
+                        :value="progressValue"></progress-bar>
+          <p class="e-label-text">
+            <span>0 CID</span>
+            <span>{{ maxTokensCount }}</span>
+          </p>
+        </div>
         <div class="_timer-block">
-          <router-link class="e-button -white -l"
-                       :to="{ name: 'get-tokens' }">Get Tokens</router-link>
-          <div class="_timer">
-            <p class="_label">Closing in</p>
-            <timer class="-landing" ending-at="Jun 25, 2018"></timer>
+          <p class="e-caption-text">This month's CID token distribution</p>
+          <div class="_content">
+            <div class="_element">
+              <p class="_label">Tokens distributed in this stage</p>
+              <p class="_text">25 Million CID</p>
+            </div>
+            <div class="_element">
+              <p class="_label">Ether received</p>
+              <p class="_text">24,661.2 ETH</p>
+            </div>
+            <router-link class="_element e-button -white -xl"
+                         :to="{ name: 'get-tokens' }">Get Tokens</router-link>
+            <div class="_element">
+              <p class="_label">Token distribution closes in</p>
+              <timer class="-main" :ending-at="date.end_date"></timer>
+            </div>
           </div>
         </div>
       </div>
@@ -25,11 +40,36 @@
 </template>
 
 <script>
-  import Timer from '../Elements/Timer';
+  import { mapState, mapActions } from 'vuex';
+
+  const Timer = () => import(/* webpackChunkName: "timer" */ '../Elements/Timer.vue');
+  const ProgressBar = () => import(/* webpackChunkName: "progress-bar" */ '../Elements/ProgressBar');
 
   export default {
     name: 'Main',
-    components: { Timer },
+    data() {
+      return {
+        progressValue: 25000000,
+        progressMax: 100000000,
+        maxTokensCount: '100 Million CID',
+      };
+    },
+    computed: {
+      ...mapState('pages', ['main']),
+      ...mapState('project', ['date']),
+    },
+    components: {
+      Timer,
+      ProgressBar,
+    },
+    methods: {
+      ...mapActions('pages', ['getMainPageData']),
+      ...mapActions('project', ['getDateList']),
+    },
+    mounted() {
+      this.getMainPageData();
+      this.getDateList();
+    },
   };
   /* eslint-disable */
 </script>
@@ -42,40 +82,74 @@
     .e-landing-base-text {
       margin: 30px 0;
     }
-    .e-button {
-      min-width: 300px;
-      margin-right: 8px;
-    }
     ._header-block {
+      display: flex;
       padding-top: 60px;
       padding-bottom: 120px;
       background-color: #000;
-    }
-    ._timer-block {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin: 50px 0 0;
-      max-width: 700px;
-      min-width: 630px;
-    }
-    ._timer {
-      min-width: 310px;
-      height: 120px;
-      padding: 8px 5px;
-      border-radius: 4px;
-      border: none;
-    
-      ._label {
+  
+      .e-caption-text {
         margin: 0;
-        color: #bcbcbc;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
+        color: #fff;
+      }
+      .e-markdown-block {
+        margin-right: 30px;
+      }
+      ._side-block {
+        min-width: 540px;
+        
+        ._distributed-block {
+          width: 520px;
+          margin: 0 10px 0;
+          padding: 30px 30px 25px;
+          border-radius: 4px 4px 0 0;
+          background-color: #1d1d1d;
+          
+          .e-label-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            line-height: 1.43;
+          }
+          .e-caption-text {
+            margin: 0 0 10px;
+          }
+        }
+        ._timer-block {
+          width: 100%;
+          padding: 30px 0 40px 40px;
+          border-radius: 4px;
+          background-color: #313131;
+  
+          ._label {
+            margin: 0;
+            color: #bcbcbc;
+            font-family: "Open Sans", sans-serif;
+            font-size: 14px;
+          }
+          ._text {
+            margin: 0;
+            color: #fff;
+            font-family: "Cabin", sans-serif;
+            font-weight: 600;
+            font-size: 30px;
+          }
+          ._content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            
+            ._element {
+              width: 50%;
+              margin-top: 25px;
+            }
+          }
+        }
       }
     }
     ._content-block {
-      height: 500px;
+      min-height: 500px;
     }
   }
 </style>

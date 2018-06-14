@@ -138,6 +138,12 @@
     font-weight: 600;
     text-align: center;
 
+    &.-xl {
+      max-width: 215px;
+      height: 70px;
+      line-height: 70px;
+      font-size: 26px;
+    }
     &.-l {
       min-width: 330px;
       height: 70px;

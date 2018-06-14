@@ -13,6 +13,7 @@ export default {
     referral: '',
     info: '',
     tokens: {},
+    main: '',
   },
   mutations: {
     setPageData(state, { data, field }) {
@@ -53,6 +54,18 @@ export default {
     getGetTokensPageData({ commit }) {
       return Vue.http.get(`${URL}get-tokens`).then((r) => {
         commit('setPageData', { data: r.body.contents[0], field: 'tokens' });
+      });
+    },
+    getMainPageData({ commit }) {
+      return Vue.http.get(`${URL}landing`).then((r) => {
+        const data = {};
+        r.body.contents.forEach((e) => {
+          data[e.head.toLowerCase().replace(/ /g, '_')] = {
+            body: e.body,
+            files: e.files,
+          };
+        });
+        commit('setPageData', { data, field: 'main' });
       });
     },
   },

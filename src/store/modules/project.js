@@ -12,6 +12,7 @@ export default {
     referral: {},
     allocation: {},
     agreement: {},
+    date: {},
   },
   mutations: {
     setStateData(state, { type, data }) {
@@ -46,6 +47,11 @@ export default {
     getAgreement({ commit }) {
       return Vue.http.get(`${URL}license-agreement/`).then((r) => {
         commit('setStateData', { type: 'agreement', data: r.body });
+      });
+    },
+    getDateList({ commit }) {
+      return Vue.http.get(`${URL}start-date/`).then((r) => {
+        commit('setStateData', { type: 'date', data: r.body });
       });
     },
   },

@@ -53,7 +53,7 @@
         const textBlockWidth = this.$refs.textBlock.clientWidth;
         const barFillerWidth = this.$refs.barFiller.clientWidth;
         const barLineWidth = this.$refs.barLine.clientWidth;
-        if (textBlockWidth / 2 >= barFillerWidth) {
+        if (textBlockWidth / 2 > barFillerWidth) {
           this.textOffset = 'none';
         } else if (textBlockWidth / 2 >= barLineWidth - barFillerWidth) {
           this.textOffset = barLineWidth - textBlockWidth;
