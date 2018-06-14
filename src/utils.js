@@ -28,7 +28,9 @@ if (debug) {
     updated() {
       for (let i = 0, l = document.images.length; i < l; i += 1) {
         const img = document.images[i];
-        img.src = img.src.replace(window.location.origin, root);
+        if (img.src.search(window.location.origin) !== -1) {
+          img.src = img.src.replace(window.location.origin, root);
+        }
       }
     },
   });
