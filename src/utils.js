@@ -5,7 +5,7 @@ import VueMarkdown from 'vue-markdown';
 import Modal from './plugins/modal/modal';
 import Loader from './plugins/loader/loader';
 import ScrollJump from './plugins/scroll-jump/scroll-jump';
-
+import Filters from './plugins/filters/filters';
 
 import { root, debug } from './config';
 
@@ -16,6 +16,7 @@ Vue.use(VueResource);
 Vue.use(Modal);
 Vue.use(Loader);
 Vue.use(ScrollJump);
+Vue.use(Filters);
 
 Vue.http.options.root = `${root}/api`;
 

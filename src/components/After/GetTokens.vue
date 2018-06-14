@@ -109,23 +109,6 @@
       ProgressBar,
       VueAutonumeric,
     },
-    filters: {
-      time(dateString) {
-        return (new Date(dateString || 0)).toLocaleTimeString('en', {
-          hour: 'numeric',
-          minute: 'numeric',
-        }).replace('AM', 'am').replace('PM', 'pm');
-      },
-      date(dateString) {
-        return (new Date(dateString || 0)).toLocaleDateString('en', {
-          day: 'numeric',
-          month: 'short',
-        });
-      },
-      number(value) {
-        return (value || 0).toLocaleString('en');
-      },
-    },
     mixins: [validationMixin],
     validations() {
       return {
