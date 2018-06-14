@@ -199,8 +199,8 @@
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 2px;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
   
       ._info-element {
         margin: 10px 0 20px;
@@ -225,8 +225,8 @@
       border-radius: 0;
     }
     ._send-block {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
   
       .e-input {
         margin-right: 5px;
