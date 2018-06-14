@@ -35,7 +35,30 @@
         </div>
       </div>
     </div>
-    <div class="_content-block"></div>
+    <div class="_ecosystem-block app-content" v-if="main.the_cryptoid_ecosystem">
+      <vue-markdown class="e-markdown-block -default -main -ecosystem"
+                    :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
+    </div>
+    <div class="_token-block app-content" v-if="main.the_cid_token">
+      <vue-markdown class="e-markdown-block -default -black -center -token"
+                    :source="main.the_cid_token.body"></vue-markdown>
+    </div>
+    <div class="_team-block app-content" v-if="main.team">
+      <vue-markdown class="e-markdown-block -default -main"
+                    :source="main.team.body"></vue-markdown>
+    </div>
+    <div class="_advisors-block app-content" v-if="main.advisors">
+      <vue-markdown class="e-markdown-block -default -main"
+                    :source="main.advisors.body"></vue-markdown>
+    </div>
+    <div class="_roadmap-block app-content" v-if="main.roadmap">
+      <vue-markdown class="e-markdown-block -default -center"
+                    :source="main.roadmap.body"></vue-markdown>
+    </div>
+    <div class="_program-block app-content" v-if="main.the_merchant_pilot_program">
+      <vue-markdown class="e-markdown-block -default -center"
+                    :source="main.the_merchant_pilot_program.body"></vue-markdown>
+    </div>
   </div>
 </template>
 
@@ -78,15 +101,31 @@
   .after-main {
     width: 100%;
   
+    .app-content {
+      padding-top: 80px;
+      padding-bottom: 110px;
+    }
     .e-landing-header-text,
     .e-landing-base-text {
       margin: 30px 0;
     }
+    ._header-block,
+    ._token-block {
+      background-color: #0e0e0e;
+    }
+    ._ecosystem-block,
+    ._roadmap-block {
+      background-color: #f6f6f6;
+    }
+    ._team-block,
+    ._advisors-block,
+    ._program-block {
+      background-color: #fff;
+    }
     ._header-block {
       display: flex;
-      padding-top: 60px;
-      padding-bottom: 120px;
-      background-color: #000;
+      min-height: 600px;
+      padding-bottom: 80px;
   
       .e-caption-text {
         margin: 0;
@@ -148,8 +187,8 @@
         }
       }
     }
-    ._content-block {
-      min-height: 500px;
+    ._advisors-block {
+      border-top: solid 2px #ededed;
     }
   }
 </style>
