@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  const SvgIcon = () => import('./Elements/SvgIcon');
+  const SvgIcon = () => import(/* webpackChunkName: "svg-icon" */ './Elements/SvgIcon');
 
   export default {
     name: 'PageFooter',

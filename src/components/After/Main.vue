@@ -46,6 +46,23 @@
     <div class="_team-block app-content" v-if="main.team">
       <vue-markdown class="e-markdown-block -default -main"
                     :source="main.team.body"></vue-markdown>
+      <div class="_content">
+        <div class="_element" :key="i" v-for="(t, i) in team">
+          <img class="_image" :src="t.avatar">
+          <div class="_description">
+            <p class="e-caption-text">{{ t.name }}</p>
+            <p class="e-base-text">{{ t.team_role }}</p>
+            <p class="e-label-text">{{ t.bio }}</p>
+            <div class="_socials">
+              <svg-icon class="_icon"
+                        :name="s.social_name.toLowerCase()"
+                        :link="s.url"
+                        :key="s.social_name"
+                        v-for="s in t.socials"></svg-icon>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="_advisors-block app-content" v-if="main.advisors">
       <vue-markdown class="e-markdown-block -default -main"
@@ -67,6 +84,7 @@
 
   const Timer = () => import(/* webpackChunkName: "timer" */ '../Elements/Timer.vue');
   const ProgressBar = () => import(/* webpackChunkName: "progress-bar" */ '../Elements/ProgressBar');
+  const SvgIcon = () => import(/* webpackChunkName: "svg-icon" */ '../Elements/SvgIcon');
 
   export default {
     name: 'Main',
@@ -79,19 +97,27 @@
     },
     computed: {
       ...mapState('pages', ['main']),
-      ...mapState('project', ['date']),
+      ...mapState('project', [
+        'date',
+        'team',
+      ]),
     },
     components: {
+      SvgIcon,
       Timer,
       ProgressBar,
     },
     methods: {
       ...mapActions('pages', ['getMainPageData']),
-      ...mapActions('project', ['getDateList']),
+      ...mapActions('project', [
+        'getDateList',
+        'getTeamList',
+      ]),
     },
     mounted() {
       this.getMainPageData();
       this.getDateList();
+      this.getTeamList();
     },
   };
   /* eslint-disable */
@@ -189,6 +215,57 @@
     }
     ._advisors-block {
       border-top: solid 2px #ededed;
+    }
+    ._team-block {
+      ._content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 60px;
+        
+        ._element {
+          display: flex;
+          width: 31%;
+          margin-bottom: 60px;
+        }
+        ._image {
+          width: 190px;
+          height: 230px;
+          margin-right: 20px;
+          object-fit: contain;
+        }
+        ._description {
+          display: flex;
+          flex-direction: column;
+          
+          .e-caption-text,
+          .e-base-text {
+            font-weight: 600;
+          }
+          .e-caption-text {
+            margin: 0;
+          }
+          .e-base-text {
+            margin: 2px 0 8px;
+          }
+          .e-label-text {
+            flex-grow: 1;
+            line-height: 1.43;
+            padding: 8px 0;
+            border-top: solid 2px #bcbcbc;
+          }
+          ._socials {
+            height: 20px;
+          }
+          ._icon {
+            fill: #bcbcbc;
+            
+            &:not(:last-child) {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
     }
   }
 </style>

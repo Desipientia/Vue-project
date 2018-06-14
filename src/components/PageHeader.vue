@@ -48,7 +48,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
 
-  const SvgIcon = () => import('./Elements/SvgIcon');
+  const SvgIcon = () => import(/* webpackChunkName: "svg-icon" */ './Elements/SvgIcon');
 
   export default {
     name: 'PageHeader',

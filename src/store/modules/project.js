@@ -13,6 +13,7 @@ export default {
     allocation: {},
     agreement: {},
     date: {},
+    team: [],
   },
   mutations: {
     setStateData(state, { type, data }) {
@@ -52,6 +53,11 @@ export default {
     getDateList({ commit }) {
       return Vue.http.get(`${URL}start-date/`).then((r) => {
         commit('setStateData', { type: 'date', data: r.body });
+      });
+    },
+    getTeamList({ commit }) {
+      return Vue.http.get(`${URL}team/`).then((r) => {
+        commit('setStateData', { type: 'team', data: r.body });
       });
     },
   },
