@@ -394,8 +394,30 @@
     }
   }
   &.-modal {
+    counter-reset: li;
+
+    h3 {
+      @extend .e-caption-text;
+    }
     p, a {
       @extend .e-base-text;
+    }
+    ol {
+      @extend .e-ordered-list;
+      margin-top: 20px;
+
+      & + p {
+        padding-left: 30px;
+      }
+      li > p {
+        line-height: 1.25;
+        margin: 20px 0;
+        @extend .e-caption-text;
+      }
+      img {
+        width: 100%;
+        margin: 20px 0 0;
+      }
     }
   }
   &.-tokens {
