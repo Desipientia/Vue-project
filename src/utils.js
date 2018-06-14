@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
 import VueMarkdown from 'vue-markdown';
+import Toasted from 'vue-toasted';
 
 import Modal from './plugins/modal/modal';
 import Loader from './plugins/loader/loader';
@@ -12,6 +13,7 @@ import { root, debug } from './config';
 Vue.component('vue-markdown', VueMarkdown);
 
 Vue.use(VueResource);
+Vue.use(Toasted);
 
 Vue.use(Modal);
 Vue.use(Loader);

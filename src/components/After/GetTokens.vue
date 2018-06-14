@@ -68,13 +68,10 @@
 <script>
   import { mapState, mapGetters, mapActions } from 'vuex';
   import { validationMixin } from 'vuelidate';
-  import Vue from 'vue';
-  import Toasted from 'vue-toasted';
 
   const VueAutonumeric = () => import(/* webpackChunkName: "vue-autonumeric" */ 'vue-autonumeric');
   const ProgressBar = () => import(/* webpackChunkName: "progress-bar" */ '../Elements/ProgressBar');
   const Timer = () => import(/* webpackChunkName: "timer" */ '../Elements/Timer');
-  Vue.use(Toasted);
 
   export default {
     name: 'GetTokens',
