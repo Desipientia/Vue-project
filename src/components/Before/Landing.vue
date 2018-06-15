@@ -1,6 +1,20 @@
 <template>
   <div class="before-landing app-content">
-    <vue-markdown class="e-markdown-block -landing" :source="landing"></vue-markdown>
+    <vue-markdown class="e-markdown-block -landing" :source="landing.body"></vue-markdown>
+    <div class="_content-block">
+      <div class="_nav-block">
+        <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
+          <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
+          <span class="_label">{{ f.name }}</span>
+        </label>
+      </div>
+      <youtube player-width="630px"
+               player-height="440px"
+               :video-id="$youtube.getIdFromURL(f.url)"
+               :key="i"
+               v-show="visibleVideo === i"
+               v-for="(f, i) in landing.files"></youtube>
+    </div>
     <div class="_content-block">
       <router-link class="e-button -white -l"
                    :to="{ name: 'connect', query: this.$route.query }">Get full access</router-link>
@@ -19,6 +33,11 @@
 
   export default {
     name: 'Landing',
+    data() {
+      return {
+        visibleVideo: 1,
+      };
+    },
     computed: mapState('pages', ['landing']),
     props: ['referral'],
     components: { Timer },
@@ -47,12 +66,11 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      max-width: 700px;
-      min-width: 630px;
+      width: 630px;
       margin: 60px auto 0;
     }
     ._timer {
-      min-width: 330px;
+      min-width: 270px;
       height: 120px;
       padding: 8px 5px;
       border-radius: 4px;
@@ -63,6 +81,38 @@
         color: #bcbcbc;
         font-family: "Open Sans", sans-serif;
         font-size: 14px;
+      }
+    }
+    ._nav-block {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      
+      ._nav-tab {
+        display: flex;
+        flex-grow: 1;
+        
+        ._input {
+          display: none;
+  
+          &:not(:checked) + ._label {
+            border-bottom: solid 2px rgba(255, 255, 255, 0.1);;
+          }
+          &:checked + ._label {
+            border-bottom: solid 2px #fff;
+          }
+        }
+        ._label {
+          width: 100%;
+          padding: 5px 10px 18px;
+          color: #fff;
+          font-family: "Cabin", sans-serif;
+          font-weight: 600;
+          font-size: 16px;
+          text-align: center;
+          text-transform: uppercase;
+          cursor: pointer;
+        }
       }
     }
   }
