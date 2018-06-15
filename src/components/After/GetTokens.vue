@@ -40,8 +40,13 @@
         </div>
       </div>
       <progress-bar class="_progress-bar -default" :value="progressValue"></progress-bar>
-      <p class="_modal-link-text e-label-text"
-            @click="showInfoModal">How to increase?</p>
+      <p class="_modal-link-text -single e-label-text"
+         v-if="progressValue !== 0"
+         @click="showInfoModal">How to increase?</p>
+      <div class="_error-block" v-else>
+        You have reached your limit. Please
+        <span class="_modal-link-text" @click="showInfoModal">Increase your limit</span>
+      </div>
     </div>
     <form class="_send-block e-white-content-block"
           v-if="isActive"
@@ -73,6 +78,10 @@
         </div>
         <p class="e-number-text -black -l">100 000 CID</p>
         <p class="e-label-text">Contributed 30.05 ETH</p>
+        <div class="_error-block" v-if="wallets.length <= 0">
+          <!-- eslint-disable-next-line max-len -->
+          <span>To receive your CID tokens, please add your ETH wallet to your CryptoID. Open your CryptoID app and follow the instructions to add a wallet.</span>
+        </div>
       </div>
       <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
         <p class="e-label-text">Your Wallets</p>
@@ -243,6 +252,11 @@
     ._allocation-block {
       margin: 2px 0;
       border-radius: 0;
+  
+      ._error-block {
+        margin-top: 10px;
+        padding: 5px 20px;
+      }
     }
     ._send-block {
       border-top-left-radius: 0;
@@ -266,11 +280,14 @@
       font-size: 20px;
     }
     ._modal-link-text {
-      line-height: 2.08;
-      font-size: 12px;
       text-decoration: underline;
-      text-align: right;
       cursor: pointer;
+      
+      &.-single {
+        line-height: 2.08;
+        font-size: 12px;
+        text-align: right;
+      }
     }
     ._progress-bar {
       margin: 5px 0;
@@ -291,6 +308,10 @@
         text-decoration: underline;
         cursor: pointer;
       }
+      ._error-block {
+        margin-top: 20px;
+        padding: 15px 20px;
+      }
     }
     ._wallets-block {
       .e-label-text {
@@ -310,6 +331,14 @@
     ._wallets-block {
       width: 100%;
       padding: 23px 30px;
+    }
+    ._error-block {
+      line-height: 1.43;
+      border-radius: 4px;
+      background-color: rgba(208, 2, 27, 0.1);
+      color: #d0021b;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
     }
   }
 </style>
