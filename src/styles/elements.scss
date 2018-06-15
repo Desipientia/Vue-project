@@ -114,9 +114,11 @@
   &.-grey {
     min-width: 160px;
     height: 50px;
+    line-height: 50px;
     font-family: "Open Sans", sans-serif;
     font-weight: 700;
     font-size: 16px;
+    text-align: center;
   }
   &.-black,
   &.-white {

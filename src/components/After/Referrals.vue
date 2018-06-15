@@ -1,6 +1,18 @@
 <template>
   <div class="after-referrals e-inside-content-block">
-    <h2 class="e-header-text">Earn Tokens</h2>
+    <div class="_purchase-block e-white-content-block" v-if="purchase">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 512 512">
+        <!-- eslint-disable-next-line max-len -->
+        <path fill="#3ab94a" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>
+      </svg>
+      <p class="e-number-text -black -l">You purchase is being processed</p>
+      <p class="e-base-text">
+        <!-- eslint-disable-next-line max-len -->
+        Thanks for participating in the CID Token distribution. You should receive your tokens to your balance within 24 hours.
+      </p>
+      <router-link class="e-button -grey"
+                   :to="{ name: 'get-tokens' }">Get more Tokens</router-link>
+    </div>
     <vue-markdown class="e-markdown-block -default"
                   :source="referralText"></vue-markdown>
     <div class="_referral-link-block e-white-content-block">
@@ -72,6 +84,7 @@
         referralText: s => s.referral,
       }),
     },
+    props: ['purchase'],
     components: { SvgIcon },
     methods: {
       copyLink() {
@@ -98,6 +111,20 @@
     }
     .e-white-content-block {
       margin: 5px 0 10px;
+    }
+    ._purchase-block {
+      margin: 50px 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .e-number-text {
+        margin-top: 10px;
+      }
+      .e-base-text {
+        margin: 14px 0 29px;
+        text-align: center;
+      }
     }
     ._referral-link-block {
       display: flex;

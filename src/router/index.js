@@ -55,6 +55,7 @@ const router = new Router({
       name: 'referrals',
       component: Referrals,
       meta: { requiresAuth: true },
+      props: route => ({ purchase: route.query.purchase }),
     },
     {
       path: '/documentation',
