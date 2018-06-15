@@ -36,8 +36,13 @@
       </div>
     </div>
     <div class="_ecosystem-block app-content" v-if="main.the_cryptoid_ecosystem">
+      <div class="_line">
+        <vue-markdown class="e-markdown-block -default -main -ecosystem -short"
+                      :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
+        <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
+      </div>
       <vue-markdown class="e-markdown-block -default -main -ecosystem"
-                    :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
+                    :source="main.the_ecosystem_pictures.body"></vue-markdown>
     </div>
     <div class="_token-block app-content" v-if="main.the_cid_token">
       <vue-markdown class="e-markdown-block -default -black -center -token"
@@ -214,8 +219,17 @@
         }
       }
     }
-    ._advisors-block {
-      border-top: solid 2px #ededed;
+    ._ecosystem-block {
+      ._line {
+        display: flex;
+        justify-content: space-between;
+      }
+      ._image {
+        flex-grow: 1;
+        flex-basis: 620px;
+        max-width: 700px;
+        margin-left: 30px;
+      }
     }
     ._team-block {
       ._content {
@@ -267,6 +281,9 @@
           }
         }
       }
+    }
+    ._advisors-block {
+      border-top: solid 2px #ededed;
     }
     ._roadmap-block {
       ._image {

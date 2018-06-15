@@ -348,21 +348,25 @@
       }
     }
     &.-main {
-      > h2, > h3, > p {
-        width: 630px;
+      &:not(.-short) {
+        > h2, > h3, > p {
+          width: 50%;
+        }
       }
     }
     &.-ecosystem {
-      position: relative;
-
-      > p:last-of-type {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 40%;
+      &.-short {
+        flex-grow: 1;
+        flex-basis: 630px;
       }
       blockquote {
         margin: 50px 0 0;
+
+        img {
+          width: 100%;
+          max-height: 200px;
+          object-fit: contain;
+        }
       }
       blockquote:only-of-type {
         display: flex;
@@ -379,9 +383,6 @@
             margin-bottom: 5px;
           }
         }
-      }
-      img {
-        width: 100%;
       }
     }
     &.-token {
