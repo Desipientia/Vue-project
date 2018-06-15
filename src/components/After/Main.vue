@@ -71,6 +71,7 @@
     <div class="_roadmap-block app-content" v-if="main.roadmap">
       <vue-markdown class="e-markdown-block -default -center"
                     :source="main.roadmap.body"></vue-markdown>
+      <img class="_image" :src="main.roadmap.files[0].file"/>
     </div>
     <div class="_program-block app-content" v-if="main.the_merchant_pilot_program">
       <vue-markdown class="e-markdown-block -default -center"
@@ -265,6 +266,14 @@
             }
           }
         }
+      }
+    }
+    ._roadmap-block {
+      ._image {
+        width: 100%;
+        max-height: 300px;
+        margin-top: 45px;
+        object-fit: contain;
       }
     }
   }
