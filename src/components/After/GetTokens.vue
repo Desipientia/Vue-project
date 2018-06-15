@@ -191,6 +191,8 @@
         'getGetTokensPageData',
       ]),
       ...mapActions('auth', ['confirmAgreement']),
+      ...mapActions('web3mod', ['connectWeb3', 'becomeInvestor']),
+
     },
     mounted() {
       if (!this.isAgreementConfirmed) {
@@ -209,12 +211,15 @@
           });
         });
       }
+
       this.getWalletsList();
       this.getGetTokensPageData();
       this.getAllocation();
       this.getITO().then(() => {
         this.address = this.ito.contract_address;
       });
+      this.connectWeb3()
+      this.becomeInvestor()
     },
   };
   /* eslint-disable */
