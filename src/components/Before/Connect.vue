@@ -1,9 +1,10 @@
 <template>
-  <div class="before-connect e-inside-content-block">
-    <vue-markdown class="e-markdown-block -default" :source="connect"></vue-markdown>
+  <div class="before-connect e-inside-content-block" v-if="connect">
+    <vue-markdown class="e-markdown-block -default" :source="connect[0].body"></vue-markdown>
     <div class="_qr-code-block" v-if="qrCode !== null">
       <qrcode :options="{ size: 160 }" v-model="qrCode"></qrcode>
     </div>
+    <vue-markdown class="e-markdown-block -default" :source="connect[1].body"></vue-markdown>
   </div>
 </template>
 
@@ -61,7 +62,7 @@
 <style lang="scss" scoped>
   .before-connect {
     ._qr-code-block {
-      margin: 20px 0 0 24px;
+      margin: 20px 0 30px;
     }
   }
 </style>

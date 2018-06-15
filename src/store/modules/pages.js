@@ -28,7 +28,7 @@ export default {
     },
     getConnectPageData({ commit }) {
       Vue.http.get(`${URL}connect-with-cryptoid`).then((r) => {
-        commit('setPageData', { data: r.body.contents[0].body, field: 'connect' });
+        commit('setPageData', { data: r.body.contents, field: 'connect' });
       });
     },
     getLimitPageData({ commit }) {
