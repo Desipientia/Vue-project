@@ -66,6 +66,14 @@
     <vue-markdown class="e-markdown-block -tokens"
                   :source="tokens.body"></vue-markdown>
     <div class="_side-block">
+      <div class="_balance-block e-white-content-block" v-if="showBalance">
+        <div class="_text-line">
+          <p class="e-label-text">Balance</p>
+          <p class="_history-link e-label-text">History</p>
+        </div>
+        <p class="e-number-text -black -l">100 000 CID</p>
+        <p class="e-label-text">Contributed 30.05 ETH</p>
+      </div>
       <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
         <p class="e-label-text">Your Wallets</p>
         <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
@@ -95,6 +103,7 @@
           { title: 'Reserved', value: 15 },
         ],
         isActive: true,
+        showBalance: true,
       };
     },
 
@@ -248,14 +257,6 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-  
-      ._suffix-text {
-        margin: 0;
-        line-height: 1.56;
-        color: #767676;
-        font-family: "Open Sans", sans-serif;
-        font-size: 16px;
-      }
     }
     ._block-caption {
       margin: 25px 0 15px;
@@ -265,7 +266,8 @@
       font-size: 20px;
     }
     ._modal-link-text {
-      line-height: 1.79;
+      line-height: 2.08;
+      font-size: 12px;
       text-decoration: underline;
       text-align: right;
       cursor: pointer;
@@ -282,10 +284,15 @@
       width: 100%;
       max-width: 300px;
     }
-    ._wallets-block {
-      width: 100%;
-      padding: 23px 30px;
+    ._balance-block {
+      margin-bottom: 20px;
       
+      ._history-link {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+    ._wallets-block {
       .e-label-text {
         margin-bottom: 5px;
       }
@@ -298,6 +305,11 @@
         font-size: 16px;
         text-overflow: ellipsis;
       }
+    }
+    ._balance-block,
+    ._wallets-block {
+      width: 100%;
+      padding: 23px 30px;
     }
   }
 </style>
