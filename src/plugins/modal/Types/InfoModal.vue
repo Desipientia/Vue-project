@@ -1,6 +1,6 @@
 <template>
   <form class="info-modal" @submit.prevent="$modal.hide">
-    <p class="m-header-text">How to increase allocation?</p>
+    <p class="m-header-text">How to increase your limit?</p>
     <vue-markdown class="e-markdown-block -modal"
                   :source="$modal.params().data"></vue-markdown>
   </form>
