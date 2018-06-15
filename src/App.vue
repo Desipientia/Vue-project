@@ -24,7 +24,7 @@
 
 <style lang="scss">
   html {
-    min-width: 1200px;
+    min-width: 1350px;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

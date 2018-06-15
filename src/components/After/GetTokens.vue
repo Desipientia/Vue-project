@@ -65,6 +65,12 @@
     </form>
     <vue-markdown class="e-markdown-block -tokens"
                   :source="tokens.body"></vue-markdown>
+    <div class="_side-block">
+      <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
+        <p class="e-label-text">Your Wallets</p>
+        <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -105,6 +111,7 @@
         'ito',
         'allocation',
         'agreement',
+        'wallets',
       ]),
       ...mapState('pages', [
         'info',
@@ -159,6 +166,7 @@
         'getITO',
         'getAllocation',
         'getAgreement',
+        'getWalletsList',
       ]),
       ...mapActions('pages', [
         'getInfoModalPageData',
@@ -183,6 +191,7 @@
           });
         });
       }
+      this.getWalletsList();
       this.getGetTokensPageData();
       this.getAllocation();
       this.getITO().then(() => {
@@ -195,6 +204,8 @@
 
 <style lang="scss" scoped>
   .after-get-tokens {
+    position: relative;
+    
     ._info-block {
       display: flex;
       flex-wrap: wrap;
@@ -263,6 +274,30 @@
       margin: 5px 0;
       overflow: hidden;
       border-radius: 2px;
+    }
+    ._side-block {
+      position: absolute;
+      top: 110px;
+      left: 670px;
+      width: 100%;
+      max-width: 300px;
+    }
+    ._wallets-block {
+      width: 100%;
+      padding: 23px 30px;
+      
+      .e-label-text {
+        margin-bottom: 5px;
+      }
+      ._wallet {
+        margin: 0;
+        line-height: 1.56;
+        overflow: hidden;
+        color: #767676;
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        text-overflow: ellipsis;
+      }
     }
   }
 </style>

@@ -14,6 +14,7 @@ export default {
     agreement: {},
     date: {},
     team: [],
+    wallets: [],
   },
   mutations: {
     setStateData(state, { type, data }) {
@@ -58,6 +59,11 @@ export default {
     getTeamList({ commit }) {
       return Vue.http.get(`${URL}team/`).then((r) => {
         commit('setStateData', { type: 'team', data: r.body });
+      });
+    },
+    getWalletsList({ commit }) {
+      return Vue.http.get(`${URL}wallets/`).then((r) => {
+        commit('setStateData', { type: 'wallets', data: r.body });
       });
     },
   },
