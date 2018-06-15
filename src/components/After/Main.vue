@@ -47,6 +47,13 @@
     <div class="_token-block app-content" v-if="main.the_cid_token">
       <vue-markdown class="e-markdown-block -default -black -center -token"
                     :source="main.the_cid_token.body"></vue-markdown>
+      <div class="_line">
+        <div class="_element" :key="i" v-for="(f, i) in main.the_cid_token.files">
+          <img class="_image" :src="f.file"/>
+          <router-link :to="{ name: 'documentation', query: { name: f.name } }"
+                       class="_rounded-button">View {{ f.name | format }}</router-link>
+        </div>
+      </div>
     </div>
     <div class="_team-block app-content" v-if="main.team">
       <vue-markdown class="e-markdown-block -default -main"
@@ -113,6 +120,17 @@
       Timer,
       ProgressBar,
     },
+    filters: {
+      format(value) {
+        if (!value) return '';
+        const array = value.toString().split('_');
+        const capitalised = array.map((e) => {
+          return e.charAt(0).toUpperCase() + e.slice(1);
+        });
+        const space = array[0] === 'q' ? '&' : ' ';
+        return capitalised.join(space);
+      },
+    },
     methods: {
       ...mapActions('pages', ['getMainPageData']),
       ...mapActions('project', [
@@ -140,6 +158,20 @@
     .e-landing-header-text,
     .e-landing-base-text {
       margin: 30px 0;
+    }
+    ._rounded-button {
+      display: block;
+      width: 190px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 20px;
+      background-color: #313131;
+      color: #fff;
+      font-family: "Cabin", sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
     }
     ._header-block,
     ._token-block {
@@ -229,6 +261,25 @@
         flex-basis: 620px;
         max-width: 700px;
         margin-left: 30px;
+      }
+    }
+    ._token-block {
+      ._rounded-button {
+        margin-top: 25px;
+        background-color: #313131;
+      }
+      ._line {
+        display: flex;
+        justify-content: space-between;
+        max-width: 850px;
+        margin: 50px auto 0;
+        
+        ._element {
+          width: 190px;
+        }
+        ._image {
+          width: 100%;
+        }
       }
     }
     ._team-block {
