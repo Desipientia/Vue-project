@@ -36,12 +36,24 @@
       </div>
     </div>
     <div class="_ecosystem-block app-content" v-if="main.the_cryptoid_ecosystem">
+      <div class="_line">
+        <vue-markdown class="e-markdown-block -default -main -ecosystem -short"
+                      :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
+        <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
+      </div>
       <vue-markdown class="e-markdown-block -default -main -ecosystem"
-                    :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
+                    :source="main.the_ecosystem_pictures.body"></vue-markdown>
     </div>
     <div class="_token-block app-content" v-if="main.the_cid_token">
       <vue-markdown class="e-markdown-block -default -black -center -token"
                     :source="main.the_cid_token.body"></vue-markdown>
+      <div class="_line">
+        <div class="_element" :key="i" v-for="(f, i) in main.the_cid_token.files">
+          <img class="_image" :src="f.file"/>
+          <router-link :to="{ name: 'documentation', query: { name: f.name } }"
+                       class="_rounded-button">View {{ f.name | format }}</router-link>
+        </div>
+      </div>
     </div>
     <div class="_team-block app-content" v-if="main.team">
       <vue-markdown class="e-markdown-block -default -main"
@@ -71,6 +83,7 @@
     <div class="_roadmap-block app-content" v-if="main.roadmap">
       <vue-markdown class="e-markdown-block -default -center"
                     :source="main.roadmap.body"></vue-markdown>
+      <img class="_image" :src="main.roadmap.files[0].file"/>
     </div>
     <div class="_program-block app-content" v-if="main.the_merchant_pilot_program">
       <vue-markdown class="e-markdown-block -default -center"
@@ -107,6 +120,15 @@
       Timer,
       ProgressBar,
     },
+    filters: {
+      format(value) {
+        if (!value) return '';
+        const array = value.toString().split('_');
+        const capitalised = array.map(e => e.charAt(0).toUpperCase() + e.slice(1));
+        const space = array[0] === 'q' ? '&' : ' ';
+        return capitalised.join(space);
+      },
+    },
     methods: {
       ...mapActions('pages', ['getMainPageData']),
       ...mapActions('project', [
@@ -134,6 +156,20 @@
     .e-landing-header-text,
     .e-landing-base-text {
       margin: 30px 0;
+    }
+    ._rounded-button {
+      display: block;
+      width: 190px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 20px;
+      background-color: #313131;
+      color: #fff;
+      font-family: "Cabin", sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
     }
     ._header-block,
     ._token-block {
@@ -213,8 +249,36 @@
         }
       }
     }
-    ._advisors-block {
-      border-top: solid 2px #ededed;
+    ._ecosystem-block {
+      ._line {
+        display: flex;
+        justify-content: space-between;
+      }
+      ._image {
+        flex-grow: 1;
+        flex-basis: 620px;
+        max-width: 700px;
+        margin-left: 30px;
+      }
+    }
+    ._token-block {
+      ._rounded-button {
+        margin-top: 25px;
+        background-color: #313131;
+      }
+      ._line {
+        display: flex;
+        justify-content: space-between;
+        max-width: 850px;
+        margin: 50px auto 0;
+        
+        ._element {
+          width: 190px;
+        }
+        ._image {
+          width: 100%;
+        }
+      }
     }
     ._team-block {
       ._content {
@@ -265,6 +329,17 @@
             }
           }
         }
+      }
+    }
+    ._advisors-block {
+      border-top: solid 2px #ededed;
+    }
+    ._roadmap-block {
+      ._image {
+        width: 100%;
+        max-height: 300px;
+        margin-top: 45px;
+        object-fit: contain;
       }
     }
   }
