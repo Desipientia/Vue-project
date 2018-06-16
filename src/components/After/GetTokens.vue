@@ -50,7 +50,7 @@
     </div>
     <form class="_send-block e-white-content-block"
           v-if="isActive"
-          @submit.prevent="$modal.show('buy', { amount, address })">
+          @submit.prevent="showBuyTokenModal">
       <div>
         <vue-autonumeric class="e-input -l"
                          type="tel"
@@ -180,6 +180,24 @@
           });
         }
       },
+      showBuyTokenModal(){
+        this.$modal.show({
+          type:'buy', 
+          params:{amount: this.amount, address: this.address },
+            onAccept: (data) => {
+              switch (data){
+                case 'metamask':
+                  this.becomeInvestor(this.amount)
+                default:
+                  // TO DO: Check if this metamask button 
+                  this.becomeInvestor(this.amount)
+
+                  this.$modal.hide();
+                  console.log('zopa');
+              }
+            },
+          })
+      },
       ...mapActions('project', [
         'getITO',
         'getAllocation',
@@ -217,9 +235,10 @@
       this.getAllocation();
       this.getITO().then(() => {
         this.address = this.ito.contract_address;
+        this.connectWeb3()
+        // this.becomeInvestor()
+
       });
-      this.connectWeb3()
-      this.becomeInvestor()
     },
   };
   /* eslint-disable */

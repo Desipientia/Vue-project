@@ -27,17 +27,19 @@ export default {
             this.web3Instance.eth.getCoinbase((err, coinbase) => {
                 if (err) {
                 } else if (coinbase !== state.coinbase) {
+                
                 state.coinbase = coinbase;
                 }
             });
             }, 100);
             var project = rootState.project.ito
-            console.log(project)
-
+            
             this.contractInstance = new this.web3Instance.eth.Contract(abi,project.contract_address)
         }
     },
     becomeInvestor({dispatch, state},value){
+
+        value = this.web3Instance.utils.toWei(value.toFixed(2))
         if (!this.contractInstance){
             dispatch('connectWeb3')
         }
