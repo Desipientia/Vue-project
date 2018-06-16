@@ -52,18 +52,19 @@ export default {
         }
       }
     },
-    connectSocket({}, userPk) {
-      if (this.$socket) {
-        vm.$disconnect();
+    connectSocket({state, rootState}, userPk) {
+      if (state.token !== null && !rootState.socket.socket.isConnected || state.token === null){
+        if (rootState.socket.socket.isConnected) {
+          vm.$disconnect();
+        }
+        const wsUrl = `${wsRoot}${userPk}/`;
+        Vue.use(VueNativeSock, wsUrl, {
+          store: this,
+          format: 'json',
+          connectManually: true,
+        });
+        vm.$connect();
       }
-
-      const wsUrl = `${wsRoot}${userPk}/`;
-      Vue.use(VueNativeSock, wsUrl, {
-        store: this,
-        format: 'json',
-        connectManually: true,
-      });
-      vm.$connect();
     },
     logout({ commit }) {
       Vue.http.options.headers = {};
