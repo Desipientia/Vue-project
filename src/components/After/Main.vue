@@ -124,9 +124,7 @@
       format(value) {
         if (!value) return '';
         const array = value.toString().split('_');
-        const capitalised = array.map((e) => {
-          return e.charAt(0).toUpperCase() + e.slice(1);
-        });
+        const capitalised = array.map(e => e.charAt(0).toUpperCase() + e.slice(1));
         const space = array[0] === 'q' ? '&' : ' ';
         return capitalised.join(space);
       },

@@ -52,11 +52,10 @@ export default {
         }
       }
     },
-    connectSocket({state, rootState}, userPk) {
-      if (state.token !== null && !rootState.socket.socket.isConnected || state.token === null){
-        if (rootState.socket.socket.isConnected) {
-          vm.$disconnect();
-        }
+
+    connectSocket({ state, rootState, dispatch }, userPk) {
+      if ((state.token !== null && !rootState.socket.socket.isConnected) || state.token === null) {
+        dispatch('dicsonnect');
         const wsUrl = `${wsRoot}${userPk}/`;
         Vue.use(VueNativeSock, wsUrl, {
           store: this,
@@ -66,9 +65,15 @@ export default {
         vm.$connect();
       }
     },
-    logout({ commit }) {
+    logout({ commit, dispatch }) {
+      dispatch('dicsonnect');
       Vue.http.options.headers = {};
       commit('removeUserData');
+    },
+    dicsonnect({ rootState }) {
+      if (rootState.socket.socket.isConnected) {
+        vm.$disconnect();
+      }
     },
     getUserProject() {
       return Vue.http.get(`${URL}new-user-project/`);
