@@ -59,11 +59,11 @@
       <vue-markdown class="e-markdown-block -default -main"
                     :source="main.team.body"></vue-markdown>
       <div class="_content">
-        <div class="_element" :key="i" v-for="(t, i) in team">
+        <div class="_element" :key="i" v-for="(t, i) in team['team']">
           <img class="_image" :src="t.avatar">
           <div class="_description">
             <p class="e-caption-text">{{ t.name }}</p>
-            <p class="e-base-text">{{ t.team_role }}</p>
+            <p class="e-base-text">{{ t.position }}</p>
             <p class="e-label-text">{{ t.bio }}</p>
             <div class="_socials">
               <svg-icon class="_icon"
@@ -76,9 +76,27 @@
         </div>
       </div>
     </div>
-    <div class="_advisors-block app-content" v-if="main.advisors">
+    <div class="_team-block app-content" v-if="main.advisors">
       <vue-markdown class="e-markdown-block -default -main"
                     :source="main.advisors.body"></vue-markdown>
+
+      <div class="_content">
+        <div class="_element" :key="i" v-for="(t, i) in team['advisor']">
+          <img class="_image" :src="t.avatar">
+          <div class="_description">
+            <p class="e-caption-text">{{ t.name }}</p>
+            <p class="e-base-text">{{ t.position }}</p>
+            <p class="e-label-text">{{ t.bio }}</p>
+            <div class="_socials">
+              <svg-icon class="_icon"
+                        :name="s.social_name.toLowerCase()"
+                        :link="s.url"
+                        :key="s.social_name"
+                        v-for="s in t.socials"></svg-icon>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="_roadmap-block app-content" v-if="main.roadmap">
       <vue-markdown class="e-markdown-block -default -center"

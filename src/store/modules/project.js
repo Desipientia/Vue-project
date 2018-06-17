@@ -13,7 +13,7 @@ export default {
     allocation: {},
     agreement: {},
     date: {},
-    team: [],
+    team: {},
     wallets: [],
   },
   mutations: {
