@@ -331,6 +331,15 @@
       color: #bcbcbc;
       opacity: .5;
     }
+    &.-connect {
+      img {
+        width: 188px;
+
+        &:first-child {
+          margin-right: 15px;
+        }
+      }
+    }
     &.-black {
       h2, h3 {
         color: #fff;

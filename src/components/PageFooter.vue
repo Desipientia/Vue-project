@@ -29,7 +29,14 @@
     name: 'PageFooter',
     computed: {
       background() {
-        return this.$route.name === 'landing' ? '-black' : '-white';
+        switch (this.$route.name) {
+          case 'landing':
+            return '-black';
+          case 'documentation':
+            return '-white -docs';
+          default:
+            return '-white';
+        }
       },
     },
     components: { SvgIcon },
@@ -81,6 +88,12 @@
           fill: #0e0e0e;
         }
       }
+    }
+    &.-docs {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
     }
     ._logo-svg,
     ._follow-link {

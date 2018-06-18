@@ -33,15 +33,18 @@
       <div class="_text-line">
         <p class="e-label-text">Your USD/ETH limit</p>
         <div v-if="allocation.transactions_count && allocation.transaction_limit">
-          <span class="e-number-text -s -black">${{ allocation.transactions_count.usd }}</span>
           <span class="e-number-text -s -black">
-            / {{ allocation.transactions_count.eth }} ETH</span>
+            ${{ allocation.transactions_count.usd.toFixed(2) }}
+            ({{ allocation.transactions_count.eth }} ETH)
+          </span>
+          <span class="e-number-text -s -black">
+            / ${{ allocation.transaction_limit.usd_limit.toFixed(2) }} </span>
           <span class="e-number-text -s">remaining</span>
         </div>
       </div>
       <progress-bar class="_progress-bar -default" :value="progressValue"></progress-bar>
       <p class="_modal-link-text -single e-label-text"
-         v-if="progressValue !== 0"
+         v-if="progressValue !== 100"
          @click="showInfoModal">How to increase?</p>
       <div class="_error-block" v-else>
         You have reached your limit. Please

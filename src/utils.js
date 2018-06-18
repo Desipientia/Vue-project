@@ -10,6 +10,8 @@ import ScrollJump from './plugins/scroll-jump/scroll-jump';
 import Filters from './plugins/filters/filters';
 
 import { root, debug } from './config';
+import store from './store';
+import router from './router';
 
 Vue.component('vue-markdown', VueMarkdown);
 
@@ -23,6 +25,17 @@ Vue.use(ScrollJump);
 Vue.use(Filters);
 
 Vue.http.options.root = `${root}/api`;
+
+// eslint-disable-next-line arrow-body-style
+Vue.http.interceptors.push(() => {
+  return (r) => {
+    if (r.status === 401) {
+      store.dispatch('auth/logout').then(() => {
+        router.replace({ name: 'landing' });
+      });
+    }
+  };
+});
 
 // Script to add root to dynamic image src when on localhost
 if (debug) {

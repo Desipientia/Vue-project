@@ -68,7 +68,7 @@ export default {
     logout({ commit, dispatch }) {
       dispatch('dicsonnect');
       Vue.http.options.headers = {};
-      commit('removeUserData');
+      return commit('removeUserData');
     },
     dicsonnect({ rootState }) {
       if (rootState.socket.socket.isConnected) {

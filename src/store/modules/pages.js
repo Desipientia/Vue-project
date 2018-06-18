@@ -3,13 +3,24 @@ import { projectName } from '../../config';
 
 const URL = `project/${projectName}/page/`;
 
+const makeObjectFromList = (list) => {
+  const object = {};
+  list.forEach((e) => {
+    object[e.head.toLowerCase().replace(/ /g, '_')] = {
+      body: e.body,
+      files: e.files,
+    };
+  });
+  return object;
+};
+
 export default {
   namespaced: true,
   state: {
     landing: '',
     connect: '',
     limit: '',
-    documentation: {},
+    documentation: [],
     referral: '',
     info: '',
     tokens: {},
@@ -22,13 +33,13 @@ export default {
   },
   actions: {
     getLandingPageData({ commit }) {
-      Vue.http.get(`${URL}landing-short`).then((r) => {
+      return Vue.http.get(`${URL}landing-short`).then((r) => {
         commit('setPageData', { data: r.body.contents[0], field: 'landing' });
       });
     },
     getConnectPageData({ commit }) {
       Vue.http.get(`${URL}connect-with-cryptoid`).then((r) => {
-        commit('setPageData', { data: r.body.contents, field: 'connect' });
+        commit('setPageData', { data: makeObjectFromList(r.body.contents), field: 'connect' });
       });
     },
     getLimitPageData({ commit }) {
@@ -58,14 +69,7 @@ export default {
     },
     getMainPageData({ commit }) {
       return Vue.http.get(`${URL}landing`).then((r) => {
-        const data = {};
-        r.body.contents.forEach((e) => {
-          data[e.head.toLowerCase().replace(/ /g, '_')] = {
-            body: e.body,
-            files: e.files,
-          };
-        });
-        commit('setPageData', { data, field: 'main' });
+        commit('setPageData', { data: makeObjectFromList(r.body.contents), field: 'main' });
       });
     },
   },

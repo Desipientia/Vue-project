@@ -61,13 +61,19 @@ const router = new Router({
       path: '/documentation',
       name: 'documentation',
       component: Documentation,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, scrollToTop: true },
+      props: route => ({ name: route.query.name }),
     },
     {
       path: '*',
       redirect: '/',
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition;
+    if (to.matched.some(m => m.meta.scrollToTop)) return { x: 0, y: 0 };
+    return {};
+  },
 });
 
 router.beforeEach((to, from, next) => {
