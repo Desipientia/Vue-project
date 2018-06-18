@@ -1,7 +1,7 @@
 <template>
   <div class="before-landing app-content">
     <vue-markdown class="e-markdown-block -landing" :source="landing.body"></vue-markdown>
-    <div class="_content-block">
+    <div class="_content-block" v-if="videoId">
       <div class="_nav-block">
         <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
           <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
@@ -10,10 +10,7 @@
       </div>
       <youtube player-width="630px"
                player-height="440px"
-               :video-id="$youtube.getIdFromURL(f.url)"
-               :key="i"
-               v-show="visibleVideo === i"
-               v-for="(f, i) in landing.files"></youtube>
+               :video-id="videoId"></youtube>
     </div>
     <div class="_content-block">
       <router-link class="e-button -white -l"
@@ -35,15 +32,23 @@
     name: 'Landing',
     data() {
       return {
-        visibleVideo: 1,
+        visibleVideo: null,
+        videoId: null,
       };
     },
     computed: mapState('pages', ['landing']),
     props: ['referral'],
+    watch: {
+      visibleVideo() {
+        this.videoId = this.$youtube.getIdFromURL(this.landing.files[this.visibleVideo].url);
+      },
+    },
     components: { Timer },
     methods: mapActions('pages', ['getLandingPageData']),
     mounted() {
-      this.getLandingPageData();
+      this.getLandingPageData().then(() => {
+        this.visibleVideo = 0;
+      });
     },
   };
   /* eslint-disable */
@@ -96,22 +101,24 @@
           display: none;
   
           &:not(:checked) + ._label {
+            color: #767676;
             border-bottom: solid 2px rgba(255, 255, 255, 0.1);;
           }
           &:checked + ._label {
+            color: #fff;
             border-bottom: solid 2px #fff;
           }
         }
         ._label {
           width: 100%;
           padding: 5px 10px 18px;
-          color: #fff;
           font-family: "Cabin", sans-serif;
           font-weight: 600;
           font-size: 16px;
           text-align: center;
           text-transform: uppercase;
           cursor: pointer;
+          @include transition(text, border);
         }
       }
     }

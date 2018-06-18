@@ -33,7 +33,7 @@ export default {
   },
   actions: {
     getLandingPageData({ commit }) {
-      Vue.http.get(`${URL}landing-short`).then((r) => {
+      return Vue.http.get(`${URL}landing-short`).then((r) => {
         commit('setPageData', { data: r.body.contents[0], field: 'landing' });
       });
     },
