@@ -17,10 +17,14 @@
     </p>
     <p class="e-label-text">Send with browser plugin</p>
     <div class="_grey-block">
-      <p class="_text">Send Transaction with MetaMask</p>
+      <button class="e-button -black" type="submit"
+              @submit.prevent="$modal.accept()">
+               Send Transaction with MetaMask
+      </button>
     </div>
     <p class="e-label-text">To confirm you transaction, please click on the button</p>
-    <button class="e-button -black" type="submit">I sent</button>
+    <button class="e-button -black" type="submit"
+    @submit.prevent="$modal.accept('default')">I sent</button>
   </form>
 </template>
 
@@ -29,6 +33,12 @@
 
   export default {
     name: 'DialogModal',
+    data() {
+      return {
+        amount: '',
+        type: '',
+      };
+    },
     components: { qrcode: VueQrcode },
   };
   /* eslint-disable */

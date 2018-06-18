@@ -53,7 +53,7 @@
     </div>
     <form class="_send-block e-white-content-block"
           v-if="isActive"
-          @submit.prevent="$modal.show('buy', { amount, address })">
+          @submit.prevent="showBuyTokenModal">
       <div>
         <vue-autonumeric class="e-input -l"
                          type="tel"
@@ -89,7 +89,13 @@
       <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
         <p class="e-label-text">Your Wallets</p>
         <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
+        <div class="_metamask_wallet_button">
+          <button class="e-button -grey"
+          @click="addMetamaskWallets"
+          :enabled="web3active">Add Metamask Wallets</button>    
+        </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -138,6 +144,9 @@
         'info',
         'tokens',
       ]),
+      ...mapState('web3mod', [
+        'web3active',
+      ]),
       ...mapGetters('auth', ['isAgreementConfirmed']),
     },
     watch: {
@@ -183,6 +192,26 @@
           });
         }
       },
+      showBuyTokenModal() {
+        this.$modal.show({
+          type: 'buy',
+          params: { amount: this.amount, address: this.address },
+          onAccept: (data) => {
+            switch (data) {
+              case 'metamask':
+                this.becomeInvestor(this.amount);
+              default:
+                // TO DO: Check if this metamask button
+                this.becomeInvestor(this.amount);
+
+                this.$modal.hide();
+            }
+          },
+        });
+      },
+      addMetamaskWallets(){
+          this.addWallets();
+      },
       ...mapActions('project', [
         'getITO',
         'getAllocation',
@@ -194,6 +223,8 @@
         'getGetTokensPageData',
       ]),
       ...mapActions('auth', ['confirmAgreement']),
+      ...mapActions('web3mod', ['connectWeb3', 'becomeInvestor', 'addWallets']),
+
     },
     mounted() {
       if (!this.isAgreementConfirmed) {
@@ -212,11 +243,13 @@
           });
         });
       }
+
       this.getWalletsList();
       this.getGetTokensPageData();
       this.getAllocation();
       this.getITO().then(() => {
         this.address = this.ito.contract_address;
+        this.connectWeb3();
       });
     },
   };
@@ -334,6 +367,11 @@
     ._wallets-block {
       width: 100%;
       padding: 23px 30px;
+      ._metamask_wallet_button {
+        text-align:center;
+        margin-top: 15%;
+        
+      }
     }
     ._error-block {
       line-height: 1.43;
