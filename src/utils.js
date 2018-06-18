@@ -11,6 +11,7 @@ import Filters from './plugins/filters/filters';
 
 import { root, debug } from './config';
 import store from './store';
+import router from './router';
 
 Vue.component('vue-markdown', VueMarkdown);
 
@@ -29,7 +30,9 @@ Vue.http.options.root = `${root}/api`;
 Vue.http.interceptors.push(() => {
   return (r) => {
     if (r.status === 401) {
-      store.dispatch('auth/logout');
+      store.dispatch('auth/logout').then(() => {
+        router.replace({ name: 'landing' });
+      });
     }
   };
 });
