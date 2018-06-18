@@ -29,8 +29,6 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
-
   const VueQrcode = () => import('@xkeshi/vue-qrcode');
 
   export default {

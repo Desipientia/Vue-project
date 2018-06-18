@@ -20,6 +20,11 @@ export default {
     setStateData(state, { type, data }) {
       state[type] = data;
     },
+    addWallet(state, {wallet}){
+      if (!wallet in state.wallets){
+        state.wallets.push(wallet);
+      }
+    }
   },
   actions: {
     getITO({ commit }) {
@@ -66,5 +71,11 @@ export default {
         commit('setStateData', { type: 'wallets', data: r.body });
       });
     },
+    addWallet({ commit }, wallet) {
+      console.log(wallet)
+      return Vue.http.post(`${URL}wallets/`, {wallet}).then((r) => {
+        commit('addWallet', {wallet: r.body});
+      });
+    }
   },
 };

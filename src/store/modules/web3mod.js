@@ -12,45 +12,51 @@ export default {
       balance: null,
       error: null,
     },
-    contractInstance: null,
+    web3active: false
   },
   getters: {
   },
   mutations: {
+    setWeb3Active(state, {active}){
+      state.web3active = active;
+    }
   },
   actions: {
-    connectWeb3({state, rootState}) {
-        if (typeof window.web3 !== 'undefined') {
-            this.web3Instance = new Web3(window.web3.currentProvider);
-            this.coinbase = this.web3Instance.eth.accounts[0];
-            setInterval(() => {
-            this.web3Instance.eth.getCoinbase((err, coinbase) => {
-                if (err) {
-                } else if (coinbase !== state.coinbase) {
-                
-                state.coinbase = coinbase;
-                }
-            });
-            }, 100);
-            var project = rootState.project.ito
-            
-            this.contractInstance = new this.web3Instance.eth.Contract(abi,project.contract_address)
-        }
+    connectWeb3({ state, commit }) {
+      if (typeof window.web3 !== 'undefined') {
+        commit('setWeb3Active', {active: true});
+        state.web3active = true
+        this.web3Instance = new Web3(window.web3.currentProvider);
+        this.coinbase = this.web3Instance.eth.accounts[0];
+        setInterval(() => {
+          this.web3Instance.eth.getCoinbase((err, coinbase) => {
+            if (err) {
+            } else if (coinbase !== state.coinbase) {
+              state.coinbase = coinbase;
+            }
+          });
+        }, 100);
+      }
     },
-    becomeInvestor({dispatch, state},value){
-
-        value = this.web3Instance.utils.toWei(value.toFixed(2))
-        if (!this.contractInstance){
-            dispatch('connectWeb3')
-        }
-        return this.contractInstance.methods.becomeInvestor()
-        .send({ from: state.coinbase, value:value })
-        .on("receipt", function(receipt) {
-            console.log(receipt)
+    becomeInvestor({ state, rootState }, value) {
+      const weiValue = this.web3Instance.utils.toWei(value.toFixed(2));
+   
+      const contractAddress = rootState.project.ito.contract_address
+      return this.web3Instance.eth.sendTransaction({ from: state.coinbase, value:weiValue, to: contractAddress})
+        .on('receipt', (receipt) => {
+          console.log(receipt);
         })
-        .on("error", function(error) {
-            console.log(error)
-        });    
+        .on('error', (error) => {
+          console.log(error);
+        });
+    },
+    addWallets({dispatch}) {
+      this.web3Instance.eth.getAccounts().then(accounts => {
+
+        for (var wallet of accounts){
+          dispatch('project/addWallet', wallet ,{root:true})
+        }
+      });
     }
   },
 };
