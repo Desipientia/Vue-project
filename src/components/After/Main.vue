@@ -58,7 +58,7 @@
     <div class="_team-block app-content" v-if="main.team">
       <vue-markdown class="e-markdown-block -default -main"
                     :source="main.team.body"></vue-markdown>
-      <div class="_content">
+      <div class="_person-inside-block">
         <div class="_element" :key="i" v-for="(t, i) in team['team']">
           <img class="_image" :src="t.avatar">
           <div class="_description">
@@ -74,13 +74,14 @@
             </div>
           </div>
         </div>
+        <div class="_element -empty" :key="i" v-for="i in maxElementsPerFlexLine"></div>
       </div>
     </div>
-    <div class="_team-block app-content" v-if="main.advisors">
+    <div class="_advisors-block app-content" v-if="main.advisors">
       <vue-markdown class="e-markdown-block -default -main"
                     :source="main.advisors.body"></vue-markdown>
 
-      <div class="_content">
+      <div class="_person-inside-block">
         <div class="_element" :key="i" v-for="(t, i) in team['advisor']">
           <img class="_image" :src="t.avatar">
           <div class="_description">
@@ -96,6 +97,7 @@
             </div>
           </div>
         </div>
+        <div class="_element -empty" :key="i" v-for="i in maxElementsPerFlexLine"></div>
       </div>
     </div>
     <div class="_roadmap-block app-content" v-if="main.roadmap">
@@ -124,6 +126,7 @@
         progressValue: 25000000,
         progressMax: 100000000,
         maxTokensCount: '100 Million CID',
+        maxElementsPerFlexLine: 8,
       };
     },
     computed: {
@@ -188,6 +191,62 @@
       font-size: 16px;
       text-align: center;
       text-decoration: none;
+    }
+    ._person-inside-block {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 60px;
+  
+      ._element {
+        display: flex;
+        width: 31%;
+        max-width: 420px;
+        margin-bottom: 60px;
+        
+        &.-empty {
+          height: 0;
+          margin: 0;
+        }
+      }
+      ._image {
+        min-width: 190px;
+        max-width: 190px;
+        height: 230px;
+        margin-right: 20px;
+        object-fit: contain;
+      }
+      ._description {
+        display: flex;
+        flex-direction: column;
+    
+        .e-caption-text,
+        .e-base-text {
+          font-weight: 600;
+        }
+        .e-caption-text {
+          margin: 0;
+        }
+        .e-base-text {
+          margin: 2px 0 8px;
+        }
+        .e-label-text {
+          flex-grow: 1;
+          line-height: 1.43;
+          padding: 8px 0;
+          border-top: solid 2px #bcbcbc;
+        }
+        ._socials {
+          height: 20px;
+        }
+        ._icon {
+          fill: #bcbcbc;
+      
+          &:not(:last-child) {
+            margin-right: 10px;
+          }
+        }
+      }
     }
     ._header-block,
     ._token-block {
@@ -295,57 +354,6 @@
         }
         ._image {
           width: 100%;
-        }
-      }
-    }
-    ._team-block {
-      ._content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-top: 60px;
-        
-        ._element {
-          display: flex;
-          width: 31%;
-          margin-bottom: 60px;
-        }
-        ._image {
-          width: 190px;
-          height: 230px;
-          margin-right: 20px;
-          object-fit: contain;
-        }
-        ._description {
-          display: flex;
-          flex-direction: column;
-          
-          .e-caption-text,
-          .e-base-text {
-            font-weight: 600;
-          }
-          .e-caption-text {
-            margin: 0;
-          }
-          .e-base-text {
-            margin: 2px 0 8px;
-          }
-          .e-label-text {
-            flex-grow: 1;
-            line-height: 1.43;
-            padding: 8px 0;
-            border-top: solid 2px #bcbcbc;
-          }
-          ._socials {
-            height: 20px;
-          }
-          ._icon {
-            fill: #bcbcbc;
-            
-            &:not(:last-child) {
-              margin-right: 10px;
-            }
-          }
         }
       }
     }
