@@ -74,7 +74,7 @@
             </div>
           </div>
         </div>
-        <div class="_element -empty" :key="i" v-for="i in maxElementsPerFlexLine"></div>
+        <div class="_element -empty" :key="`e_${i}`" v-for="i in maxElementsPerFlexLine"></div>
       </div>
     </div>
     <div class="_advisors-block app-content" v-if="main.advisors">
@@ -97,7 +97,7 @@
             </div>
           </div>
         </div>
-        <div class="_element -empty" :key="i" v-for="i in maxElementsPerFlexLine"></div>
+        <div class="_element -empty" :key="`e_${i}`" v-for="i in maxElementsPerFlexLine"></div>
       </div>
     </div>
     <div class="_roadmap-block app-content" v-if="main.roadmap">
