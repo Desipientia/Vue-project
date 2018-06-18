@@ -1,10 +1,14 @@
 <template>
   <div class="before-connect e-inside-content-block" v-if="connect">
-    <vue-markdown class="e-markdown-block -default" :source="connect[0].body"></vue-markdown>
+    <vue-markdown class="e-markdown-block -default"
+                  :source="connect[0].body"></vue-markdown>
     <div class="_qr-code-block" v-if="qrCode !== null">
       <qrcode :options="{ size: 160 }" v-model="qrCode"></qrcode>
     </div>
-    <vue-markdown class="e-markdown-block -default" :source="connect[1].body"></vue-markdown>
+    <vue-markdown class="e-markdown-block -default -connect"
+                  :source="connect[2].body"></vue-markdown>
+    <vue-markdown class="e-markdown-block -default"
+                  :source="connect[1].body"></vue-markdown>
   </div>
 </template>
 
