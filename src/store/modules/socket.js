@@ -32,8 +32,10 @@ export default {
           break;
         case 'add_cid':
         case 'add_eth':
+        case 'update_ito':
           state.socket.amount = message.amount;
           break;
+
         default:
           break;
       }

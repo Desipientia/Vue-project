@@ -22,7 +22,7 @@
       </div>
       <div class="_info-element">
         <p class="e-label-text">Total tokens distributed in this stage</p>
-        <p class="e-number-text -s">{{ ito.token_for_sale | number }} CIDX</p>
+        <p class="e-number-text -s">{{ ito.token_for_sale | number }} CID</p>
       </div>
       <div class="_info-element" v-if="isActive">
         <p class="e-label-text">Ether received</p>
@@ -34,11 +34,10 @@
         <p class="e-label-text">Your USD/ETH limit</p>
         <div v-if="allocation.transactions_count && allocation.transaction_limit">
           <span class="e-number-text -s -black">
-            ${{ allocation.transactions_count.usd.toFixed(2) }}
-            ({{ allocation.transactions_count.eth }} ETH)
+            ${{ allocation.transaction_remain.usd.toFixed(2) }}
           </span>
           <span class="e-number-text -s -black">
-            / ${{ allocation.transaction_limit.usd_limit.toFixed(2) }} </span>
+            / {{ allocation.transaction_remain.eth.toFixed(2) }} ETH </span>
           <span class="e-number-text -s">remaining</span>
         </div>
       </div>
@@ -79,8 +78,8 @@
           <p class="e-label-text">Balance</p>
           <p class="_history-link e-label-text">History</p>
         </div>
-        <p class="e-number-text -black -l">100 000 CID</p>
-        <p class="e-label-text">Contributed 30.05 ETH</p>
+        <p class="e-number-text -black -l">{{cidTransactionCount}} CID</p>
+        <p class="e-label-text">{{ethTransactionCount}} ETH</p>
         <div class="_error-block" v-if="wallets.length <= 0">
           <!-- eslint-disable-next-line max-len -->
           <span>To receive your CID tokens, please add your ETH wallet to your CryptoID. Open your CryptoID app and follow the instructions to add a wallet.</span>
@@ -112,7 +111,7 @@
     name: 'GetTokens',
     data() {
       return {
-        amount: 10.55,
+        amount: 1.00,
         address: 'null',
         data: [
           { title: 'CID Tokens Distributed', value: 65 },
@@ -126,14 +125,24 @@
     },
 
     computed: {
+
       socketTransaction() {
         return this.$store.state.socket.socket.amount;
       },
       progressValue() {
         const a = this.allocation;
         if (!a.transactions_count) return 0;
-        return (a.transactions_count.usd / a.transaction_limit.usd_limit) * 100;
+        return 100 - (a.transactions_count.usd / a.transaction_limit.usd_limit) * 100;
       },
+      cidTransactionCount(){
+        const a = this.allocation;
+        return  a.cid_transactions_count ? a.cid_transactions_count.CID : 0
+      },
+      ethTransactionCount(){
+        const a = this.allocation;
+        return  a.transactions_count ? a.transactions_count.ETH : 0
+      },
+
       ...mapState('project', [
         'ito',
         'allocation',
@@ -157,15 +166,19 @@
           switch (socketType) {
             case 'add_eth':
               text = `You send ${this.socketTransaction} ETH`;
-              break;
+              this.$toasted.show(text, {}).goAway(3000);
+              break
             case 'add_cid':
               text = `You recieve ${this.socketTransaction} CID`;
+              this.$toasted.show(text, {}).goAway(3000);
+
               break;
+            case 'update_ito':
+              this.updateITORecieve({receivedMoney:this.socketTransaction});
             default:
               break;
           }
 
-          this.$toasted.show(text, {}).goAway(3000);
           this.getAllocation();
         },
         deep: true,
@@ -217,6 +230,7 @@
         'getAllocation',
         'getAgreement',
         'getWalletsList',
+        'updateITORecieve'
       ]),
       ...mapActions('pages', [
         'getInfoModalPageData',

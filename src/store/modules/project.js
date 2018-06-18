@@ -24,6 +24,9 @@ export default {
       if (!wallet in state.wallets){
         state.wallets.push(wallet);
       }
+    },
+    updateITORecieve(state, {receivedMoney}){
+      state.ito.received_money = receivedMoney.receivedMoney
     }
   },
   actions: {
@@ -70,6 +73,10 @@ export default {
       return Vue.http.get(`${URL}wallets/`).then((r) => {
         commit('setStateData', { type: 'wallets', data: r.body });
       });
+    },
+    updateITORecieve({commit}, receivedMoney){
+      commit('updateITORecieve', {receivedMoney});
+
     },
     addWallet({ commit }, wallet) {
       console.log(wallet)
