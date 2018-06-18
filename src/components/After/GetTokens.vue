@@ -33,9 +33,12 @@
       <div class="_text-line">
         <p class="e-label-text">Your USD/ETH limit</p>
         <div v-if="allocation.transactions_count && allocation.transaction_limit">
-          <span class="e-number-text -s -black">${{ allocation.transactions_count.usd.toFixed(2) }} ({{ allocation.transactions_count.eth }} ETH) </span>
           <span class="e-number-text -s -black">
-            / ${{ allocation.transaction_limit.usd_limit }} </span>
+            ${{ allocation.transactions_count.usd.toFixed(2) }}
+            ({{ allocation.transactions_count.eth }} ETH)
+          </span>
+          <span class="e-number-text -s -black">
+            / ${{ allocation.transaction_limit.usd_limit.toFixed(2) }} </span>
           <span class="e-number-text -s">remaining</span>
         </div>
       </div>
