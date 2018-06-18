@@ -6,9 +6,9 @@
       <qrcode :options="{ size: 160 }" v-model="qrCode"></qrcode>
     </div>
     <vue-markdown class="e-markdown-block -default -connect"
-                  :source="connect[2].body"></vue-markdown>
-    <vue-markdown class="e-markdown-block -default"
                   :source="connect[1].body"></vue-markdown>
+    <vue-markdown class="e-markdown-block -default"
+                  :source="connect[2].body"></vue-markdown>
   </div>
 </template>
 
