@@ -1,14 +1,14 @@
 <template>
   <div class="before-connect e-inside-content-block" v-if="connect">
     <vue-markdown class="e-markdown-block -default"
-                  :source="connect[0].body"></vue-markdown>
+                  :source="connect.main_content.body"></vue-markdown>
     <div class="_qr-code-block" v-if="qrCode !== null">
       <qrcode :options="{ size: 160 }" v-model="qrCode"></qrcode>
     </div>
     <vue-markdown class="e-markdown-block -default -connect"
-                  :source="connect[1].body"></vue-markdown>
+                  :source="connect.if_not_installed.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default"
-                  :source="connect[2].body"></vue-markdown>
+                  :source="connect.support.body"></vue-markdown>
   </div>
 </template>
 
@@ -38,7 +38,7 @@
         handler() {
           if (this.socketAuth) {
             this.login(this.socketAuth);
-            this.$router.push({ name: 'get-tokens' });
+            this.$router.push({ name: 'main' });
           }
         },
         deep: true,
