@@ -1,6 +1,5 @@
 <template>
   <div class="after-documentation">
-    <!-- TODO: Check out if Table of contents should be as links or not (can use radio then?) -->
     <div class="_table-of-contents-block">
       <p class="e-number-text -s"
          :class="{ '-black': currentParagraph === 'all' }"
@@ -12,8 +11,11 @@
          @click="currentParagraph = i">{{ d.head }}</p>
     </div>
     <div class="_content-block">
-      <vue-markdown class="e-markdown-block -default"
-                    :source="text"></vue-markdown>
+      <transition name="e-fade" mode="out-in">
+        <vue-markdown class="e-markdown-block -default"
+                      :key="currentParagraph"
+                      :source="text"></vue-markdown>
+      </transition>
     </div>
   </div>
 </template>
@@ -23,25 +25,41 @@
 
   export default {
     name: 'Documentation',
-    data() {
-      return {
-        currentParagraph: 0,
-      };
-    },
     computed: {
       text() {
         if (this.currentParagraph === 'all') {
           return this.documentation.reduce((textArray, e) => {
             textArray.push(e.body);
             return textArray;
-          }, []).join('');
+          }, []).join('\n');
         }
         return this.documentation[this.currentParagraph]
           ? this.documentation[this.currentParagraph].body
           : '';
       },
+      linksArray() {
+        if (!this.documentation) return [];
+        return this.documentation.map(e => e.head.toLowerCase().replace(/( & )|( )|&/g, '_'));
+      },
+      currentParagraph: {
+        get() {
+          const index = this.linksArray.indexOf(this.name);
+          return index === -1 ? 'all' : index;
+        },
+        set(value) {
+          if (value === 'all') {
+            this.$router.replace({ name: 'documentation' });
+          } else {
+            this.$router.replace({
+              name: 'documentation',
+              query: { name: this.linksArray[value] },
+            });
+          }
+        },
+      },
       ...mapState('pages', ['documentation']),
     },
+    props: ['name'],
     methods: mapActions('pages', ['getDocumentationPageData']),
     mounted() {
       this.getDocumentationPageData();
@@ -63,12 +81,17 @@
       @include transition(text);
     }
     ._table-of-contents-block {
-      min-width: 365px;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      bottom: 160px;
+      overflow-y: auto;
+      width: 365px;
       padding: 70px 71px 70px 75px;
       background-color: #f6f6f6;
     }
     ._content-block {
-      padding: 46px 50px 50px 40px;
+      padding: 46px 50px 210px 405px;
     }
   }
 </style>

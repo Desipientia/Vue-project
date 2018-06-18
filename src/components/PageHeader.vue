@@ -68,6 +68,8 @@
           case 'landing':
           case 'main':
             return '-black';
+          case 'documentation':
+            return '-white -docs';
           default:
             return '-white';
         }
@@ -152,6 +154,12 @@
           color: #bcbcbc;
         }
       }
+    }
+    &.-docs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
     }
     ._logo {
       display: flex;

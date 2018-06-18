@@ -9,7 +9,7 @@ export default {
     landing: '',
     connect: '',
     limit: '',
-    documentation: {},
+    documentation: [],
     referral: '',
     info: '',
     tokens: {},
