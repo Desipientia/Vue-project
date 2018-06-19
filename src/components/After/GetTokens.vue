@@ -221,18 +221,20 @@
           this.showWalletModal(() => { this.showBuyTokenModal(); });
         }
       },
-      showWalletModal(callback = (() => { this.$modal.hide(); })) {
+      showWalletModal(callback) {
         const walletsCount = this.wallets.length;
+        // eslint-disable-next-line
         this.$modal.show({
           type: 'wallet',
+          params: { check: w => this.checkWallet(w) },
           onAccept: (data) => {
-            this.checkWallet(data).then((approve) => {
-              if (approve) {
-                this.addWallet(data).then(() => {
-                  if (walletsCount < this.wallets.length) {
-                    callback();
-                  }
-                });
+            this.addWallet(data).then(() => {
+              if (walletsCount < this.wallets.length) {
+                if (typeof callback === 'function') {
+                  callback();
+                } else {
+                  this.$modal.hide();
+                }
               }
             });
           },
@@ -403,10 +405,6 @@
       .e-number-text.-m {
         margin-top: 8px;
       }
-      ._error-block {
-        margin-top: 20px;
-        padding: 15px 20px;
-      }
       ._line {
         margin: 20px 0 24px;
         border-color: rgba(188, 188, 188, 0.3);
@@ -415,6 +413,10 @@
     ._wallets-block {
       .e-label-text {
         margin-bottom: 5px;
+      }
+      ._error-block {
+        margin-top: 20px;
+        padding: 15px 20px;
       }
       ._wallet {
         margin: 0;

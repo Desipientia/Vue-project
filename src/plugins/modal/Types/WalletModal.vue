@@ -1,17 +1,14 @@
 <template>
-  <form class="wallet-modal" @submit.prevent="$modal.accept(wallet)">
+  <form class="wallet-modal" @submit.prevent="$modal.accept(wallet)" @keydown.enter.stop="">
     <p class="m-header-text">Please paste your wallet address</p>
     <!-- eslint-disable-next-line max-len -->
     <p class="e-base-text">Do not use exchange wallet addresses. We recommend cold storage wallets ONLY. Our favorite wallets are MetaMask, MyEtherWallet, Trezor, Ledger. Using of any exchange wallet will most probably result in the loss of CID tokens.</p>
     <input class="e-input" placeholder="Your Wallet" v-model="wallet"/>
-    <button class="e-button -black"
-            type="submit"
-            :disabled="$v.$invalid">Done</button>
+    <button class="e-button -black" :disabled="$v.$invalid">Done</button>
   </form>
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
   import { validationMixin } from 'vuelidate';
   import { required } from 'vuelidate/lib/validators';
 
@@ -23,15 +20,22 @@
       };
     },
     mixins: [validationMixin],
-    validations: {
-      wallet: {
-        required, // TODO  use checkWallet
+    validations() {
+      return {
+        wallet: {
+          required,
+          correct: () => this.checkWallet(this.wallet).then(approve => approve),
+        },
+      };
+    },
+    methods: {
+      checkWallet(wallet) {
+        return this.$modal.params().check(wallet);
       },
     },
     mounted() {
       this.$modal.validateAcceptFromInside(() => !this.$v.$invalid, () => this.wallet);
     },
-    methods: mapActions('web3mod', ['checkWallet']),
   };
   /* eslint-disable */
 </script>

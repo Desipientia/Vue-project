@@ -52,7 +52,7 @@ export default {
           console.log(error);
         });
     },
-    checkWallet(value) {
+    checkWallet({}, value) {
       return this.web3Instance.utils.isAddress(value);
     },
     addWallets({ dispatch }) {
