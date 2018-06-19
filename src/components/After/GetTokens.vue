@@ -78,8 +78,8 @@
           <p class="e-label-text">Balance</p>
           <p class="_history-link e-label-text">History</p>
         </div>
-        <p class="e-number-text -black -l">{{cidTransactionCount}} CID</p>
-        <p class="e-label-text">{{ethTransactionCount}} ETH</p>
+        <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
+        <p class="e-label-text">{{ ethTransactionCount }} ETH</p>
         <div class="_error-block" v-if="wallets.length <= 0">
           <!-- eslint-disable-next-line max-len -->
           <span>To receive your CID tokens, please add your ETH wallet to your CryptoID. Open your CryptoID app and follow the instructions to add a wallet.</span>
@@ -88,10 +88,10 @@
       <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
         <p class="e-label-text">Your Wallets</p>
         <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
-        <div class="_metamask_wallet_button">
+        <div class="_metamask-wallet-button">
           <button class="e-button -grey"
-          @click="addMetamaskWallets"
-          :enabled="web3active">Add Metamask Wallets</button>    
+                  :enabled="web3active"
+                  @click="addWallets">Add Metamask Wallets</button>
         </div>
       </div>
 
@@ -132,15 +132,15 @@
       progressValue() {
         const a = this.allocation;
         if (!a.transactions_count) return 0;
-        return 100 - (a.transactions_count.usd / a.transaction_limit.usd_limit) * 100;
+        return 100 - ((a.transactions_count.usd / a.transaction_limit.usd_limit) * 100);
       },
-      cidTransactionCount(){
+      cidTransactionCount() {
         const a = this.allocation;
-        return  a.cid_transactions_count ? a.cid_transactions_count.CID : 0
+        return a.cid_transactions_count ? a.cid_transactions_count.CID : 0;
       },
-      ethTransactionCount(){
+      ethTransactionCount() {
         const a = this.allocation;
-        return  a.transactions_count ? a.transactions_count.ETH : 0
+        return a.transactions_count ? a.transactions_count.ETH : 0;
       },
 
       ...mapState('project', [
@@ -167,14 +167,14 @@
             case 'add_eth':
               text = `You send ${this.socketTransaction} ETH`;
               this.$toasted.show(text, {}).goAway(3000);
-              break
+              break;
             case 'add_cid':
               text = `You recieve ${this.socketTransaction} CID`;
               this.$toasted.show(text, {}).goAway(3000);
-
               break;
             case 'update_ito':
-              this.updateITORecieve({receivedMoney:this.socketTransaction});
+              this.updateITORecieve({ receivedMoney: this.socketTransaction });
+              break;
             default:
               break;
           }
@@ -213,24 +213,21 @@
             switch (data) {
               case 'metamask':
                 this.becomeInvestor(this.amount);
+                break;
               default:
                 // TO DO: Check if this metamask button
                 this.becomeInvestor(this.amount);
-
                 this.$modal.hide();
             }
           },
         });
-      },
-      addMetamaskWallets(){
-          this.addWallets();
       },
       ...mapActions('project', [
         'getITO',
         'getAllocation',
         'getAgreement',
         'getWalletsList',
-        'updateITORecieve'
+        'updateITORecieve',
       ]),
       ...mapActions('pages', [
         'getInfoModalPageData',
@@ -381,8 +378,8 @@
     ._wallets-block {
       width: 100%;
       padding: 23px 30px;
-      ._metamask_wallet_button {
-        text-align:center;
+      ._metamask-wallet-button {
+        text-align: center;
         margin-top: 15%;
         
       }

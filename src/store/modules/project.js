@@ -20,14 +20,14 @@ export default {
     setStateData(state, { type, data }) {
       state[type] = data;
     },
-    addWallet(state, {wallet}){
-      if (!wallet in state.wallets){
+    addWallet(state, { wallet }) {
+      if (!(wallet in state.wallets)) {
         state.wallets.push(wallet);
       }
     },
-    updateITORecieve(state, {receivedMoney}){
-      state.ito.received_money = receivedMoney.receivedMoney
-    }
+    updateITORecieve(state, { receivedMoney }) {
+      state.ito.received_money = receivedMoney.receivedMoney;
+    },
   },
   actions: {
     getITO({ commit }) {
@@ -74,15 +74,13 @@ export default {
         commit('setStateData', { type: 'wallets', data: r.body });
       });
     },
-    updateITORecieve({commit}, receivedMoney){
-      commit('updateITORecieve', {receivedMoney});
-
+    updateITORecieve({ commit }, receivedMoney) {
+      commit('updateITORecieve', { receivedMoney });
     },
     addWallet({ commit }, wallet) {
-      console.log(wallet)
-      return Vue.http.post(`${URL}wallets/`, {wallet}).then((r) => {
-        commit('addWallet', {wallet: r.body});
+      return Vue.http.post(`${URL}wallets/`, { wallet }).then((r) => {
+        commit('addWallet', { wallet: r.body });
       });
-    }
+    },
   },
 };
