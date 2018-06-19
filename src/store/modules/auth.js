@@ -59,10 +59,8 @@ export default {
 
     connectSocket({ state, rootState, dispatch }, userPk) {
       if ((state.token !== null && !rootState.socket.socket.isConnected) || state.token === null) {
-        console.log('socket '+ userPk)
         dispatch('dicsonnect');
         const wsUrl = `${wsRoot}${userPk}/`;
-        console.log(wsUrl)
         Vue.use(VueNativeSock, wsUrl, {
           store: this,
           format: 'json',

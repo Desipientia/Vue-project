@@ -21,7 +21,7 @@ export default {
       state[type] = data;
     },
     addWallet(state, wallet) {
-      if (!(wallet in state.wallets)) {
+      if (!wallet in state.wallets) {
         state.wallets.push(wallet);
       }
     },

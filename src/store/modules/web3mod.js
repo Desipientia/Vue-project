@@ -39,7 +39,7 @@ export default {
     becomeInvestor({ state, rootState }, value) {
       const weiValue = this.web3Instance.utils.toWei(value.toFixed(2));
 
-      const contractAddress = rootState.project.ito.contract_address;
+      const contractAddress = rootState.project.ito.contract.address;
       return this.web3Instance.eth.sendTransaction({
         from: state.coinbase,
         value: weiValue,
@@ -53,6 +53,10 @@ export default {
           // eslint-disable-next-line no-console
           console.log(error);
         });
+    },
+    checkWallet(value){
+      var cas = this.web3Instance.utils.isAddress(value)
+      return this.web3Instance.utils.isAddress(value)
     },
     addWallets({ dispatch }) {
       this.web3Instance.eth.getAccounts().then((accounts) => {

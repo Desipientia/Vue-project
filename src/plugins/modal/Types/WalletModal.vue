@@ -12,7 +12,8 @@
 
 <script>
   import { validationMixin } from 'vuelidate';
-  import { required } from 'vuelidate/lib/validators';
+  import { required } from 'vuelidate/lib/validators';  
+  import { mapActions } from 'vuex';
 
   export default {
     name: 'WalletModal',
@@ -23,11 +24,16 @@
     },
     mixins: [validationMixin],
     validations: {
-      wallet: { required },
+      wallet: { required, 
+      // TODO  use checkWallet 
+      },
     },
     mounted() {
       this.$modal.validateAcceptFromInside(() => !this.$v.$invalid, () => this.wallet);
     },
+    methods: {
+      ...mapActions('web3mod', ['checkWallet'])
+    }
   };
   /* eslint-disable */
 </script>

@@ -34,10 +34,10 @@
         <p class="e-label-text">Your USD/ETH limit</p>
         <div v-if="allocation.transaction_remain">
           <span class="e-number-text -s -black">
-            ${{ allocation.transaction_remain.usd.toFixed(2) }}
+            ${{ allocation.transaction_remain.usd_amount.toFixed(2) }}
           </span>
           <span class="e-number-text -s -black">
-            ({{ allocation.transaction_remain.eth.toFixed(2) }} ETH)</span>
+            ({{ allocation.transaction_remain.eth_amount.toFixed(2) }} ETH)</span>
           <span class="e-number-text -s">remaining</span>
         </div>
       </div>
@@ -77,14 +77,14 @@
       <div class="_balance-block e-white-content-block" v-if="showBalance">
         <p class="e-label-text">Balance</p>
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
-        <p class="e-label-text">Total Contributed <b>{{ ethTransactionCount }} ETH</b></p>
+        <p class="e-label-text">Total Contributed <b>{{ fullEthTransactionCount }} ETH</b></p>
         <hr class="_line">
         <p class="e-label-text">Contributed in this stage</p>
-        <p class="e-number-text -black -m">{{ ethTransactionCount }} ETH</p>
+        <p class="e-number-text -black -m">{{ currentEthTransactionCount }} ETH</p>
         <!-- eslint-disable-next-line max-len -->
         <p class="e-info-text">You will receive tokens after the closing of the distribution stage.</p>
       </div>
-      <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
+      <div class="_wallets-block e-white-content-block">
         <p class="e-label-text">Your Wallets</p>
         <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
         <div class="_error-block" v-if="wallets.length <= 0">
@@ -131,20 +131,24 @@
       },
       progressValue() {
         const a = this.allocation;
-        if (!a.transactions_count) return 0;
-        return 100 - ((a.transactions_count.usd / a.transaction_limit.usd_limit) * 100);
+        if (!a.full_transactions_count) return 0;
+        return 100 - ((a.full_transactions_count.usd_amount / a.transaction_limit.usd_limit) * 100);
       },
       cidTransactionCount() {
         const a = this.allocation;
-        return a.cid_transactions_count ? a.cid_transactions_count.CID : 0;
+        return a.cid_transactions_count ? a.cid_transactions_count : 0;
       },
-      ethTransactionCount() {
+      fullEthTransactionCount() {
         const a = this.allocation;
-        return a.transactions_count ? a.transactions_count.ETH : 0;
+        return a.full_transactions_count ? a.full_transactions_count.eth_amount : 0;
+      },
+      currentEthTransactionCount() {
+        const a = this.allocation;
+        return a.current_transactions_count ? a.current_transactions_count.eth_amount : 0;
       },
       maxTransactionCountAvailable() {
         const a = this.allocation;
-        return +(a.transaction_remain ? a.transaction_remain.eth : 0).toFixed(2);
+        return +(a.transaction_remain ? a.transaction_remain.eth_amount : 0).toFixed(2);
       },
       ...mapState('project', [
         'ito',
@@ -222,11 +226,15 @@
         this.$modal.show({
           type: 'wallet',
           onAccept: (data) => {
-            this.addWallet(data).then(() => {
-              if (walletsCount < this.wallets.length) {
-                callback();
+           this.checkWallet(data).then((approve) => {
+            if (approve){
+                this.addWallet(data).then(() => {                  
+                  if (walletsCount < this.wallets.length) {
+                    callback();
+                  }
+                });
               }
-            });
+            })
           },
         });
       },
@@ -257,6 +265,7 @@
         'connectWeb3',
         'becomeInvestor',
         'addWallets',
+        'checkWallet',
       ]),
     },
     mounted() {
@@ -280,7 +289,7 @@
       this.getGetTokensPageData();
       this.getAllocation();
       this.getITO().then(() => {
-        this.address = this.ito.contract_address;
+        this.address = this.ito.contract.address;
         this.connectWeb3();
       });
     },
