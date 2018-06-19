@@ -46,7 +46,7 @@
       &.-half {
         ._background-block {
           width: 100%;
-          height: 600px;
+          height: 620px;
           background-color: #0e0e0e;
         }
       }

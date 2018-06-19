@@ -39,7 +39,14 @@
       <div class="_line">
         <vue-markdown class="e-markdown-block -default -main -ecosystem -short"
                       :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
-        <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
+        <div class="_image-wrapper">
+          <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
+          <button class="_rounded-button"
+                  @click="$modal.show(
+                    'image-view',
+                    { src: main.the_cryptoid_ecosystem.files[0].file }
+                  )">View full size</button>
+        </div>
       </div>
       <vue-markdown class="e-markdown-block -default -main -ecosystem"
                     :source="main.the_ecosystem_pictures.body"></vue-markdown>
@@ -180,17 +187,17 @@
     }
     ._rounded-button {
       display: block;
-      width: 190px;
       height: 40px;
       line-height: 40px;
       border-radius: 20px;
-      background-color: #313131;
+      border: none;
       color: #fff;
       font-family: "Cabin", sans-serif;
       font-weight: 600;
       font-size: 16px;
       text-align: center;
       text-decoration: none;
+      cursor: pointer;
     }
     ._person-inside-block {
       display: flex;
@@ -327,19 +334,33 @@
       }
     }
     ._ecosystem-block {
+      ._rounded-button {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        width: 130px;
+        background-color: rgba(14, 14, 14, 0.4);
+      }
       ._line {
         display: flex;
         justify-content: space-between;
       }
-      ._image {
+      ._image-wrapper {
+        position: relative;
         flex-grow: 1;
         flex-basis: 620px;
         max-width: 700px;
         margin-left: 30px;
+        
+        ._image {
+          width: 100%;
+        }
       }
     }
     ._token-block {
       ._rounded-button {
+        width: 190px;
         margin-top: 25px;
         background-color: #313131;
       }

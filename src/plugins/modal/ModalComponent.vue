@@ -33,6 +33,7 @@
   const InfoModal = () => import('./Types/InfoModal');
   const AgreementModal = () => import('./Types/AgreementModal');
   const WalletModal = () => import('./Types/WalletModal');
+  const ImageViewModal = () => import('./Types/ImageViewModal');
 
   export default {
     name: 'ModalComponent',
@@ -50,6 +51,7 @@
       info: InfoModal,
       agreement: AgreementModal,
       wallet: WalletModal,
+      'image-view': ImageViewModal,
     },
     methods: {
       show(type, params, onHide, onAccept) {

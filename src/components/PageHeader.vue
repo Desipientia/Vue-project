@@ -23,7 +23,7 @@
         <span class="_share-text">Share on</span>
         <svg-icon class="_share-link" name="twitter"></svg-icon>
         <svg-icon class="_share-link" name="facebook"></svg-icon>
-        <svg-icon class="_share-link" name="linked-in"></svg-icon>
+        <svg-icon class="_share-link" name="linkedin"></svg-icon>
         <svg-icon class="_share-link" name="telegram"></svg-icon>
       </div>
     </transition>

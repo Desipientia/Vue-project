@@ -15,7 +15,7 @@
       <span class="_follow-text">Follow us on</span>
       <svg-icon class="_follow-link" name="twitter"></svg-icon>
       <svg-icon class="_follow-link" name="facebook"></svg-icon>
-      <svg-icon class="_follow-link" name="linked-in"></svg-icon>
+      <svg-icon class="_follow-link" name="linkedin"></svg-icon>
       <svg-icon class="_follow-link" name="telegram"></svg-icon>
       <svg-icon class="_follow-link" name="youtube"></svg-icon>
     </div>

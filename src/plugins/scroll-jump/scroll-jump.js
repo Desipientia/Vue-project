@@ -2,6 +2,7 @@ export default {
   install: (Vue) => {
     const body = document.body;
     // TODO: Add automatic initial padding count if possible
+    // TODO: Fix main content blocks
     const jumpingBlocks = [
       { id: 'header', initialPadding: 75 },
       { id: 'container', initialPadding: 0 },
