@@ -20,7 +20,7 @@ export default {
     setStateData(state, { type, data }) {
       state[type] = data;
     },
-    addWallet(state, { wallet }) {
+    addWallet(state, wallet) {
       if (!(wallet in state.wallets)) {
         state.wallets.push(wallet);
       }
@@ -74,12 +74,12 @@ export default {
         commit('setStateData', { type: 'wallets', data: r.body });
       });
     },
-    updateITORecieve({ commit }, receivedMoney) {
+    updateITOReceive({ commit }, receivedMoney) {
       commit('updateITORecieve', { receivedMoney });
     },
     addWallet({ commit }, wallet) {
       return Vue.http.post(`${URL}wallets/`, { wallet }).then((r) => {
-        commit('addWallet', { wallet: r.body });
+        commit('addWallet', r.body);
       });
     },
   },

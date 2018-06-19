@@ -32,18 +32,18 @@
     <div class="_allocation-block e-white-content-block">
       <div class="_text-line">
         <p class="e-label-text">Your USD/ETH limit</p>
-        <div v-if="allocation.transactions_count && allocation.transaction_limit">
+        <div v-if="allocation.transaction_remain">
           <span class="e-number-text -s -black">
             ${{ allocation.transaction_remain.usd.toFixed(2) }}
           </span>
           <span class="e-number-text -s -black">
-            / {{ allocation.transaction_remain.eth.toFixed(2) }} ETH </span>
+            ({{ allocation.transaction_remain.eth.toFixed(2) }} ETH)</span>
           <span class="e-number-text -s">remaining</span>
         </div>
       </div>
       <progress-bar class="_progress-bar -default" :value="progressValue"></progress-bar>
       <p class="_modal-link-text -single e-label-text"
-         v-if="progressValue !== 100"
+         v-if="progressValue !== 0"
          @click="showInfoModal">How to increase?</p>
       <div class="_error-block" v-else>
         You have reached your limit. Please
@@ -52,8 +52,11 @@
     </div>
     <form class="_send-block e-white-content-block"
           v-if="isActive"
-          @submit.prevent="showBuyTokenModal">
-      <div>
+          @submit.prevent="goNext">
+      <div class="_inside-content">
+        <button class="_max-button e-button"
+                type="button"
+                @click="amount = maxTransactionCountAvailable">Max</button>
         <vue-autonumeric class="e-input -l"
                          type="tel"
                          placeholder="0"
@@ -66,9 +69,7 @@
                          v-model="amount"></vue-autonumeric>
         <span class="e-number-text -s -black">ETH</span>
       </div>
-      <button class="e-button -black"
-              type="submit"
-              :disabled="$v.$invalid">Send</button>
+      <button class="e-button -black" :disabled="$v.$invalid">Next</button>
     </form>
     <vue-markdown class="e-markdown-block -tokens"
                   :source="tokens.body"></vue-markdown>
@@ -79,7 +80,7 @@
           <p class="_history-link e-label-text">History</p>
         </div>
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
-        <p class="e-label-text">{{ ethTransactionCount }} ETH</p>
+        <p class="e-label-text">Contributed {{ ethTransactionCount }} ETH</p>
         <div class="_error-block" v-if="wallets.length <= 0">
           <!-- eslint-disable-next-line max-len -->
           <span>To receive your CID tokens, please add your ETH wallet to your CryptoID. Open your CryptoID app and follow the instructions to add a wallet.</span>
@@ -123,9 +124,7 @@
         showBalance: true,
       };
     },
-
     computed: {
-
       socketTransaction() {
         return this.$store.state.socket.socket.amount;
       },
@@ -142,7 +141,10 @@
         const a = this.allocation;
         return a.transactions_count ? a.transactions_count.ETH : 0;
       },
-
+      maxTransactionCountAvailable() {
+        const a = this.allocation;
+        return +(a.transaction_remain ? a.transaction_remain.eth : 0).toFixed(2);
+      },
       ...mapState('project', [
         'ito',
         'allocation',
@@ -173,12 +175,11 @@
               this.$toasted.show(text, {}).goAway(3000);
               break;
             case 'update_ito':
-              this.updateITORecieve({ receivedMoney: this.socketTransaction });
+              this.updateITOReceive({ receivedMoney: this.socketTransaction });
               break;
             default:
               break;
           }
-
           this.getAllocation();
         },
         deep: true,
@@ -192,7 +193,10 @@
     mixins: [validationMixin],
     validations() {
       return {
-        amount: { notZero: value => value > 0 },
+        amount: {
+          notZero: value => value > 0,
+          notBeyondMax: value => value <= this.maxTransactionCountAvailable,
+        },
       };
     },
     methods: {
@@ -205,20 +209,33 @@
           });
         }
       },
+      goNext() {
+        if (this.wallets.length > 0) {
+          this.showBuyTokenModal();
+        } else {
+          this.showWalletModal(() => { this.showBuyTokenModal(); });
+        }
+      },
+      showWalletModal(callback = (() => { this.$modal.hide(); })) {
+        const walletsCount = this.wallets.length;
+        this.$modal.show({
+          type: 'wallet',
+          onAccept: (data) => {
+            this.addWallet(data).then(() => {
+              if (walletsCount < this.wallets.length) {
+                callback();
+              }
+            });
+          },
+        });
+      },
       showBuyTokenModal() {
         this.$modal.show({
           type: 'buy',
           params: { amount: this.amount, address: this.address },
-          onAccept: (data) => {
-            switch (data) {
-              case 'metamask':
-                this.becomeInvestor(this.amount);
-                break;
-              default:
-                // TO DO: Check if this metamask button
-                this.becomeInvestor(this.amount);
-                this.$modal.hide();
-            }
+          onAccept: () => {
+            this.becomeInvestor(this.amount);
+            this.$modal.hide();
           },
         });
       },
@@ -227,15 +244,19 @@
         'getAllocation',
         'getAgreement',
         'getWalletsList',
-        'updateITORecieve',
+        'updateITOReceive',
+        'addWallet',
       ]),
       ...mapActions('pages', [
         'getInfoModalPageData',
         'getGetTokensPageData',
       ]),
       ...mapActions('auth', ['confirmAgreement']),
-      ...mapActions('web3mod', ['connectWeb3', 'becomeInvestor', 'addWallets']),
-
+      ...mapActions('web3mod', [
+        'connectWeb3',
+        'becomeInvestor',
+        'addWallets',
+      ]),
     },
     mounted() {
       if (!this.isAgreementConfirmed) {
@@ -254,7 +275,6 @@
           });
         });
       }
-
       this.getWalletsList();
       this.getGetTokensPageData();
       this.getAllocation();
@@ -306,18 +326,37 @@
       }
     }
     ._send-block {
+      align-items: flex-end;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
   
       .e-input {
         margin-right: 5px;
       }
+      ._inside-content {
+        position: relative;
+        
+        ._max-button {
+          position: absolute;
+          bottom: 10px;
+          width: 68px;
+          height: 30px;
+          background-color: #f6f6f6;
+          color: #767676;
+          font-family: "Open Sans", sans-serif;
+          font-weight: 700;
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+    }
+    ._text-line {
+      align-items: flex-start;
     }
     ._send-block,
     ._text-line {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
     }
     ._block-caption {
       margin: 25px 0 15px;

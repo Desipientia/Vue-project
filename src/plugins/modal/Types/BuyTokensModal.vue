@@ -16,15 +16,10 @@
       Please set the gas to at least <b>55 GWEI</b> and <b>210.000</b> (two hundred and ten thousand) blocks.
     </p>
     <p class="e-label-text">Send with browser plugin</p>
-    <div class="_grey-block">
-      <button class="e-button -black" type="submit"
-              @submit.prevent="$modal.accept()">
-               Send Transaction with MetaMask
-      </button>
-    </div>
-    <p class="e-label-text">To confirm you transaction, please click on the button</p>
-    <button class="e-button -black" type="submit"
-    @submit.prevent="$modal.accept('default')">I sent</button>
+    <button class="e-button -grey"
+            type="submit">Send Transaction with MetaMask</button>
+    <!-- eslint-disable-next-line max-len-->
+    <p class="_bottom-text e-label-text">Thanks for participating in the CID Token distribution. You should receive your contribution to your balance within 24 hours.</p>
   </form>
 </template>
 
@@ -94,6 +89,9 @@
     ._qr-code-block {
       display: block;
       margin: 20px auto;
+    }
+    ._bottom-text {
+      margin-top: 45px;
     }
   }
 </style>
