@@ -50,8 +50,6 @@
         this.getUserProject().then(() => {
           const data = { ...this.qrCode, referal_number: this.referral || null };
           this.finishQrCode = JSON.stringify(data);
-          console.log(data.pk)
-
           this.connectSocket(data.pk);
         });
       },

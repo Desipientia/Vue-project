@@ -226,15 +226,15 @@
         this.$modal.show({
           type: 'wallet',
           onAccept: (data) => {
-           this.checkWallet(data).then((approve) => {
-            if (approve){
-                this.addWallet(data).then(() => {                  
+            this.checkWallet(data).then((approve) => {
+              if (approve) {
+                this.addWallet(data).then(() => {
                   if (walletsCount < this.wallets.length) {
                     callback();
                   }
                 });
               }
-            })
+            });
           },
         });
       },

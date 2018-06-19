@@ -23,7 +23,6 @@ export default {
     },
     // default handler called for all methods
     SOCKET_ONMESSAGE(state, message) {
-      // eslint-disable-next-line no-console
       state.socket.type = message.type;
       switch (message.type) {
         case 'authorize':

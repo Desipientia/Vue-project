@@ -13,8 +13,6 @@ export default {
     },
     web3active: false,
   },
-  getters: {
-  },
   mutations: {
     setWeb3Active(state, { active }) {
       state.web3active = active;
@@ -54,9 +52,8 @@ export default {
           console.log(error);
         });
     },
-    checkWallet(value){
-      var cas = this.web3Instance.utils.isAddress(value)
-      return this.web3Instance.utils.isAddress(value)
+    checkWallet(value) {
+      return this.web3Instance.utils.isAddress(value);
     },
     addWallets({ dispatch }) {
       this.web3Instance.eth.getAccounts().then((accounts) => {

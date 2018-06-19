@@ -20,7 +20,7 @@ export default {
   namespaced: true,
   state: {
     token: null,
-    qrCode: null
+    qrCode: null,
   },
   getters: {
     isAuthorized: state => state.token !== null,
@@ -49,14 +49,12 @@ export default {
     login({ commit }, user) {
       if (user) {
         Vue.http.headers.common.Authorization = user.cid_token;
-        // eslint-disable-next-line no-undef,no-console
         commit('setUserData', user.cid_token);
         if (user.purchase_agreement) {
           localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
         }
       }
     },
-
     connectSocket({ state, rootState, dispatch }, userPk) {
       if ((state.token !== null && !rootState.socket.socket.isConnected) || state.token === null) {
         dispatch('dicsonnect');
@@ -73,21 +71,21 @@ export default {
       dispatch('dicsonnect');
       Vue.http.options.headers = {};
       commit('removeUserData');
-      dispatch('getUserProject')
+      dispatch('getUserProject');
     },
     dicsonnect({ rootState }) {
       if (rootState.socket.socket.isConnected) {
         vm.$disconnect();
-        let index = Vue._installedPlugins.indexOf(VueNativeSock)
-        if(index > -1){
-          Vue._installedPlugins.splice(index, 1)
+        const index = Vue._installedPlugins.indexOf(VueNativeSock);
+        if (index > -1) {
+          Vue._installedPlugins.splice(index, 1);
         }
       }
     },
-    getUserProject({commit}) {
-      return Vue.http.get(`${URL}new-user-project/`).then((r) =>{
+    getUserProject({ commit }) {
+      return Vue.http.get(`${URL}new-user-project/`).then((r) => {
         commit('setQrCode', r.body);
-      })
+      });
     },
     confirmAgreement({}, data) {
       Vue.http.put(`${URL}license-agreement/`, { questions: data }).then(() => {
