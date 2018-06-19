@@ -89,7 +89,7 @@
         <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
         <div class="_error-block" v-if="wallets.length <= 0">
           <!-- eslint-disable-next-line max-len -->
-          <span>To receive your CID tokens, please add your ETH wallet to your CryptoID. Open your CryptoID app and follow the instructions to add a wallet.</span>
+          <span>To receive your CID tokens please add your ETH wallet or open the CryptoID app and follow the instructions to add a wallet.</span>
         </div>
         <button class="_add-wallet-button e-label-text"
                 :disabled="!web3active"

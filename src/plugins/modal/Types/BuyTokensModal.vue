@@ -19,7 +19,7 @@
     <button class="e-button -grey"
             type="submit">Send Transaction with MetaMask</button>
     <!-- eslint-disable-next-line max-len-->
-    <p class="_bottom-text e-label-text">Thanks for participating in the CID Token distribution. You should receive your contribution to your balance within 24 hours.</p>
+    <p class="_bottom-text e-label-text">You should see the amount of ETH you contributed added to your balance within 24 hours. You will receive your CID tokens at the end of the current token distribution period.</p>
   </form>
 </template>
 
