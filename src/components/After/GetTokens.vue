@@ -75,12 +75,14 @@
                   :source="tokens.body"></vue-markdown>
     <div class="_side-block">
       <div class="_balance-block e-white-content-block" v-if="showBalance">
-        <div class="_text-line">
-          <p class="e-label-text">Balance</p>
-          <p class="_history-link e-label-text">History</p>
-        </div>
+        <p class="e-label-text">Balance</p>
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
-        <p class="e-label-text">Contributed {{ ethTransactionCount }} ETH</p>
+        <p class="e-label-text">Total Contributed <b>{{ ethTransactionCount }} ETH</b></p>
+        <hr class="_line">
+        <p class="e-label-text">Contributed in this stage</p>
+        <p class="e-number-text -black -m">{{ ethTransactionCount }} ETH</p>
+        <!-- eslint-disable-next-line max-len -->
+        <p class="e-info-text">You will receive tokens after the closing of the distribution stage.</p>
       </div>
       <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
         <p class="e-label-text">Your Wallets</p>
@@ -389,13 +391,16 @@
     ._balance-block {
       margin-bottom: 20px;
       
-      ._history-link {
-        text-decoration: underline;
-        cursor: pointer;
+      .e-number-text.-m {
+        margin-top: 8px;
       }
       ._error-block {
         margin-top: 20px;
         padding: 15px 20px;
+      }
+      ._line {
+        margin: 20px 0 24px;
+        border-color: rgba(188, 188, 188, 0.3);
       }
     }
     ._wallets-block {
