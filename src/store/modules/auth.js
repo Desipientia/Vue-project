@@ -20,6 +20,7 @@ export default {
   namespaced: true,
   state: {
     token: null,
+    qrCode: null
   },
   getters: {
     isAuthorized: state => state.token !== null,
@@ -30,6 +31,9 @@ export default {
     setUserData(state, token) {
       setStorageItem(AUTH_TOKEN_KEY, token);
       state.token = token;
+    },
+    setQrCode(state, qrCode) {
+      state.qrCode = qrCode;
     },
     removeUserData(state) {
       removeStorageItem(AUTH_TOKEN_KEY);
@@ -55,8 +59,10 @@ export default {
 
     connectSocket({ state, rootState, dispatch }, userPk) {
       if ((state.token !== null && !rootState.socket.socket.isConnected) || state.token === null) {
+        console.log('socket '+ userPk)
         dispatch('dicsonnect');
         const wsUrl = `${wsRoot}${userPk}/`;
+        console.log(wsUrl)
         Vue.use(VueNativeSock, wsUrl, {
           store: this,
           format: 'json',
@@ -68,15 +74,22 @@ export default {
     logout({ commit, dispatch }) {
       dispatch('dicsonnect');
       Vue.http.options.headers = {};
-      return commit('removeUserData');
+      commit('removeUserData');
+      dispatch('getUserProject')
     },
     dicsonnect({ rootState }) {
       if (rootState.socket.socket.isConnected) {
         vm.$disconnect();
+        let index = Vue._installedPlugins.indexOf(VueNativeSock)
+        if(index > -1){
+          Vue._installedPlugins.splice(index, 1)
+        }
       }
     },
-    getUserProject() {
-      return Vue.http.get(`${URL}new-user-project/`);
+    getUserProject({commit}) {
+      return Vue.http.get(`${URL}new-user-project/`).then((r) =>{
+        commit('setQrCode', r.body);
+      })
     },
     confirmAgreement({}, data) {
       Vue.http.put(`${URL}license-agreement/`, { questions: data }).then(() => {

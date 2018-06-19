@@ -2,8 +2,8 @@
   <div class="before-connect e-inside-content-block" v-if="connect">
     <vue-markdown class="e-markdown-block -default"
                   :source="connect.main_content.body"></vue-markdown>
-    <div class="_qr-code-block" v-if="qrCode !== null">
-      <qrcode :options="{ size: 160 }" v-model="qrCode"></qrcode>
+    <div class="_qr-code-block" v-if="finishQrCode !== null">
+      <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>
     </div>
     <vue-markdown class="e-markdown-block -default -connect"
                   :source="connect.if_not_installed.body"></vue-markdown>
@@ -21,7 +21,7 @@
     name: 'Connect',
     data() {
       return {
-        qrCode: null,
+        finishQrCode: null,
       };
     },
     computed: {
@@ -29,6 +29,7 @@
         return this.$store.state.socket.socket.user;
       },
       ...mapState('pages', ['connect']),
+      ...mapState('auth', ['qrCode']),
       ...mapGetters('auth', ['isAuthorized']),
     },
     props: ['referral'],
@@ -46,9 +47,11 @@
     },
     methods: {
       generateNewQRcode() {
-        this.getUserProject().then((r) => {
-          const data = { ...r.body, referal_number: this.referral || null };
-          this.qrCode = JSON.stringify(data);
+        this.getUserProject().then(() => {
+          const data = { ...this.qrCode, referal_number: this.referral || null };
+          this.finishQrCode = JSON.stringify(data);
+          console.log(data.pk)
+
           this.connectSocket(data.pk);
         });
       },
