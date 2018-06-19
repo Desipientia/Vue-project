@@ -234,7 +234,7 @@
           flex-grow: 1;
           line-height: 1.43;
           padding: 8px 0;
-          border-top: solid 2px #bcbcbc;
+          border-top: solid 1px #bcbcbc;
         }
         ._socials {
           height: 20px;
