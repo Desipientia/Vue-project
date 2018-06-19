@@ -81,21 +81,20 @@
         </div>
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
         <p class="e-label-text">Contributed {{ ethTransactionCount }} ETH</p>
-        <div class="_error-block" v-if="wallets.length <= 0">
-          <!-- eslint-disable-next-line max-len -->
-          <span>To receive your CID tokens, please add your ETH wallet to your CryptoID. Open your CryptoID app and follow the instructions to add a wallet.</span>
-        </div>
       </div>
       <div class="_wallets-block e-white-content-block" v-if="wallets.length > 0">
         <p class="e-label-text">Your Wallets</p>
         <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
-        <div class="_metamask-wallet-button">
-          <button class="e-button -grey"
-                  :enabled="web3active"
-                  @click="addWallets">Add Metamask Wallets</button>
+        <div class="_error-block" v-if="wallets.length <= 0">
+          <!-- eslint-disable-next-line max-len -->
+          <span>To receive your CID tokens, please add your ETH wallet to your CryptoID. Open your CryptoID app and follow the instructions to add a wallet.</span>
         </div>
+        <button class="_add-wallet-button e-label-text"
+                :disabled="!web3active"
+                @click="addWallets">+ Add Metamask Wallets</button>
+        <button class="_add-wallet-button e-label-text"
+                @click="showWalletModal">+ Add Wallet</button>
       </div>
-
     </div>
   </div>
 </template>
@@ -409,19 +408,32 @@
         overflow: hidden;
         color: #767676;
         font-family: "Open Sans", sans-serif;
+        font-weight: bold;
         font-size: 16px;
         text-overflow: ellipsis;
+      }
+      ._add-wallet-button {
+        line-height: 1.43;
+        margin: 10px 0 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        text-decoration: underline;
+        cursor: pointer;
+        
+        &:first-of-type {
+          margin-top: 15px;
+        }
+        &:disabled {
+          opacity: .5;
+          cursor: default;
+        }
       }
     }
     ._balance-block,
     ._wallets-block {
       width: 100%;
       padding: 23px 30px;
-      ._metamask-wallet-button {
-        text-align: center;
-        margin-top: 15%;
-        
-      }
     }
     ._error-block {
       line-height: 1.43;
