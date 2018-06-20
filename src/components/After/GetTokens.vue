@@ -136,7 +136,7 @@
       },
       cidTransactionCount() {
         const a = this.allocation;
-        return a.cid_transactions_count ? a.cid_transactions_count : 0;
+        return a.full_cid_transactions_count ? a.full_cid_transactions_count : 0;
       },
       fullEthTransactionCount() {
         const a = this.allocation;
