@@ -27,10 +27,7 @@
             </div>
             <router-link class="_element e-button -white -xl"
                          :to="{ name: 'get-tokens' }">Get Tokens</router-link>
-            <div class="_element">
-              <p class="_label">Token distribution closes in</p>
-              <timer class="-main" :ending-at="date.end_date"></timer>
-            </div>
+            <timer class="_element -main" :date-range="date"></timer>
           </div>
         </div>
       </div>
@@ -281,10 +278,9 @@
         margin-right: 30px;
       }
       ._side-block {
-        min-width: 540px;
+        min-width: 580px;
         
         ._distributed-block {
-          width: 520px;
           margin: 0 10px 0;
           padding: 30px 30px 25px;
           border-radius: 4px 4px 0 0;

@@ -15,10 +15,7 @@
     <div class="_content-block">
       <router-link class="e-button -white -l"
                    :to="{ name: 'connect', query: this.$route.query }">Get full access</router-link>
-      <div class="_timer">
-        <p class="_label">Time to pass the KYC process</p>
-        <timer class="-landing" ending-at="Jun 25, 2018"></timer>
-      </div>
+      <timer class="_timer -landing" type="landing" :date-range="date"></timer>
     </div>
   </div>
 </template>
@@ -36,7 +33,10 @@
         videoId: null,
       };
     },
-    computed: mapState('pages', ['landing']),
+    computed: {
+      ...mapState('pages', ['landing']),
+      ...mapState('project', ['date']),
+    },
     props: ['referral'],
     watch: {
       visibleVideo() {
@@ -44,8 +44,12 @@
       },
     },
     components: { Timer },
-    methods: mapActions('pages', ['getLandingPageData']),
+    methods: {
+      ...mapActions('pages', ['getLandingPageData']),
+      ...mapActions('project', ['getDateList']),
+    },
     mounted() {
+      this.getDateList();
       this.getLandingPageData().then(() => {
         this.visibleVideo = 0;
       });
@@ -80,13 +84,6 @@
       padding: 8px 5px;
       border-radius: 4px;
       border: none;
-  
-      ._label {
-        margin: 0;
-        color: #bcbcbc;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
-      }
     }
     ._nav-block {
       display: flex;

@@ -16,10 +16,7 @@
           </div>
         </div>
       </div>
-      <div class="_info-element" v-if="ito.current_date">
-        <p class="e-label-text">Token distribution closes in</p>
-        <timer :ending-at="ito.current_date.end_date"></timer>
-      </div>
+      <timer class="_info-element" :date-range="ito.current_date"></timer>
       <div class="_info-element">
         <p class="e-label-text">Total tokens distributed in this stage</p>
         <p class="e-number-text -s">{{ ito.token_for_sale | number }} CID</p>
@@ -224,7 +221,6 @@
       },
       showWalletModal(callback) {
         const walletsCount = this.wallets.length;
-        // eslint-disable-next-line
         this.$modal.show({
           type: 'wallet',
           params: { check: w => this.checkWallet(w) },

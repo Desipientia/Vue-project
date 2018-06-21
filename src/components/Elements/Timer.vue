@@ -1,16 +1,27 @@
 <template>
   <div class="timer">
-    <div class="_element" :key="e" v-for="(e, i) in timerElements">
-      <div>
-        <p class="_text"
-           :class="{ '-center': i > 0 }">{{ timerData[e] | twoDigits }}</p>
-        <p class="_legend">{{ e }}</p>
+    <p class="e-label-text" v-if="type === 'landing'">Time to pass the KYC process</p>
+    <p class="e-label-text" v-else>
+      <transition name="e-fade" mode="out-in">
+        <span key="inactive" v-if="isInactive">
+          The next token distribution will start in</span>
+        <span key="default" v-else>Token distribution closes in</span>
+      </transition>
+    </p>
+    <div class="_timer-block">
+      <div class="_element" :key="e" v-for="(e, i) in timerElements">
+        <div>
+          <p class="_text"
+             :class="{ '-center': i > 0 }">{{ timerData[e] | twoDigits }}</p>
+          <p class="_legend">{{ e }}</p>
+        </div>
+        <span class="_colon-divider" v-if="i < timerElements.length - 1">:</span>
       </div>
-      <span class="_colon-divider" v-if="i < timerElements.length - 1">:</span>
     </div>
   </div>
 </template>
 
+<!--suppress ReservedWordAsName -->
 <script>
   export default {
     name: 'Timer',
@@ -18,6 +29,7 @@
       return {
         timerElements: ['days', 'hours', 'mins', 'secs'],
         timerInterval: null,
+        dateOfUpdate: (new Date()).getTime(),
         currentDate: Math.trunc((new Date()).getTime() / 1000),
       };
     },
@@ -33,13 +45,35 @@
         return { days, hours, mins, secs };
       },
       endDate() {
-        return Math.trunc((Date.parse(this.endingAt) / 1000));
+        const endDate = this.isInactive ? this.parsedDate.start : this.parsedDate.end;
+        return Math.trunc(endDate / 1000);
+      },
+      parsedDate() {
+        return {
+          start: Date.parse(this.dateRange.start_date),
+          end: Date.parse(this.dateRange.end_date),
+        };
+      },
+      isInactive() {
+        return this.parsedDate.start > this.dateOfUpdate;
       },
     },
-    props: ['endingAt'],
+    props: {
+      dateRange: {
+        type: Object,
+        default() {
+          return {};
+        },
+      },
+      type: {
+        type: String,
+        default: 'default',
+      },
+    },
     watch: {
-      endingAt() {
+      dateRange() {
         clearInterval(this.timerInterval);
+        this.dateOfUpdate = (new Date()).getTime();
         this.timerInterval = setInterval(() => {
           this.currentDate = Math.trunc((new Date()).getTime() / 1000);
         }, 1000);
@@ -68,8 +102,6 @@
 
 <style lang="scss" scoped>
   .timer {
-    display: flex;
-    
     --text-size: 30px;
     --text-width: 40px;
     --text-color: #0e0e0e;
@@ -85,6 +117,13 @@
     &.-main {
       --text-color: #fff;
       --legend-color: #bcbcbc;
+      
+      .e-label-text {
+        color: var(--legend-color);
+      }
+    }
+    ._timer-block {
+      display: flex;
     }
     ._text {
       color: var(--text-color);
