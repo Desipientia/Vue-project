@@ -53,11 +53,10 @@ export default {
         });
     },
     checkWallet({}, value) {
-      if (this.web3Instance)
+      if (this.web3Instance) {
         return this.web3Instance.utils.isAddress(value);
-      else {
-        return value.length == 42
       }
+      return value.length === 42;
     },
     addWallets({ dispatch }) {
       this.web3Instance.eth.getAccounts().then((accounts) => {
