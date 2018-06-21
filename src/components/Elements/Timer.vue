@@ -3,9 +3,8 @@
     <p class="e-label-text" v-if="type === 'landing'">Time to pass the KYC process</p>
     <p class="e-label-text" v-else>
       <transition name="e-fade" mode="out-in">
-        <span key="inactive" v-if="isInactive">
-          The next token distribution will start in</span>
-        <span key="default" v-else>Token distribution closes in</span>
+        <span key="active" v-if="isActive">Token distribution closes in</span>
+        <span key="inactive" v-else>The next token distribution will start in</span>
       </transition>
     </p>
     <div class="_timer-block">
@@ -45,7 +44,7 @@
         return { days, hours, mins, secs };
       },
       endDate() {
-        const endDate = this.isInactive ? this.parsedDate.start : this.parsedDate.end;
+        const endDate = this.isActive ? this.parsedDate.end : this.parsedDate.start;
         return Math.trunc(endDate / 1000);
       },
       parsedDate() {
@@ -54,8 +53,8 @@
           end: Date.parse(this.dateRange.end_date),
         };
       },
-      isInactive() {
-        return this.parsedDate.start > this.dateOfUpdate;
+      isActive() {
+        return this.parsedDate.start < this.dateOfUpdate;
       },
     },
     props: {
