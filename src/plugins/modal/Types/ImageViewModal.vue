@@ -1,6 +1,6 @@
 <template>
   <div class="image-view-modal">
-    <img :src="$modal.params().src"/>
+    <img class="_image" :src="$modal.params().src"/>
   </div>
 </template>
 
@@ -16,5 +16,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    ._image {
+      object-fit: contain;
+      max-height: 82vh;
+    }
   }
 </style>

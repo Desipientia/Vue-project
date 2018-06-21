@@ -38,16 +38,19 @@
     max-width: 670px;
   }
   &.image-view {
+    width: auto;
     max-width: 90%;
+    padding: 4vh 40px;
   }
 }
 
 .m-close-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
+  padding: 0;
   border: none;
-  background-color: #fff;
+  background-color: transparent;
   cursor: pointer;
 }
 
