@@ -118,7 +118,6 @@
           { title: 'Team', value: 10 },
           { title: 'Reserved', value: 15 },
         ],
-        isActive: true,
         showBalance: true,
         isLoaded: false,
       };
@@ -147,6 +146,11 @@
       maxTransactionCountAvailable() {
         const a = this.allocation;
         return +(a.transaction_remain ? a.transaction_remain.eth_amount : 0).toFixed(2);
+      },
+      isActive() {
+        const date = this.ito.current_date;
+        if (!date) return false;
+        return Date.parse(date.start_date) < (new Date()).getTime();
       },
       ...mapState('project', [
         'ito',
