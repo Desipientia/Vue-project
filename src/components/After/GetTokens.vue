@@ -42,13 +42,13 @@
         </div>
       </div>
       <progress-bar class="_progress-bar -default" :value="progressValue"></progress-bar>
-      <p class="_modal-link-text -single e-label-text"
-         v-if="progressValue !== 0"
-         @click="showInfoModal">How to increase?</p>
-      <div class="_error-block" v-else>
+      <div class="_error-block" v-if="allocation.full_transactions_count && progressValue === 0">
         You have reached your limit. Please
         <span class="_modal-link-text" @click="showInfoModal">Increase your limit</span>
       </div>
+      <p class="_modal-link-text -single e-label-text"
+         v-else
+         @click="showInfoModal">How to increase?</p>
     </div>
     <form class="_send-block e-white-content-block"
           v-if="isActive"
@@ -87,7 +87,7 @@
       <div class="_wallets-block e-white-content-block">
         <p class="e-label-text">Your Wallets</p>
         <p class="_wallet" :key="i" v-for="(w, i) in wallets">{{ w.wallet }}</p>
-        <div class="_error-block" v-if="wallets.length <= 0">
+        <div class="_error-block" v-if="isLoaded && wallets.length <= 0">
           <!-- eslint-disable-next-line max-len -->
           <span>To receive your CID tokens please add your ETH wallet or open the CryptoID app and follow the instructions to add a wallet.</span>
         </div>
@@ -123,6 +123,7 @@
         ],
         isActive: true,
         showBalance: true,
+        isLoaded: false,
       };
     },
     computed: {
@@ -292,6 +293,7 @@
       this.getAllocation();
       this.getITO().then(() => {
         this.address = this.ito.contract.address;
+        this.isLoaded = true;
         this.connectWeb3();
       });
     },
