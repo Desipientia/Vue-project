@@ -272,9 +272,6 @@
       ]),
     },
     mounted() {
-      setInterval(() => {
-          this.$toasted.show('TEST TEXT dasdas', { class: '.toast', position: 'bottom-right' }).goAway(3000);
-      }, 10000);
 
       if (!this.isAgreementConfirmed) {
         this.getAgreement().then(() => {
