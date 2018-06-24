@@ -344,6 +344,8 @@
       }
       ._image-wrapper {
         position: relative;
+        display: flex;
+        align-items: flex-end;
         flex-grow: 1;
         flex-basis: 620px;
         max-width: 700px;
