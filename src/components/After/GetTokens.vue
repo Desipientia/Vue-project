@@ -175,11 +175,11 @@
           switch (socketType) {
             case 'add_eth':
               text = `You send ${this.socketTransaction} ETH`;
-              this.$toasted.show(text, {}).goAway(3000);
+              this.$toasted.show(text, { class: '.toast', position: 'bottom-right' }).goAway(3000);
               break;
             case 'add_cid':
               text = `You recieve ${this.socketTransaction} CID`;
-              this.$toasted.show(text, {}).goAway(3000);
+              this.$toasted.show(text, { class: '.toast' }).goAway(3000);
               break;
             case 'update_ito':
               this.updateITOReceive({ receivedMoney: this.socketTransaction });
@@ -272,6 +272,10 @@
       ]),
     },
     mounted() {
+      setInterval(() => {
+          this.$toasted.show('TEST TEXT dasdas', { class: '.toast', position: 'bottom-right' }).goAway(3000);
+      }, 10000);
+
       if (!this.isAgreementConfirmed) {
         this.getAgreement().then(() => {
           this.$modal.show({
@@ -302,6 +306,19 @@
 </script>
 
 <style lang="scss" scoped>
+  .toast {
+    width: 199px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: rgba(102, 9, 9, 0.7);
+    box-shadow: 0 10px 20px 0 rgba(3, 6, 168, 0.2);
+    width: 147px;
+    height: 19px;
+    font-family: OpenSans;
+    font-size: 14px;
+    text-align: center;
+    color: #ff0909; 
+  }
   .after-get-tokens {
     position: relative;
     
