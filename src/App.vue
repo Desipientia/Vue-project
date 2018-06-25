@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="widthClass">
     <page-header class="app-content" id="header"></page-header>
     <page-container id="container"></page-container>
     <page-footer class="app-content"></page-footer>
@@ -13,6 +13,14 @@
 
   export default {
     name: 'App',
+    computed: {
+      widthClass() {
+        if (this.$route.name === 'landing' || this.$route.name === 'connect') {
+          return '';
+        }
+        return 'min-width-block';
+      },
+    },
     components: {
       PageContainer,
       PageFooter,
@@ -24,7 +32,7 @@
 
 <style lang="scss">
   html {
-    min-width: 1350px;
+    min-width: 200px;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -50,6 +58,12 @@
   .app-content {
     padding: 0 75px;
     @include transition(border, background);
+    @include media(mobile) {
+      padding: 0 10px;
+    }
+  }
+  .min-width-block {
+    min-width: 1350px;
   }
 </style>
 

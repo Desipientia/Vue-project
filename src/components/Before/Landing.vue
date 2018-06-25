@@ -2,11 +2,13 @@
   <div class="before-landing app-content">
     <vue-markdown class="e-markdown-block -landing" :source="landing.body"></vue-markdown>
     <div class="_content-block" ref="content" v-if="videoId">
-      <div class="_nav-block">
-        <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
-          <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
-          <span class="_label">{{ f.name }}</span>
-        </label>
+      <div class="e-hide-when-mobile">
+        <div class="_nav-block">
+          <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
+            <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
+            <span class="_label">{{ f.name }}</span>
+          </label>
+        </div>
       </div>
       <youtube :player-width="playerWidth"
                :player-height="playerHeight"
@@ -71,21 +73,11 @@
   /* eslint-disable */
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .before-landing {
     width: 100%;
     margin: 50px 0 50px;
     
-    .e-markdown-block {
-      h1, p {
-        margin: 30px auto;
-        max-width: 80%;
-        text-align: center;
-        @include media(wide) {
-          max-width: 1200px;
-        }
-      }
-    }
     ._content-block {
       display: flex;
       flex-wrap: wrap;
@@ -93,6 +85,9 @@
       align-items: center;
       width: 630px;
       margin: 60px auto 0;
+      @include media(mobile) {
+        width: 100%;
+      }
       @include media(wide) {
         width: 900px;
       }
@@ -103,6 +98,9 @@
       padding: 8px 5px;
       border-radius: 4px;
       border: none;
+      @include media(mobile) {
+        margin-top: 20px;
+      }
     }
     ._nav-block {
       display: flex;

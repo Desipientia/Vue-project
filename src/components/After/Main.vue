@@ -2,7 +2,7 @@
   <div class="after-main">
     <div class="_header-block app-content" v-if="main.cover">
       <div class="e-transparent-content-block">
-        <vue-markdown class="e-markdown-block -landing" :source="main.cover.body"></vue-markdown>
+        <vue-markdown class="e-markdown-block -main" :source="main.cover.body"></vue-markdown>
         <div class="_side-block">
           <div class="_distributed-block">
             <p class="e-caption-text">Total pre-seed token distribution</p>

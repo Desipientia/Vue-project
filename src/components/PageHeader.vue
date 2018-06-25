@@ -1,6 +1,7 @@
 <template>
   <header class="page-header" :class="background">
-    <div class="e-transparent-content-block -row">
+    <div class="e-transparent-content-block -row"
+         :class="{ '-centered': $route.name === 'connect'}">
       <router-link class="_logo" :to="{ name: 'landing' }">
         <svg class="_logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 20">
           <g>
@@ -20,18 +21,22 @@
                          :to="{ name: l.name }">{{ l.text }}</router-link>
           </li>
         </ul>
-        <div class="_share-link-block" v-else-if="$route.name === 'landing'">
-          <span class="_share-text">Share on</span>
-          <svg-icon class="_share-link" name="twitter"></svg-icon>
-          <svg-icon class="_share-link" name="facebook"></svg-icon>
-          <svg-icon class="_share-link" name="linkedin"></svg-icon>
-          <svg-icon class="_share-link" name="telegram"></svg-icon>
+        <div class="e-hide-when-mobile" v-else-if="$route.name === 'landing'">
+          <div class="_share-link-block">
+            <span class="_share-text">Share on</span>
+            <svg-icon class="_share-link" name="twitter"></svg-icon>
+            <svg-icon class="_share-link" name="facebook"></svg-icon>
+            <svg-icon class="_share-link" name="linkedin"></svg-icon>
+            <svg-icon class="_share-link" name="telegram"></svg-icon>
+          </div>
         </div>
       </transition>
       <transition name="e-fade">
         <router-link class="e-button -white -m"
                      :to="{ name: 'connect' }"
-                     v-if="$route.name === 'landing'">Get full access</router-link>
+                     v-if="$route.name === 'landing'">
+          <span class="e-hide-when-mobile">Get</span> full access
+        </router-link>
       </transition>
       <transition name="e-fade">
         <button class="_sign-out-button" v-if="isAuthorized" @click="logoutAndGo">
@@ -98,7 +103,6 @@
     @include media(wide) {
       height: 100px;
     }
-    
     &.-black {
       background-color: #0e0e0e;
       border-bottom: solid 1px rgba(57, 57, 57, 0.51);

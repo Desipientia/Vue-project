@@ -16,7 +16,7 @@
       background() {
         switch (this.$route.name) {
           case 'landing':
-            return '-black';
+            return '-black -mobile';
           case 'main':
             return '-white -half';
           case 'get-tokens':

@@ -50,7 +50,9 @@
   .page-footer {
     width: 100%;
     height: 160px;
-    
+    @include media(mobile) {
+      height: 250px;
+    }
     &.-black {
       background-color: #0e0e0e;
       border-top: solid 1px rgba(57, 57, 57, 0.51);
@@ -58,9 +60,11 @@
       ._text {
         color: #bcbcbc;
       }
-      ._logo-svg,
-      ._follow-link {
+      ._logo-svg {
         fill: #fff;
+      }
+      ._follow-text {
+        color: #767676;
       }
       ._follow-link {
         fill: #767676;
@@ -80,6 +84,9 @@
       ._logo-svg {
         fill: #0e0e0e;
       }
+      ._follow-text {
+        color: #bcbcbc;
+      }
       ._follow-link {
         fill: #bcbcbc;
   
@@ -94,6 +101,14 @@
       left: 0;
       z-index: 1000;
     }
+    .e-transparent-content-block {
+      @include media(mobile) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-top: 45px;
+      }
+    }
     ._logo-svg,
     ._follow-link {
       @include transition(svg);
@@ -102,12 +117,6 @@
       height: 15px;
       @include media(wide) {
         height: 24px;
-      }
-    }
-    ._follow-link > svg {
-      @include media(wide) {
-        width: auto;
-        height: 30px;
       }
     }
     ._text {
@@ -126,15 +135,36 @@
       width: 100%;
       max-width: 300px;
       min-width: 240px;
+      @include media(mobile) {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-top: 40px;
+      }
       @include media(wide) {
         max-width: 400px;
       }
     }
+    ._follow-link {
+      @include media(mobile) {
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
+      }
+      svg {
+        @include media(wide) {
+          width: auto;
+          height: 30px;
+        }
+      }
+    }
     ._follow-text {
-      color: #bcbcbc;
       font-family: "Open Sans", sans-serif;
       font-weight: 700;
       font-size: 14px;
+      @include media(mobile) {
+        width: 100%;
+        margin-bottom: 15px;
+      }
       @include media(wide) {
         font-size: 18px;
       }
