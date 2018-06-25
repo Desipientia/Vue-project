@@ -37,7 +37,7 @@
     <div class="_ecosystem-block app-content" v-if="main.the_cryptoid_ecosystem">
       <div class="e-transparent-content-block">
         <div class="_line">
-          <vue-markdown class="e-markdown-block -default -main -ecosystem -short"
+          <vue-markdown class="e-markdown-block -default -ecosystem -short"
                         :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
           <div class="_image-wrapper">
             <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
@@ -48,7 +48,7 @@
                   )">View full size</button>
           </div>
         </div>
-        <vue-markdown class="e-markdown-block -default -main -ecosystem"
+        <vue-markdown class="e-markdown-block -default  -ecosystem"
                       :source="main.the_ecosystem_pictures.body"></vue-markdown>
       </div>
     </div>
