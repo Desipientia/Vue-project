@@ -17,7 +17,7 @@
     </svg>
   </a>
   <a target="_blank"
-     :href="link || 'https://linkedin.com/'"
+     :href="link || 'https://www.linkedin.com/company/cryptoid/'"
      :class="name"
      v-else-if="name === 'linkedin'">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@
     </svg>
   </a>
   <a target="_blank"
-     :href="link || 'https://youtube.com/'"
+     :href="link || 'https://www.youtube.com/channel/UCDIdTU8DbtqyhYnIIlgcHJQ'"
      :class="name"
      v-else-if="name === 'youtube'">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
