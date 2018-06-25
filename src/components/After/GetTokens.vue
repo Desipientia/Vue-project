@@ -272,7 +272,6 @@
       ]),
     },
     mounted() {
-
       if (!this.isAgreementConfirmed) {
         this.getAgreement().then(() => {
           this.$modal.show({
@@ -304,17 +303,15 @@
 
 <style lang="scss" scoped>
   .toast {
-    width: 199px;
-    height: 50px;
-    border-radius: 4px;
-    background-color: rgba(102, 9, 9, 0.7);
-    box-shadow: 0 10px 20px 0 rgba(3, 6, 168, 0.2);
     width: 147px;
     height: 19px;
-    font-family: OpenSans;
+    border-radius: 4px;
+    background-color: rgba(102, 9, 9, 0.7);
+    color: #ff0909;
+    box-shadow: 0 10px 20px 0 rgba(3, 6, 168, 0.2);
+    font-family: "Open Sans", sans-serif;
     font-size: 14px;
     text-align: center;
-    color: #ff0909; 
   }
   .after-get-tokens {
     position: relative;
@@ -336,12 +333,17 @@
       align-items: center;
       justify-content: space-between;
       width: 210px;
-  
+      @include media(wide) {
+        width: 260px;
+      }
       ._line {
         margin: 0;
         color: #bcbcbc;
         font-family: "Cabin", sans-serif;
         font-size: 25px;
+        @include media(wide) {
+          font-size: 30px;
+        }
       }
     }
     ._allocation-block {
@@ -375,6 +377,9 @@
           font-weight: 700;
           font-size: 14px;
           text-align: center;
+          @include media(wide) {
+            font-size: 18px;
+          }
         }
       }
     }
@@ -386,13 +391,6 @@
       display: flex;
       justify-content: space-between;
     }
-    ._block-caption {
-      margin: 25px 0 15px;
-      color: #bcbcbc;
-      font-family: "Cabin", sans-serif;
-      font-weight: 600;
-      font-size: 20px;
-    }
     ._modal-link-text {
       text-decoration: underline;
       cursor: pointer;
@@ -401,6 +399,9 @@
         line-height: 2.08;
         font-size: 12px;
         text-align: right;
+        @include media(wide) {
+          font-size: 16px;
+        }
       }
     }
     ._progress-bar {
@@ -414,6 +415,11 @@
       left: 670px;
       width: 100%;
       max-width: 300px;
+      @include media(wide) {
+        top: 123px;
+        left: 920px;
+        max-width: 400px;
+      }
     }
     ._balance-block {
       margin-bottom: 20px;
@@ -445,6 +451,7 @@
         text-overflow: ellipsis;
       }
       ._add-wallet-button {
+        display: block;
         line-height: 1.43;
         margin: 10px 0 0;
         padding: 0;
@@ -474,6 +481,9 @@
       color: #d0021b;
       font-family: "Open Sans", sans-serif;
       font-size: 14px;
+      @include media(wide) {
+        font-size: 18px;
+      }
     }
   }
 </style>

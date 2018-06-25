@@ -30,9 +30,14 @@
   border-radius: 2px;
   background-color: #fff;
   box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.67);
-
+  @include media(wide) {
+    max-width: 650px;
+  }
   &.agreement {
     max-width: 820px;
+    @include media(wide) {
+      max-width: 1000px;
+    }
   }
   &.wallet {
     max-width: 670px;
@@ -52,6 +57,15 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  @include media(wide) {
+    top: 20px;
+    right: 20px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 
 .m-header-text {
@@ -61,6 +75,9 @@
   font-family: "Cabin", sans-serif;
   font-weight: 600;
   font-size: 30px;
+  @include media(wide) {
+    font-size: 34px;
+  }
 }
 
 .m-markdown-block {

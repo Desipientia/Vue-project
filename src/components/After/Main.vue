@@ -1,52 +1,56 @@
 <template>
   <div class="after-main">
     <div class="_header-block app-content" v-if="main.cover">
-      <vue-markdown class="e-markdown-block -landing" :source="main.cover.body"></vue-markdown>
-      <div class="_side-block">
-        <div class="_distributed-block">
-          <p class="e-caption-text">Total pre-seed token distribution</p>
-          <progress-bar class="-main"
-                        :label="`${$filters.number(progressValue)} CID`"
-                        :max="progressMax"
-                        :value="progressValue"></progress-bar>
-          <p class="e-label-text">
-            <span>0 CID</span>
-            <span>{{ maxTokensCount }}</span>
-          </p>
-        </div>
-        <div class="_timer-block">
-          <p class="e-caption-text">This month's CID token distribution</p>
-          <div class="_content">
-            <div class="_element">
-              <p class="_label">Tokens distributed in this stage</p>
-              <p class="_text">25 Million CID</p>
+      <div class="e-transparent-content-block">
+        <vue-markdown class="e-markdown-block -landing" :source="main.cover.body"></vue-markdown>
+        <div class="_side-block">
+          <div class="_distributed-block">
+            <p class="e-caption-text">Total pre-seed token distribution</p>
+            <progress-bar class="-main"
+                          :label="`${$filters.number(progressValue)} CID`"
+                          :max="progressMax"
+                          :value="progressValue"></progress-bar>
+            <p class="e-label-text">
+              <span>0 CID</span>
+              <span>{{ maxTokensCount }}</span>
+            </p>
+          </div>
+          <div class="_timer-block">
+            <p class="e-caption-text">This month's CID token distribution</p>
+            <div class="_content">
+              <div class="_element">
+                <p class="_label">Tokens distributed in this stage</p>
+                <p class="_text">25 Million CID</p>
+              </div>
+              <div class="_element">
+                <p class="_label">Ether received</p>
+                <p class="_text">24,661.2 ETH</p>
+              </div>
+              <router-link class="_element e-button -white -xl"
+                           :to="{ name: 'get-tokens' }">Get Tokens</router-link>
+              <timer class="_element -main" :date-range="date"></timer>
             </div>
-            <div class="_element">
-              <p class="_label">Ether received</p>
-              <p class="_text">24,661.2 ETH</p>
-            </div>
-            <router-link class="_element e-button -white -xl"
-                         :to="{ name: 'get-tokens' }">Get Tokens</router-link>
-            <timer class="_element -main" :date-range="date"></timer>
           </div>
         </div>
       </div>
     </div>
     <div class="_ecosystem-block app-content" v-if="main.the_cryptoid_ecosystem">
-      <div class="_line">
-        <vue-markdown class="e-markdown-block -default -main -ecosystem -short"
-                      :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
-        <div class="_image-wrapper">
-          <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
-          <button class="_rounded-button"
-                  @click="$modal.show(
+      <div class="e-transparent-content-block">
+        <div class="_line">
+          <vue-markdown class="e-markdown-block -default -main -ecosystem -short"
+                        :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
+          <div class="_image-wrapper">
+            <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
+            <button class="_rounded-button"
+                    @click="$modal.show(
                     'image-view',
                     { src: main.the_cryptoid_ecosystem.files[0].file }
                   )">View full size</button>
+          </div>
         </div>
+        <vue-markdown class="e-markdown-block -default -main -ecosystem"
+                      :source="main.the_ecosystem_pictures.body"></vue-markdown>
       </div>
-      <vue-markdown class="e-markdown-block -default -main -ecosystem"
-                    :source="main.the_ecosystem_pictures.body"></vue-markdown>
     </div>
     <div class="_token-block app-content" v-if="main.the_cid_token">
       <vue-markdown class="e-markdown-block -default -black -center -token"
@@ -60,54 +64,59 @@
       </div>
     </div>
     <div class="_team-block app-content" v-if="main.team">
-      <vue-markdown class="e-markdown-block -default -main"
-                    :source="main.team.body"></vue-markdown>
-      <div class="_person-inside-block">
-        <div class="_element" :key="i" v-for="(t, i) in team['team']">
-          <img class="_image" :src="t.avatar">
-          <div class="_description">
-            <p class="e-caption-text">{{ t.name }}</p>
-            <p class="e-base-text">{{ t.position }}</p>
-            <p class="e-label-text">{{ t.bio }}</p>
-            <div class="_socials">
-              <svg-icon class="_icon"
-                        :name="s.social_name.toLowerCase()"
-                        :link="s.url"
-                        :key="s.social_name"
-                        v-for="s in t.socials"></svg-icon>
+      <div class="e-transparent-content-block">
+        <vue-markdown class="e-markdown-block -default -main"
+                      :source="main.team.body"></vue-markdown>
+        <div class="_person-inside-block">
+          <div class="_element" :key="i" v-for="(t, i) in team['team']">
+            <img class="_image" :src="t.avatar">
+            <div class="_description">
+              <p class="e-caption-text">{{ t.name }}</p>
+              <p class="e-base-text">{{ t.position }}</p>
+              <p class="e-label-text">{{ t.bio }}</p>
+              <div class="_socials">
+                <svg-icon class="_icon"
+                          :name="s.social_name.toLowerCase()"
+                          :link="s.url"
+                          :key="s.social_name"
+                          v-for="s in t.socials"></svg-icon>
+              </div>
             </div>
           </div>
+          <div class="_element -empty" :key="`e_${i}`" v-for="i in maxElementsPerFlexLine"></div>
         </div>
-        <div class="_element -empty" :key="`e_${i}`" v-for="i in maxElementsPerFlexLine"></div>
       </div>
     </div>
     <div class="_advisors-block app-content" v-if="main.advisors">
-      <vue-markdown class="e-markdown-block -default -main"
-                    :source="main.advisors.body"></vue-markdown>
-
-      <div class="_person-inside-block">
-        <div class="_element" :key="i" v-for="(t, i) in team['advisor']">
-          <img class="_image" :src="t.avatar">
-          <div class="_description">
-            <p class="e-caption-text">{{ t.name }}</p>
-            <p class="e-base-text">{{ t.position }}</p>
-            <p class="e-label-text">{{ t.bio }}</p>
-            <div class="_socials">
-              <svg-icon class="_icon"
-                        :name="s.social_name.toLowerCase()"
-                        :link="s.url"
-                        :key="s.social_name"
-                        v-for="s in t.socials"></svg-icon>
+      <div class="e-transparent-content-block">
+        <vue-markdown class="e-markdown-block -default -main"
+                      :source="main.advisors.body"></vue-markdown>
+        <div class="_person-inside-block">
+          <div class="_element" :key="i" v-for="(t, i) in team['advisor']">
+            <img class="_image" :src="t.avatar">
+            <div class="_description">
+              <p class="e-caption-text">{{ t.name }}</p>
+              <p class="e-base-text">{{ t.position }}</p>
+              <p class="e-label-text">{{ t.bio }}</p>
+              <div class="_socials">
+                <svg-icon class="_icon"
+                          :name="s.social_name.toLowerCase()"
+                          :link="s.url"
+                          :key="s.social_name"
+                          v-for="s in t.socials"></svg-icon>
+              </div>
             </div>
           </div>
+          <div class="_element -empty" :key="`e_${i}`" v-for="i in maxElementsPerFlexLine"></div>
         </div>
-        <div class="_element -empty" :key="`e_${i}`" v-for="i in maxElementsPerFlexLine"></div>
       </div>
     </div>
     <div class="_roadmap-block app-content" v-if="main.roadmap">
-      <vue-markdown class="e-markdown-block -default -center"
-                    :source="main.roadmap.body"></vue-markdown>
-      <img class="_image" :src="main.roadmap.files[0].file"/>
+      <div class="e-transparent-content-block">
+        <vue-markdown class="e-markdown-block -default -center"
+                      :source="main.roadmap.body"></vue-markdown>
+        <img class="_image" :src="main.roadmap.files[0].file"/>
+      </div>
     </div>
     <div class="_program-block app-content" v-if="main.the_merchant_pilot_program">
       <vue-markdown class="e-markdown-block -default -center"
@@ -207,7 +216,9 @@
         width: 31%;
         max-width: 420px;
         margin-bottom: 60px;
-        
+        @include media(wide) {
+          max-width: 520px;
+        }
         &.-empty {
           height: 0;
           margin: 0;
@@ -219,6 +230,10 @@
         height: 230px;
         margin-right: 20px;
         object-fit: contain;
+        @include media(wide) {
+          min-width: 220px;
+          max-width: 220px;
+        }
       }
       ._description {
         display: flex;
@@ -240,8 +255,12 @@
           padding: 8px 0;
           border-top: solid 1px #bcbcbc;
         }
-        ._socials {
+        ._socials svg {
+          width: auto;
           height: 20px;
+          @include media(wide) {
+            height: 25px;
+          }
         }
         ._icon {
           fill: #bcbcbc;
@@ -266,10 +285,12 @@
       background-color: #fff;
     }
     ._header-block {
-      display: flex;
       min-height: 600px;
       padding-bottom: 80px;
   
+      .e-transparent-content-block {
+        display: flex;
+      }
       .e-caption-text {
         margin: 0;
         color: #fff;

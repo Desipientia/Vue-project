@@ -1,15 +1,15 @@
 <template>
   <div class="before-landing app-content">
     <vue-markdown class="e-markdown-block -landing" :source="landing.body"></vue-markdown>
-    <div class="_content-block" v-if="videoId">
+    <div class="_content-block" ref="content" v-if="videoId">
       <div class="_nav-block">
         <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
           <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
           <span class="_label">{{ f.name }}</span>
         </label>
       </div>
-      <youtube player-width="630px"
-               player-height="440px"
+      <youtube :player-width="playerWidth"
+               :player-height="playerHeight"
                :video-id="videoId"></youtube>
     </div>
     <div class="_content-block">
@@ -31,6 +31,9 @@
       return {
         visibleVideo: null,
         videoId: null,
+        playerWidth: '630px',
+        playerHeight: '440px',
+        ratio: 1.43,
       };
     },
     computed: {
@@ -45,6 +48,11 @@
     },
     components: { Timer },
     methods: {
+      handleResize() {
+        const width = this.$refs.content.clientWidth;
+        this.playerWidth = `${width}px`;
+        this.playerHeight = `${width / this.ratio}px`;
+      },
       ...mapActions('pages', ['getLandingPageData']),
       ...mapActions('project', ['getDateList']),
     },
@@ -53,6 +61,11 @@
       this.getLandingPageData().then(() => {
         this.visibleVideo = 0;
       });
+      window.addEventListener('resize', this.handleResize);
+      setTimeout(() => { this.handleResize(); }, 1000);
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.handleResize);
     },
   };
   /* eslint-disable */
@@ -66,8 +79,11 @@
     .e-markdown-block {
       h1, p {
         margin: 30px auto;
-        max-width: 820px;
+        max-width: 80%;
         text-align: center;
+        @include media(wide) {
+          max-width: 1200px;
+        }
       }
     }
     ._content-block {
@@ -77,6 +93,9 @@
       align-items: center;
       width: 630px;
       margin: 60px auto 0;
+      @include media(wide) {
+        width: 900px;
+      }
     }
     ._timer {
       min-width: 270px;

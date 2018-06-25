@@ -1,5 +1,5 @@
 <template>
-  <div class="after-documentation">
+  <div class="after-documentation e-transparent-content-block">
     <div class="_table-of-contents-block">
       <p class="e-number-text -s"
          :class="{ '-black': currentParagraph === 'all' }"
@@ -83,15 +83,20 @@
     ._table-of-contents-block {
       position: fixed;
       top: 80px;
-      left: 0;
       bottom: 160px;
       overflow-y: auto;
       width: 365px;
       padding: 70px 71px 70px 75px;
       background-color: #f6f6f6;
+      @include media(wide) {
+        width: 410px;
+      }
     }
     ._content-block {
       padding: 46px 50px 210px 405px;
+      @include media(wide) {
+        padding: 80px 60px 210px 455px;
+      }
     }
   }
 </style>

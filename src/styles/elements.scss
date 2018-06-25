@@ -11,12 +11,20 @@
     font-weight: 700;
     font-size: 40px;
     text-align: right;
+    @include media(wide) {
+      width: 420px;
+      font-size: 44px;
+    }
   }
   &.-m {
     width: 390px;
     line-height: 1.2;
     font-weight: 600;
     font-size: 30px;
+    @include media(wide) {
+      width: 500px;
+      font-size: 34px;
+    }
   }
   &:focus {
     outline: none;
@@ -59,6 +67,10 @@
       border-radius: 2px;
       border: solid 2px #bcbcbc;
       transition: background .2s linear, border .2s linear;
+      @include media(wide) {
+        width: 25px;
+        height: 25px;
+      }
     }
     &:checked + ._label {
       color: #464646;
@@ -67,7 +79,7 @@
         border-color: #000;
         background-color: #000;
         background-image: url("data:image/svg+xml;utf-8,\
-        <svg width='20' height='20' xmlns='http://www.w3.org/2000/svg'>\
+        <svg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>\
           <g stroke-width='2' stroke='white'>\
             <line x1='2' y1='12' x2='8' y2='17'></line>\
             <line x1='7' y1='17' x2='18' y2='3'></line>\
@@ -92,7 +104,10 @@
     font-size: 13px;
     cursor: pointer;
     transition: color .2s linear;
-
+    @include media(wide) {
+      font-size: 17px;
+      padding-left: 40px;
+    }
     p {
       margin: 0;
     }
@@ -118,6 +133,11 @@
     font-weight: 700;
     font-size: 16px;
     text-align: center;
+    @include media(wide) {
+      height: 60px;
+      line-height: 60px;
+      font-size: 20px;
+    }
   }
   &.-black,
   &.-white {
@@ -144,18 +164,28 @@
       height: 70px;
       line-height: 70px;
       font-size: 26px;
+      @include media(wide) {
+        font-size: 30px;
+      }
     }
     &.-l {
       min-width: 330px;
       height: 70px;
       line-height: 70px;
       font-size: 24px;
+      @include media(wide) {
+        font-size: 28px;
+      }
     }
     &.-m {
       min-width: 166px;
       height: 40px;
       line-height: 40px;
+      padding: 0 20px;
       font-size: 16px;
+      @include media(wide) {
+        font-size: 20px;
+      }
     }
     &.-s {
       height: 30px;
@@ -163,6 +193,9 @@
       padding: 0 10px;
       border-radius: 2px;
       font-size: 14px;
+      @include media(wide) {
+        font-size: 18px;
+      }
     }
   }
 }
@@ -175,7 +208,9 @@
     position: relative;
     padding-left: 30px;
     list-style: none;
-
+    @include media(wide) {
+      padding-left: 40px;
+    }
     &:before {
       content: counter(li);
       counter-increment: li;
@@ -192,6 +227,13 @@
       font-weight: 700;
       font-size: 12px;
       text-align: center;
+      @include media(wide) {
+        top: 0;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+      }
     }
   }
 }
@@ -203,6 +245,9 @@
   font-family: "Cabin", sans-serif;
   font-weight: 600;
   font-size: 40px;
+  @include media(wide) {
+    font-size: 48px;
+  }
 }
 
 .e-caption-text {
@@ -210,6 +255,9 @@
   font-family: "Cabin", sans-serif;
   font-weight: 600;
   font-size: 20px;
+  @include media(wide) {
+    font-size: 26px;
+  }
 }
 
 .e-label-text {
@@ -217,6 +265,9 @@
   color: #767676;
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
+  @include media(wide) {
+    font-size: 18px;
+  }
 }
 
 .e-base-text {
@@ -225,6 +276,9 @@
   color: #767676;
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
+  @include media(wide) {
+    font-size: 20px;
+  }
 }
 
 .e-landing-header-text {
@@ -234,6 +288,9 @@
   font-family: "Cabin", sans-serif;
   font-weight: 500;
   font-size: 50px;
+  @include media(wide) {
+    font-size: 60px;
+  }
 }
 
 .e-landing-base-text {
@@ -241,6 +298,9 @@
   color: #bcbcbc;
   font-family: "Open Sans", sans-serif;
   font-size: 18px;
+  @include media(wide) {
+    font-size: 22px;
+  }
 }
 
 .e-number-text {
@@ -256,12 +316,21 @@
   }
   &.-l {
     font-size: 30px;
+    @include media(wide) {
+      font-size: 34px;
+    }
   }
   &.-m {
     font-size: 23px;
+    @include media(wide) {
+      font-size: 27px;
+    }
   }
   &.-s {
     font-size: 20px;
+    @include media(wide) {
+      font-size: 24px;
+    }
   }
 }
 
@@ -271,7 +340,9 @@
   line-height: 1.43;
   margin: 20px 0;
   padding-left: 24px;
-
+  @include media(wide) {
+    padding-left: 30px;
+  }
   &:before {
     content: 'i';
     display: block;
@@ -287,6 +358,13 @@
     font-family: "Open Sans", sans-serif;
     font-size: 12px;
     text-align: center;
+    @include media(wide) {
+      top: 2px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      font-size: 14px;
+    }
   }
 }
 
@@ -317,6 +395,9 @@
       font-family: "Cabin", sans-serif;
       font-weight: 600;
       font-size: 30px;
+      @include media(wide) {
+        font-size: 34px;
+      }
     }
     h3 {
       @extend .e-caption-text;
@@ -328,6 +409,9 @@
       @extend .e-ordered-list;
       & + p {
         padding-left: 30px;
+        @include media(wide) {
+          padding-left: 40px;
+        }
       }
     }
     hr {
@@ -338,7 +422,9 @@
     &.-connect {
       img {
         width: 188px;
-
+        @include media(wide) {
+          width: 240px;
+        }
         &:first-child {
           margin-right: 15px;
         }
@@ -454,6 +540,9 @@
       font-family: "Cabin", sans-serif;
       font-weight: 600;
       font-size: 18px;
+      @include media(wide) {
+        font-size: 22px;
+      }
     }
     h5 {
       line-height: 1.56;
@@ -462,6 +551,9 @@
       font-family: "Open Sans", sans-serif;
       font-weight: 600;
       font-size: 16px;
+      @include media(wide) {
+        font-size: 20px;
+      }
     }
     p {
       @extend .e-base-text;
@@ -470,7 +562,7 @@
       @extend .e-label-text;
     }
     blockquote {
-      width: 30%;
+      width: 31%;
       margin: 30px 0 10px;
 
       p {
@@ -490,6 +582,11 @@
         font-family: "Open Sans", sans-serif;
         font-size: 14px;
         text-align: center;
+        @include media(wide) {
+          font-size: 18px;
+          width: 80px;
+          height: 70px;
+        }
       }
     }
     ol {
@@ -539,7 +636,9 @@
           color: #767676;
           font-family: "Open Sans", sans-serif;
           font-size: 16px;
-
+          @include media(wide) {
+            font-size: 20px;
+          }
           &:before {
             content: '';
             display: inline-block;
@@ -565,7 +664,9 @@
 .e-inside-content-block {
   width: 100%;
   max-width: 650px;
-
+  @include media(wide) {
+    max-width: 900px;
+  }
   &:not(.-left) {
     margin: 0 auto;
     padding: 0 10px 100px;
@@ -576,6 +677,20 @@
   padding: 30px 30px;
   border-radius: 4px;
   background-color: #fff;
+}
+
+.e-transparent-content-block {
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
 }
 
 .e-fade-enter-active, .e-fade-leave-active {

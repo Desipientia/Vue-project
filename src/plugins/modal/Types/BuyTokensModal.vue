@@ -56,9 +56,15 @@
       ._number {
         font-weight: 600;
         font-size: 30px;
+        @include media(wide) {
+          font-size: 34px;
+        }
       }
       ._suffix {
         font-size: 20px;
+        @include media(wide) {
+          font-size: 24px;
+        }
       }
     }
     ._wallet-address-text {
@@ -70,20 +76,8 @@
       font-family: "Cabin", sans-serif;
       font-weight: 600;
       font-size: 19px;
-    }
-    ._grey-block {
-      margin: 15px 0 25px;
-      padding: 14px 5px;
-      border-radius: 4px;
-      background-color: #f6f6f6;
-      
-      ._text {
-        margin: 0;
-        color: #0e0e0e;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 700;
-        font-size: 16px;
-        text-align: center;
+      @include media(wide) {
+        font-size: 23px;
       }
     }
     ._qr-code-block {

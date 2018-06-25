@@ -106,11 +106,20 @@
     --text-color: #0e0e0e;
     --legend-color: #767676;
     --colon-size: 14px;
-    
+    @include media(wide) {
+      --text-size: 34px;
+      --text-width: 44px;
+      --colon-size: 18px;
+    }
     &.-landing {
       --text-size: 40px;
       --text-width: 53px;
       --colon-size: 18px;
+      @include media(wide) {
+        --text-size: 44px;
+        --text-width: 57px;
+        --colon-size: 22px;
+      }
     }
     &.-landing,
     &.-main {

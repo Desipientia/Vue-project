@@ -100,7 +100,9 @@
       color: #767676;
       font-family: "Open Sans", sans-serif;
       font-size: 14px;
-      
+      @include media(wide) {
+        font-size: 18px;
+      }
       ._updated-text {
         font-weight: 600;
       }
