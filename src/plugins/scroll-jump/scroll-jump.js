@@ -46,6 +46,7 @@ export default {
         } else {
           if (type === 'modal-hide') {
             document.body.style.overflowY = 'auto';
+          // TODO: Add padding to modal on resize
           } else if (Vue.modal.isVisible) return;
           if (doc.scrollHeight > doc.clientHeight) {
             if (type === 'modal-hide') {

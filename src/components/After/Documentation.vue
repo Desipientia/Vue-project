@@ -83,7 +83,7 @@
     ._table-of-contents-block {
       position: fixed;
       top: 80px;
-      bottom: 160px;
+      bottom: 0;
       overflow-y: auto;
       width: 365px;
       padding: 70px 71px 70px 75px;

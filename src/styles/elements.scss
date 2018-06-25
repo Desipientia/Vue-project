@@ -372,13 +372,13 @@
   &.-landing {
     h1, p {
       margin: 30px auto;
-      max-width: 80%;
+      max-width: 800px;
       text-align: center;
       @include media(mobile) {
         max-width: 100%;
       }
       @include media(wide) {
-        max-width: 1200px;
+        max-width: 1050px;
       }
     }
   }

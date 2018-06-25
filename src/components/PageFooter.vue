@@ -96,9 +96,6 @@
       }
     }
     &.-docs {
-      position: fixed;
-      bottom: 0;
-      left: 0;
       z-index: 1000;
     }
     .e-transparent-content-block {
