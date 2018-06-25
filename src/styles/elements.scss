@@ -708,13 +708,15 @@
     align-items: center;
     height: 100%;
   }
-  &.-centered {
-    justify-content: center;
-  }
 }
 
 .e-hide-when-mobile {
   @include media(mobile) {
+    display: none;
+  }
+}
+.e-mobile-only {
+  @include media(not-mobile) {
     display: none;
   }
 }

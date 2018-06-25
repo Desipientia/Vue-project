@@ -1,6 +1,8 @@
 <template>
   <div class="before-connect e-inside-content-block" v-if="connect">
-    <vue-markdown class="e-markdown-block -default"
+    <vue-markdown class="e-markdown-block -default e-mobile-only"
+                  :source="connect.main_content_mobile"></vue-markdown>
+    <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
                   :source="connect.main_content.body"></vue-markdown>
     <div class="_qr-code-block" v-if="finishQrCode !== null">
       <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>

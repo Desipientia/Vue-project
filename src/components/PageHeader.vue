@@ -168,6 +168,13 @@
       left: 0;
       z-index: 1000;
     }
+    .e-transparent-block {
+      &.-centered {
+        @include media(mobile) {
+          justify-content: center;
+        }
+      }
+    }
     ._logo {
       display: flex;
       align-items: center;
