@@ -56,7 +56,7 @@
       <vue-markdown class="e-markdown-block -default -black -center -token"
                     :source="main.the_cid_token.body"></vue-markdown>
       <div class="_line">
-        <div class="_element" :key="i" v-for="(f, i) in main.the_cid_token.files.reverse()">
+        <div class="_element" :key="i" v-for="(f, i) in main.the_cid_token.files">
           <img class="_image" :src="f.file"/>
           <router-link :to="{ name: 'documentation', query: { name: f.name } }"
                        class="_rounded-button">View {{ f.name | format }}</router-link>
