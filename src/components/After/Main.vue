@@ -65,7 +65,7 @@
     </div>
     <div class="_team-block app-content" v-if="main.team">
       <div class="e-transparent-content-block">
-        <vue-markdown class="e-markdown-block -default -main"
+        <vue-markdown class="e-markdown-block -default"
                       :source="main.team.body"></vue-markdown>
         <div class="_person-inside-block">
           <div class="_element" :key="i" v-for="(t, i) in team['team']">
@@ -89,7 +89,7 @@
     </div>
     <div class="_advisors-block app-content" v-if="main.advisors">
       <div class="e-transparent-content-block">
-        <vue-markdown class="e-markdown-block -default -main"
+        <vue-markdown class="e-markdown-block -default"
                       :source="main.advisors.body"></vue-markdown>
         <div class="_person-inside-block">
           <div class="_element" :key="i" v-for="(t, i) in team['advisor']">
