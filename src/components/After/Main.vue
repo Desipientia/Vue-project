@@ -58,7 +58,7 @@
       <div class="_line">
         <div class="_element" :key="i" v-for="(f, i) in main.the_cid_token.files">
           <img class="_image" :src="f.file"/>
-          <router-link :to="{ name: 'documentation', query: { name: f.name } }"
+          <router-link :to="{ name: 'documentation', query: { name: f.slug } }"
                        class="_rounded-button">View {{ f.name | format }}</router-link>
         </div>
       </div>
