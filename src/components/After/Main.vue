@@ -3,7 +3,7 @@
     <div class="_header-block app-content" v-if="main.cover">
       <div class="e-transparent-content-block">
         <vue-markdown class="e-markdown-block -main" :source="main.cover.body"></vue-markdown>
-        <div class="_side-block">
+        <div class="_side-block" v-if="ito.current_date">
           <div class="_distributed-block">
             <p class="e-caption-text">Total pre-seed token distribution</p>
             <progress-bar class="-main"
@@ -37,7 +37,7 @@
     <div class="_ecosystem-block app-content" v-if="main.the_cryptoid_ecosystem">
       <div class="e-transparent-content-block">
         <div class="_line">
-          <vue-markdown class="e-markdown-block -default -ecosystem -short"
+          <vue-markdown class="e-markdown-block -default -ecosystem -short -text-50"
                         :source="main.the_cryptoid_ecosystem.body"></vue-markdown>
           <div class="_image-wrapper">
             <img class="_image" :src="main.the_cryptoid_ecosystem.files[0].file"/>
@@ -48,7 +48,7 @@
                   )">View full size</button>
           </div>
         </div>
-        <vue-markdown class="e-markdown-block -default  -ecosystem"
+        <vue-markdown class="e-markdown-block -default -ecosystem"
                       :source="main.the_ecosystem_pictures.body"></vue-markdown>
       </div>
     </div>
@@ -65,7 +65,7 @@
     </div>
     <div class="_team-block app-content" v-if="main.team">
       <div class="e-transparent-content-block">
-        <vue-markdown class="e-markdown-block -default"
+        <vue-markdown class="e-markdown-block -default -text-50"
                       :source="main.team.body"></vue-markdown>
         <div class="_person-inside-block">
           <div class="_element" :key="i" v-for="(t, i) in team['team']">
@@ -89,7 +89,7 @@
     </div>
     <div class="_advisors-block app-content" v-if="main.advisors">
       <div class="e-transparent-content-block">
-        <vue-markdown class="e-markdown-block -default"
+        <vue-markdown class="e-markdown-block -default -text-50"
                       :source="main.advisors.body"></vue-markdown>
         <div class="_person-inside-block">
           <div class="_element" :key="i" v-for="(t, i) in team['advisor']">
@@ -211,18 +211,18 @@
       flex-wrap: wrap;
       justify-content: space-between;
       margin-top: 60px;
+      margin-left: -20px;
   
       ._element {
         display: flex;
-        width: 31%;
-        max-width: 420px;
+        flex: 1 0 calc(33% - 20px);
+        min-width: 360px;
+        max-width: 500px;
+        margin-left: 20px;
         margin-bottom: 60px;
-        @include media(wide) {
-          max-width: 520px;
-        }
         &.-empty {
           height: 0;
-          margin: 0;
+          margin-bottom: 0;
         }
       }
       ._image {

@@ -168,7 +168,7 @@
       left: 0;
       z-index: 1000;
     }
-    .e-transparent-block {
+    .e-transparent-content-block {
       &.-centered {
         @include media(mobile) {
           justify-content: center;

@@ -91,6 +91,9 @@
       @include media(wide) {
         width: 900px;
       }
+      .e-hide-when-mobile {
+        width: 100%;
+      }
     }
     ._timer {
       min-width: 270px;
