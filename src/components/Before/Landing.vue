@@ -6,7 +6,7 @@
         <div class="_nav-block">
           <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
             <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
-            <span class="_label">{{ f.name }}</span>
+            <span class="_label" v-if="landing.files.length > 1">{{ f.name }}</span>
           </label>
         </div>
       </div>

@@ -63,7 +63,7 @@
     }
   }
   .min-width-block {
-    min-width: 1350px;
+    min-width: 1000px;
   }
 </style>
 
