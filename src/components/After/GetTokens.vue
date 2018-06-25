@@ -22,8 +22,8 @@
         <p class="e-number-text -s">{{ ito.token_for_sale | number }} CID</p>
       </div>
       <div class="_info-element" v-if="isActive">
-        <p class="e-label-text">Ether received</p>
-        <p class="e-number-text -s">{{ ito.received_money | number }} ETH</p>
+        <p class="e-label-text">Ether received in this stage</p>
+        <p class="e-number-text -s">{{ ito.current_date.received_money | number }} ETH</p>
       </div>
     </div>
     <div class="_allocation-block e-white-content-block">

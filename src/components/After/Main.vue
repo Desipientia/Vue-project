@@ -7,12 +7,12 @@
           <div class="_distributed-block">
             <p class="e-caption-text">Total pre-seed token distribution</p>
             <progress-bar class="-main"
-                          :label="`${$filters.number(progressValue)} CID`"
-                          :max="progressMax"
-                          :value="progressValue"></progress-bar>
+                          :label="`${$filters.number(ito.current_date.token_for_sale)} CID`"
+                          :max="ito.total_supply"
+                          :value="ito.current_date.token_for_sale"></progress-bar>
             <p class="e-label-text">
               <span>0 CID</span>
-              <span>{{ maxTokensCount }}</span>
+              <span>{{$filters.number(ito.total_supply)}} CID</span>
             </p>
           </div>
           <div class="_timer-block">
@@ -20,15 +20,15 @@
             <div class="_content">
               <div class="_element">
                 <p class="_label">Tokens distributed in this stage</p>
-                <p class="_text">25 Million CID</p>
+                <p class="_text">{{$filters.number(ito.current_date.token_for_sale)}} CID</p>
               </div>
               <div class="_element">
                 <p class="_label">Ether received</p>
-                <p class="_text">24,661.2 ETH</p>
+                <p class="_text">{{ito.received_money}}</p>
               </div>
               <router-link class="_element e-button -white -xl"
                            :to="{ name: 'get-tokens' }">Get Tokens</router-link>
-              <timer class="_element -main" :date-range="date"></timer>
+              <timer class="_element -main" :date-range="ito.current_date"></timer>
             </div>
           </div>
         </div>
@@ -146,6 +146,7 @@
       ...mapState('pages', ['main']),
       ...mapState('project', [
         'date',
+        'ito',
         'team',
       ]),
     },
@@ -166,14 +167,16 @@
     methods: {
       ...mapActions('pages', ['getMainPageData']),
       ...mapActions('project', [
-        'getDateList',
         'getTeamList',
+        'getITO',
       ]),
     },
     mounted() {
       this.getMainPageData();
-      this.getDateList();
+      // this.getDateList();
       this.getTeamList();
+      this.getITO();
+
     },
   };
   /* eslint-disable */
