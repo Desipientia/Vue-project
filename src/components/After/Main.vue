@@ -173,10 +173,8 @@
     },
     mounted() {
       this.getMainPageData();
-      // this.getDateList();
       this.getTeamList();
       this.getITO();
-
     },
   };
   /* eslint-disable */
