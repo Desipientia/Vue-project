@@ -22,14 +22,14 @@
           </li>
         </ul>
         <div class="e-hide-when-mobile" v-else-if="$route.name === 'landing'">
-          <div class="_share-link-block">
+          <!-- <div class="_share-link-block">
             <span class="_share-text">Share on</span>
             <svg-icon class="_share-link" name="twitter"></svg-icon>
             <svg-icon class="_share-link" name="facebook"></svg-icon>
             <svg-icon class="_share-link" name="linkedin"></svg-icon>
             <svg-icon class="_share-link" name="telegram"></svg-icon>
           </div>
-        </div>
+        </div> -->
       </transition>
       <transition name="e-fade">
         <router-link class="e-button -white -m"
