@@ -69,7 +69,21 @@
       <button class="e-button -black" :disabled="$v.$invalid">Next</button>
     </form>
     <vue-markdown class="e-markdown-block -tokens"
-                  :source="tokens.body"></vue-markdown>
+                  :source="tokensText.first"></vue-markdown>
+    <vue-markdown class="_hidden-tokens-block e-markdown-block -tokens"
+                  :class="{ '-visible': isTokensFullyVisible }"
+                  :source="tokensText.second"></vue-markdown>
+    <button class="_view-hide-button"
+            @click="isTokensFullyVisible = !isTokensFullyVisible">
+      <transition name="e-fade" mode="out-in">
+        <span key="hide" v-if="isTokensFullyVisible">
+          <span class="_text">Hide all information</span><span class="_arrow">↑</span>
+        </span>
+        <span key="view" v-else>
+          <span class="_text">View all information</span><span class="_arrow">↓</span>
+        </span>
+      </transition>
+    </button>
     <div class="_side-block">
       <div class="_balance-block e-white-content-block" v-if="showBalance">
         <p class="e-label-text">Balance</p>
@@ -120,9 +134,18 @@
         ],
         showBalance: true,
         isLoaded: false,
+        isTokensFullyVisible: false,
       };
     },
     computed: {
+      tokensText() {
+        if (!this.tokens.body) return {};
+        const divider = this.tokens.body.indexOf('>');
+        return {
+          first: this.tokens.body.slice(0, divider),
+          second: this.tokens.body.slice(divider),
+        };
+      },
       socketTransaction() {
         return this.$store.state.socket.socket.amount;
       },
@@ -408,6 +431,37 @@
       margin: 5px 0;
       overflow: hidden;
       border-radius: 2px;
+    }
+    ._hidden-tokens-block {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s linear;
+      
+      &.-visible {
+        max-height: 1500px;
+      }
+    }
+    ._view-hide-button {
+      width: 240px;
+      height: 50px;
+      margin-top: 20px;
+      border-radius: 4px;
+      border: solid 2px #bcbcbc;
+      background-color: transparent;
+      font-family: "Open Sans", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      @include media(wide) {
+        font-size: 20px;
+      }
+      ._text {
+        color: #767676;
+      }
+      ._arrow {
+        margin: 0 10px;
+        color: #bcbcbc;
+      }
     }
     ._side-block {
       position: absolute;
