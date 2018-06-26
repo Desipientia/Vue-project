@@ -16,6 +16,7 @@
     "vue": "^2.5.2",
     "vue-autonumeric": "^1.2.5",
     "vue-markdown": "^2.2.4",
+    "vue-meta": "^1.5.0",
     "vue-native-websocket": "^2.0.7",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",

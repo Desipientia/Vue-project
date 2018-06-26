@@ -3,6 +3,7 @@ import VueResource from 'vue-resource';
 import VueMarkdown from 'vue-markdown';
 import Toasted from 'vue-toasted';
 import VueYouTubeEmbed from 'vue-youtube-embed';
+import Meta from 'vue-meta';
 
 import Modal from './plugins/modal/modal';
 import Loader from './plugins/loader/loader';
@@ -18,6 +19,7 @@ Vue.component('vue-markdown', VueMarkdown);
 Vue.use(VueResource);
 Vue.use(Toasted);
 Vue.use(VueYouTubeEmbed);
+Vue.use(Meta);
 
 Vue.use(Modal);
 Vue.use(Loader);

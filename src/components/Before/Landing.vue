@@ -24,6 +24,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex';
+  import { root } from '../../config';
 
   const Timer = () => import('../Elements/Timer.vue');
 
@@ -39,6 +40,15 @@
       };
     },
     computed: {
+      title() {
+        if (!this.landing.body) return '';
+        const index = this.landing.body.indexOf('\n');
+        return this.landing.body.slice(2, index);
+      },
+      videoUrl() {
+        if (!this.landing.files) return '';
+        return this.landing.files[0].url;
+      },
       ...mapState('pages', ['landing']),
       ...mapState('project', ['date']),
     },
@@ -47,6 +57,32 @@
       visibleVideo() {
         this.videoId = this.$youtube.getIdFromURL(this.landing.files[this.visibleVideo].url);
       },
+    },
+    metaInfo() {
+      return {
+        meta: [
+          {
+            property: 'og:title',
+            content: this.title,
+          },
+          {
+            property: 'og:type',
+            content: 'website',
+          },
+          {
+            property: 'og:url',
+            content: root || window.location.href,
+          },
+          {
+            property: 'og:image',
+            content: this.videoUrl,
+          },
+          {
+            property: 'og:video',
+            content: this.videoUrl,
+          },
+        ],
+      };
     },
     components: { Timer },
     methods: {
