@@ -2,13 +2,11 @@
   <div class="before-landing app-content">
     <vue-markdown class="e-markdown-block -landing" :source="landing.body"></vue-markdown>
     <div class="_content-block" ref="content" v-if="videoId">
-      <div class="e-hide-when-mobile">
-        <div class="_nav-block">
-          <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
-            <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
-            <span class="_label" v-if="landing.files.length > 1">{{ f.name }}</span>
-          </label>
-        </div>
+      <div class="_nav-block">
+        <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
+          <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
+          <span class="_label" v-if="landing.files.length > 1">{{ f.name }}</span>
+        </label>
       </div>
       <youtube :player-width="playerWidth"
                :player-height="playerHeight"
