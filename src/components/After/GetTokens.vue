@@ -442,9 +442,9 @@
       }
     }
     ._view-hide-button {
-      width: 240px;
       height: 50px;
       margin-top: 20px;
+      padding: 0 30px;
       border-radius: 4px;
       border: solid 2px #bcbcbc;
       background-color: transparent;
@@ -459,7 +459,7 @@
         color: #767676;
       }
       ._arrow {
-        margin: 0 10px;
+        margin-left: 10px;
         color: #bcbcbc;
       }
     }
