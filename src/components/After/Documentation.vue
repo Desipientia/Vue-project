@@ -60,6 +60,9 @@
       ...mapState('pages', ['documentation']),
     },
     props: ['name'],
+    metaInfo: {
+      title: 'Documentation',
+    },
     methods: mapActions('pages', ['getDocumentationPageData']),
     mounted() {
       this.getDocumentationPageData();

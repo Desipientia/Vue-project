@@ -38,6 +38,9 @@
     },
     props: ['referral'],
     components: { qrcode: VueQrcode },
+    metaInfo: {
+      title: 'Connect',
+    },
     watch: {
       socketAuth: {
         handler() {

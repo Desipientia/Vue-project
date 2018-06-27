@@ -51,13 +51,11 @@
       ...mapState('project', ['date']),
     },
     props: ['referral'],
-    watch: {
-      visibleVideo() {
-        this.videoId = this.$youtube.getIdFromURL(this.landing.files[this.visibleVideo].url);
-      },
-    },
+    components: { Timer },
     metaInfo() {
       return {
+        title: 'CryptoID',
+        titleTemplate: null,
         meta: [
           {
             property: 'og:title',
@@ -82,7 +80,11 @@
         ],
       };
     },
-    components: { Timer },
+    watch: {
+      visibleVideo() {
+        this.videoId = this.$youtube.getIdFromURL(this.landing.files[this.visibleVideo].url);
+      },
+    },
     methods: {
       handleResize() {
         const width = this.$refs.content.clientWidth;

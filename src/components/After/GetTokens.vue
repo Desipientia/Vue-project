@@ -190,6 +190,23 @@
       ]),
       ...mapGetters('auth', ['isAgreementConfirmed']),
     },
+    components: {
+      Timer,
+      ProgressBar,
+      VueAutonumeric,
+    },
+    metaInfo: {
+      title: 'Get Tokens',
+    },
+    mixins: [validationMixin],
+    validations() {
+      return {
+        amount: {
+          notZero: value => value > 0,
+          notBeyondMax: value => value <= this.maxTransactionCountAvailable,
+        },
+      };
+    },
     watch: {
       socketTransaction: {
         handler() {
@@ -214,20 +231,6 @@
         },
         deep: true,
       },
-    },
-    components: {
-      Timer,
-      ProgressBar,
-      VueAutonumeric,
-    },
-    mixins: [validationMixin],
-    validations() {
-      return {
-        amount: {
-          notZero: value => value > 0,
-          notBeyondMax: value => value <= this.maxTransactionCountAvailable,
-        },
-      };
     },
     methods: {
       showInfoModal() {

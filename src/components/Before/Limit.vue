@@ -22,6 +22,9 @@
         limitVars: s => s.limit,
       }),
     },
+    metaInfo: {
+      title: 'You need to increase your limit',
+    },
     methods: {
       ...mapActions('pages', ['getLimitPageData']),
       ...mapActions('project', ['getLimitData']),

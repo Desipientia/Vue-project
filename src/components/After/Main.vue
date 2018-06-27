@@ -155,6 +155,9 @@
       Timer,
       ProgressBar,
     },
+    metaInfo: {
+      title: 'Main',
+    },
     filters: {
       format(value) {
         if (!value) return '';

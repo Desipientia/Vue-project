@@ -26,6 +26,10 @@
       PageFooter,
       PageHeader,
     },
+    metaInfo: {
+      title: 'CryptoID',
+      titleTemplate: '%s | CryptoID',
+    },
   };
 /* eslint-disable */
 </script>
