@@ -127,7 +127,7 @@
     }
     ._follow-link-block {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       width: 100%;
       max-width: 300px;
@@ -142,10 +142,8 @@
       }
     }
     ._follow-link {
-      @include media(mobile) {
-        &:not(:last-child) {
-          margin-right: 20px;
-        }
+      &:not(:last-child) {
+        margin-right: 20px;
       }
       svg {
         @include media(wide) {
@@ -158,6 +156,9 @@
       font-family: "Open Sans", sans-serif;
       font-weight: 700;
       font-size: 14px;
+      @include media(not-mobile) {
+        margin-right: 20px;
+      }
       @include media(mobile) {
         width: 100%;
         margin-bottom: 15px;
