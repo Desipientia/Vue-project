@@ -15,9 +15,11 @@
     name: 'App',
     computed: {
       widthClass() {
-        if (this.$route.name === 'landing' || this.$route.name === 'connect') {
-          return '';
-        }
+        if (this.$route.name === 'landing'
+          || this.$route.name === 'connect'
+          || this.$route.name === 'qa') {
+            return '';
+          }
         return 'min-width-block';
       },
     },
