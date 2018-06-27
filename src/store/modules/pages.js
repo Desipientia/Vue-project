@@ -25,6 +25,7 @@ export default {
     info: '',
     tokens: {},
     main: '',
+    qa: '',
   },
   mutations: {
     setPageData(state, { data, field }) {
@@ -70,6 +71,11 @@ export default {
     getMainPageData({ commit }) {
       return Vue.http.get(`${URL}landing`).then((r) => {
         commit('setPageData', { data: makeObjectFromList(r.body.contents), field: 'main' });
+      });
+    },
+    getQAPageData({ commit }) {
+      return Vue.http.get(`${URL}qa`).then((r) => {
+        commit('setPageData', { data: r.body.contents[0].body, field: 'qa' });
       });
     },
   },

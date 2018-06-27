@@ -34,7 +34,7 @@
       <transition name="e-fade">
         <router-link class="e-button -white -m"
                      :to="{ name: 'connect' }"
-                     v-if="$route.name === 'landing'">
+                     v-if="$route.name === 'landing' || $route.name === 'qa'">
           <span class="e-hide-when-mobile">Get</span> full access
         </router-link>
       </transition>
@@ -140,6 +140,10 @@
       background-color: #fff;
       border-bottom: solid 1px rgba(188, 188, 188, 0.51);
   
+      .e-button {
+        color: #fff;
+        background-color: #0e0e0e;
+      }
       ._logo-text {
         color: #0e0e0e;
       }
@@ -167,6 +171,9 @@
       top: 0;
       left: 0;
       z-index: 1000;
+    }
+    .e-button {
+      @include transition(text, background);
     }
     .e-transparent-content-block {
       &.-centered {

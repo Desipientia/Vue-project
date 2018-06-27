@@ -6,6 +6,7 @@ import store from '../store';
 const Landing = () => import('@/components/Before/Landing');
 const Connect = () => import('@/components/Before/Connect');
 const Limit = () => import('@/components/Before/Limit');
+const QA = () => import('@/components/Before/QA');
 
 const Main = () => import('@/components/After/Main');
 const GetTokens = () => import('@/components/After/GetTokens');
@@ -37,6 +38,12 @@ const router = new Router({
       name: 'limit',
       component: Limit,
       meta: { requiresAuth: true },
+    },
+    {
+      path: '/qa',
+      name: 'qa',
+      component: QA,
+      meta: { hideWhenAuth: true },
     },
     {
       path: '/main',

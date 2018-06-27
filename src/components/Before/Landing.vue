@@ -12,6 +12,15 @@
                :player-height="playerHeight"
                :video-id="videoId"></youtube>
     </div>
+    <div class="_content-block -with-button">
+      <router-link class="_q-a-button" :to="{ name: 'qa' }">
+        <svg class="_icon" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
+          <!-- eslint-disable-next-line max-len -->
+          <path d="M0,0 L11,0 L11,2 L0,2 L0,0 Z M0,4 L11,4 L11,6 L0,6 L0,4 Z M0,8 L11,8 L11,10 L0,10 L0,8 Z M0,12 L7,12 L7,14 L0,14 L0,12 Z"></path>
+        </svg>
+        Read Q&A
+      </router-link>
+    </div>
     <div class="_content-block">
       <router-link class="e-button -white -l"
                    :to="{ name: 'connect', query: this.$route.query }">Get full access</router-link>
@@ -120,15 +129,48 @@
       justify-content: space-between;
       align-items: center;
       width: 630px;
-      margin: 60px auto 0;
+      margin: 50px auto 0;
       @include media(mobile) {
         width: 100%;
       }
       @include media(wide) {
         width: 900px;
       }
+      &.-with-button {
+        margin-top: 20px;
+      }
       .e-hide-when-mobile {
         width: 100%;
+      }
+    }
+    ._q-a-button {
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      border-radius: 4px;
+      background-color: #1d1d1d;
+      color: #fff;
+      font-family: "Cabin", sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      @include media(wide) {
+        height: 60px;
+        line-height: 60px;
+        font-size: 20px;
+      }
+      ._icon {
+        width: 11px;
+        height: auto;
+        margin: 0 5px -1px;
+        fill: #767676;
+        @include media(wide) {
+          width: 14px;
+          margin: 0 7px -3px;
+        }
       }
     }
     ._timer {
