@@ -37,6 +37,11 @@
                      v-if="$route.name === 'landing' || $route.name === 'qa'">
           <span class="e-hide-when-mobile">Get</span> full access
         </router-link>
+        <router-link class="e-button -white -m"
+                     :to="{ name: 'connect-airdrop' }"
+                     v-if="$route.name === 'airdrop' ">
+          <span class="e-hide-when-mobile">Get</span> Your airdrop
+        </router-link>
       </transition>
       <transition name="e-fade">
         <button class="_sign-out-button" v-if="isAuthorized" @click="logoutAndGo">
@@ -73,6 +78,7 @@
       background() {
         switch (this.$route.name) {
           case 'landing':
+          case 'airdrop':
           case 'main':
             return '-black';
           case 'documentation':

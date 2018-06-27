@@ -1,18 +1,18 @@
 <template>
-  <div class="before-connect e-inside-content-block" v-if="connect">
+  <div class="before-connect e-inside-content-block" v-if="airDropConnect">
     <vue-markdown class="e-markdown-block -default e-mobile-only"
-                  :source="connect.main_content_mobile.body"></vue-markdown>
+                  :source="airDropConnect.main_content_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
-                  :source="connect.main_content.body"></vue-markdown>
+                  :source="airDropConnect.main_content.body"></vue-markdown>
     <div class="_qr-code-block e-hide-when-mobile" v-if="finishQrCode !== null">
       <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>
     </div>
     <vue-markdown class="e-markdown-block -default -connect e-mobile-only"
-                  :source="connect.if_not_installed_mobile.body"></vue-markdown>
+                  :source="airDropConnect.if_not_installed_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default -connect e-hide-when-mobile"
-                  :source="connect.if_not_installed.body"></vue-markdown>
+                  :source="airDropConnect.if_not_installed.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default"
-                  :source="connect.support.body"></vue-markdown>
+                  :source="airDropConnect.support.body"></vue-markdown>
   </div>
 </template>
 
@@ -22,7 +22,7 @@
   const VueQrcode = () => import('@xkeshi/vue-qrcode');
 
   export default {
-    name: 'Connect',
+    name: 'AirDropConnect',
     data() {
       return {
         finishQrCode: null,
@@ -32,7 +32,7 @@
       socketAuth() {
         return this.$store.state.socket.socket.user;
       },
-      ...mapState('pages', ['connect']),
+      ...mapState('pages', ['airDropConnect']),
       ...mapState('auth', ['qrCode']),
       ...mapGetters('auth', ['isAuthorized']),
     },
@@ -55,20 +55,20 @@
     methods: {
       generateNewQRcode() {
         this.getUserProject().then(() => {
-          const referalNumber = this.referral || null;
+          const referalNumber = 'airdrop';
           const data = { ...this.qrCode, referalNumber };
           const pk = data.pk;
-          if (referalNumber !== null) data.pk = `${pk}&${referalNumber}`;
+          data.pk = `${pk}&${referalNumber}`;
           this.finishQrCode = JSON.stringify(data);
           this.connectSocket(pk);
         });
       },
       ...mapActions('auth', ['getUserProject', 'login', 'connectSocket']),
-      ...mapActions('pages', ['getConnectPageData']),
+      ...mapActions('pages', ['getAirDropConnectPageData']),
     },
     mounted() {
       this.generateNewQRcode();
-      this.getConnectPageData();
+      this.getAirDropConnectPageData();
     },
   };
   /* eslint-disable */

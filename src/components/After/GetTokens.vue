@@ -19,7 +19,7 @@
       <timer class="_info-element" :date-range="ito.current_date"></timer>
       <div class="_info-element">
         <p class="e-label-text">Total tokens distributed in this stage</p>
-        <p class="e-number-text -s">{{ ito.token_for_sale | number }} CID</p>
+        <p class="e-number-text -s">{{ tokensForSale }} CID</p>
       </div>
       <div class="_info-element" v-if="isActive">
         <p class="e-label-text">Ether received in this stage</p>
@@ -98,6 +98,12 @@
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
         <p class="e-label-text">Total Contributed <b>{{ fullEthTransactionCount }} ETH</b></p>
         <hr class="_line">
+        <div v-if="cidDropTransactionCount">
+          <p class="e-label-text">Airdrop</p>
+          <p class="e-number-text -black -m">{{ cidDropTransactionCount }} CID DROP</p>
+          <p class="e-info-text">We will convert your CID DROP to CID later.</p>
+          <hr class="_line">
+        </div>
         <p class="e-label-text">Contributed in this stage</p>
         <p class="e-number-text -black -m">{{ currentEthTransactionCount }} ETH</p>
         <!-- eslint-disable-next-line max-len -->
@@ -166,6 +172,10 @@
         const a = this.allocation;
         return a.full_cid_transactions_count ? a.full_cid_transactions_count : 0;
       },
+      tokensForSale() {
+        const a = this.ito;
+        return a.current_date ? a.current_date.token_for_sale : 0;
+      },
       fullEthTransactionCount() {
         const a = this.allocation;
         return a.full_transactions_count ? a.full_transactions_count.eth_amount : 0;
@@ -173,6 +183,10 @@
       currentEthTransactionCount() {
         const a = this.allocation;
         return a.current_transactions_count ? a.current_transactions_count.eth_amount : 0;
+      },
+      cidDropTransactionCount() {
+        const a = this.allocation;
+        return a.full_cid_drop_transactions_count;
       },
       maxTransactionCountAvailable() {
         const a = this.allocation;

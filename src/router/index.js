@@ -4,7 +4,9 @@ import Router from 'vue-router';
 import store from '../store';
 
 const Landing = () => import('@/components/Before/Landing');
+const LandingAirDrop = () => import('@/components/Before/LandingAirDrop');
 const Connect = () => import('@/components/Before/Connect');
+const ConnectAirDrop = () => import('@/components/Before/ConnectAirDrop');
 const Limit = () => import('@/components/Before/Limit');
 const QA = () => import('@/components/Before/QA');
 
@@ -32,6 +34,14 @@ const router = new Router({
       component: Connect,
       meta: { hideWhenAuth: true },
       props: route => ({ referral: route.query.r }),
+    },
+    {
+      path: '/connect-airdrop',
+      name: 'connect-airdrop',
+      component: ConnectAirDrop,
+      meta: { hideWhenAuth: true },
+      props: route => ({ referral: route.query.r }),
+
     },
     {
       path: '/you-need-to-increase-your-limit',
@@ -70,6 +80,13 @@ const router = new Router({
       component: Documentation,
       meta: { requiresAuth: true, scrollToTop: true },
       props: route => ({ name: route.query.name }),
+    },
+    {
+      path: '/airdrop',
+      name: 'airdrop',
+      component: LandingAirDrop,
+      meta: { hideWhenAuth: true },
+      props: route => ({ referral: route.query.r }),
     },
     {
       path: '*',

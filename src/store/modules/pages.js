@@ -26,6 +26,8 @@ export default {
     tokens: {},
     main: '',
     qa: '',
+    airDropLanding: '',
+    airDropConnect: '',
   },
   mutations: {
     setPageData(state, { data, field }) {
@@ -76,6 +78,16 @@ export default {
     getQAPageData({ commit }) {
       return Vue.http.get(`${URL}qa`).then((r) => {
         commit('setPageData', { data: r.body.contents[0].body, field: 'qa' });
+      });
+    },
+    getAirDropLandingPageData({ commit }) {
+      return Vue.http.get(`${URL}landing-short-airdrop`).then((r) => {
+        commit('setPageData', { data: r.body.contents[0].body, field: 'airDropLanding' });
+      });
+    },
+    getAirDropConnectPageData({ commit }) {
+      Vue.http.get(`${URL}connect-with-cryptoid-airdrop`).then((r) => {
+        commit('setPageData', { data: makeObjectFromList(r.body.contents), field: 'airDropConnect' });
       });
     },
   },

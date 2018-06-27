@@ -1,7 +1,8 @@
 <template>
   <div class="timer">
     <p class="e-label-text"
-       v-if="type === 'landing'">Time left to access to <br> the first token distribution</p>
+       v-if="type === 'landing' || type == 'airdrop'"> Time left to access to <br>
+       the first token distribution</p>
     <p class="e-label-text" v-else>
       <transition name="e-fade" mode="out-in">
         <span key="active" v-if="isActive">Token distribution closes in</span>
@@ -42,7 +43,9 @@
         const days = Math.floor(t / 60 / 60 / 24);
 
         if (this.endDate && t <= 0) clearInterval(this.timerInterval);
-        return { days, hours, mins, secs };
+        return {
+          days, hours, mins, secs,
+        };
       },
       endDate() {
         const endDate = this.isActive ? this.parsedDate.end : this.parsedDate.start;

@@ -1,30 +1,13 @@
 <template>
   <div class="before-landing app-content">
-    <vue-markdown class="e-markdown-block -landing" :source="landing.body"></vue-markdown>
-    <div class="_content-block" ref="content" v-if="videoId">
-      <div class="_nav-block">
-        <label class="_nav-tab" :key="i" v-for="(f, i) in landing.files">
-          <input class="_input" type="radio" :value="i" v-model="visibleVideo"/>
-          <span class="_label" v-if="landing.files.length > 1">{{ f.name }}</span>
-        </label>
-      </div>
-      <youtube :player-width="playerWidth"
-               :player-height="playerHeight"
-               :video-id="videoId"></youtube>
-    </div>
+    <vue-markdown class="e-markdown-block -landing" :source="airDropLanding"></vue-markdown>
     <div class="_content-block -with-button">
-      <router-link class="_q-a-button" :to="{ name: 'qa' }">
-        <svg class="_icon" viewBox="0 0 11 14" xmlns="http://www.w3.org/2000/svg">
-          <!-- eslint-disable-next-line max-len -->
-          <path d="M0,0 L11,0 L11,2 L0,2 L0,0 Z M0,4 L11,4 L11,6 L0,6 L0,4 Z M0,8 L11,8 L11,10 L0,10 L0,8 Z M0,12 L7,12 L7,14 L0,14 L0,12 Z"></path>
-        </svg>
-        Read Q&A
-      </router-link>
     </div>
     <div class="_content-block">
       <router-link class="e-button -white -l"
-                   :to="{ name: 'connect', query: this.$route.query }">Get full access</router-link>
-
+                   :to="{ name: 'connect', query: this.$route.query }">
+                   GET YOUR AIRDROP
+      </router-link>
       <timer class="_timer -landing" type="landing" :date-range="date"></timer>
     </div>
   </div>
@@ -49,15 +32,11 @@
     },
     computed: {
       title() {
-        if (!this.landing.body) return '';
-        const index = this.landing.body.indexOf('\n');
-        return this.landing.body.slice(2, index);
+        if (!this.airDropLanding.body) return '';
+        const index = this.airDropLanding.body.indexOf('\n');
+        return this.airDropLanding.body.slice(2, index);
       },
-      videoUrl() {
-        if (!this.landing.files) return '';
-        return this.landing.files[0].url;
-      },
-      ...mapState('pages', ['landing']),
+      ...mapState('pages', ['airDropLanding']),
       ...mapState('project', ['date']),
     },
     props: ['referral'],
@@ -90,30 +69,13 @@
         ],
       };
     },
-    watch: {
-      visibleVideo() {
-        this.videoId = this.$youtube.getIdFromURL(this.landing.files[this.visibleVideo].url);
-      },
-    },
     methods: {
-      handleResize() {
-        const width = this.$refs.content.clientWidth;
-        this.playerWidth = `${width}px`;
-        this.playerHeight = `${width / this.ratio}px`;
-      },
-      ...mapActions('pages', ['getLandingPageData']),
+      ...mapActions('pages', ['getAirDropLandingPageData']),
       ...mapActions('project', ['getDateList']),
     },
     mounted() {
       this.getDateList();
-      this.getLandingPageData().then(() => {
-        this.visibleVideo = 0;
-      });
-      window.addEventListener('resize', this.handleResize);
-      setTimeout(() => { this.handleResize(); }, 1000);
-    },
-    beforeDestroy() {
-      window.removeEventListener('resize', this.handleResize);
+      this.getAirDropLandingPageData();
     },
   };
   /* eslint-disable */
