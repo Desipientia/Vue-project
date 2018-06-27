@@ -77,10 +77,18 @@
             @click="isTokensFullyVisible = !isTokensFullyVisible">
       <transition name="e-fade" mode="out-in">
         <span key="hide" v-if="isTokensFullyVisible">
-          <span class="_text">Hide all information</span><span class="_arrow">↑</span>
+          <span class="_text">Hide all information</span>
+          <svg class="_arrow" viewBox="0 0 10 20" xmlns="http://www.w3.org/2000/svg">
+            <!-- eslint-disable-next-line max-len -->
+            <path transform="rotate(180, 5, 10)" d="M6,15.5857864 L8.29289322,13.2928932 C8.68341751,12.9023689 9.31658249,12.9023689 9.70710678,13.2928932 C10.0976311,13.6834175 10.0976311,14.3165825 9.70710678,14.7071068 L5,19.4142136 L0.292893219,14.7071068 C-0.0976310729,14.3165825 -0.0976310729,13.6834175 0.292893219,13.2928932 C0.683417511,12.9023689 1.31658249,12.9023689 1.70710678,13.2928932 L4,15.5857864 L4,1 C4,0.44771525 4.44771525,1.01453063e-16 5,0 C5.55228475,-1.01453063e-16 6,0.44771525 6,1 L6,15.5857864 Z"></path>
+          </svg>
         </span>
         <span key="view" v-else>
-          <span class="_text">View all information</span><span class="_arrow">↓</span>
+          <span class="_text">View all information</span>
+          <svg class="_arrow" viewBox="0 0 10 20" xmlns="http://www.w3.org/2000/svg">
+            <!-- eslint-disable-next-line max-len -->
+            <path d="M6,15.5857864 L8.29289322,13.2928932 C8.68341751,12.9023689 9.31658249,12.9023689 9.70710678,13.2928932 C10.0976311,13.6834175 10.0976311,14.3165825 9.70710678,14.7071068 L5,19.4142136 L0.292893219,14.7071068 C-0.0976310729,14.3165825 -0.0976310729,13.6834175 0.292893219,13.2928932 C0.683417511,12.9023689 1.31658249,12.9023689 1.70710678,13.2928932 L4,15.5857864 L4,1 C4,0.44771525 4.44771525,1.01453063e-16 5,0 C5.55228475,-1.01453063e-16 6,0.44771525 6,1 L6,15.5857864 Z"></path>
+          </svg>
         </span>
       </transition>
     </button>
@@ -459,11 +467,15 @@
         font-size: 20px;
       }
       ._text {
+        vertical-align: middle;
         color: #767676;
       }
       ._arrow {
+        vertical-align: middle;
+        width: 10px;
+        height: auto;
         margin-left: 10px;
-        color: #bcbcbc;
+        fill: #bcbcbc;
       }
     }
     ._side-block {
