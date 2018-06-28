@@ -1,9 +1,9 @@
 <template>
   <div class="before-connect e-inside-content-block" v-if="airDropConnect">
     <vue-markdown class="e-markdown-block -default e-mobile-only"
-                  :source="airDropConnect.main_content_mobile.body"></vue-markdown>
+                  :source="headString"></vue-markdown>
     <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
-                  :source="airDropConnect.main_content.body"></vue-markdown>
+                  :source="headString"></vue-markdown>
     <div class="_qr-code-block e-hide-when-mobile" v-if="finishQrCode !== null">
       <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>
     </div>
@@ -33,6 +33,15 @@
       socketAuth() {
         return this.$store.state.socket.socket.user;
       },
+      headString() {
+        let promo = this.promo;
+        let head = this.airDropConnect.main_content.body
+        Object.keys(promo).forEach((key) => {
+          head = head.replace(`{${key}}`, promo[key]);
+        });
+        return head;
+      },
+
       ...mapState('pages', ['airDropConnect', 'airDropModal']),
       ...mapState('auth', ['qrCode']),
       ...mapState('project', ['promo']),

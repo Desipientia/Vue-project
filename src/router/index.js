@@ -36,7 +36,7 @@ const router = new Router({
       props: route => ({ referral: route.query.r }),
     },
     {
-      path: '/connect-airdrop',
+      path: '/airdrop',
       name: 'connect-airdrop',
       component: ConnectAirDrop,
       meta: { hideWhenAuth: true },
@@ -80,13 +80,6 @@ const router = new Router({
       component: Documentation,
       meta: { requiresAuth: true, scrollToTop: true },
       props: route => ({ name: route.query.name }),
-    },
-    {
-      path: '/airdrop',
-      name: 'airdrop',
-      component: LandingAirDrop,
-      meta: { hideWhenAuth: true },
-      props: route => ({ referral: route.query.r }),
     },
     {
       path: '*',
