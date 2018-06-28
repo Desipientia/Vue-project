@@ -57,7 +57,7 @@
       </p>
       <p class="_statistics-text">
         <span class="e-number-text -s">Earned</span>
-        <span class="e-number-text -s -black">{{ referral.coin_count }} CID</span>
+        <span class="e-number-text -s -black">{{ cidDropTransactionCount }} CID</span>
       </p>
     </div>
   </div>
@@ -79,7 +79,12 @@
       referralLink() {
         return `${window.location.host}/?r=${this.referral.referal_number}`;
       },
-      ...mapState('project', ['referral']),
+      cidDropTransactionCount() {
+        const a = this.allocation;
+        return a.full_cid_drop_transactions_count;
+      },
+
+      ...mapState('project', ['referral', 'allocation']),
       ...mapState('pages', {
         referralText: s => s.referral,
       }),

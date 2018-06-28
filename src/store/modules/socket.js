@@ -27,6 +27,7 @@ export default {
       switch (message.type) {
         case 'authorize':
           state.socket.user = message.user;
+          state.socket.user.earn = message.earn;
           break;
         case 'add_cid':
         case 'add_eth':

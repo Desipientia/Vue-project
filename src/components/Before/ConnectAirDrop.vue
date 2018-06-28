@@ -13,6 +13,7 @@
                   :source="airDropConnect.if_not_installed.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default"
                   :source="airDropConnect.support.body"></vue-markdown>
+
   </div>
 </template>
 
@@ -32,8 +33,9 @@
       socketAuth() {
         return this.$store.state.socket.socket.user;
       },
-      ...mapState('pages', ['airDropConnect']),
+      ...mapState('pages', ['airDropConnect', 'airDropModal']),
       ...mapState('auth', ['qrCode']),
+      ...mapState('project', ['promo']),
       ...mapGetters('auth', ['isAuthorized']),
     },
     props: ['referral'],
@@ -47,6 +49,9 @@
           if (this.socketAuth) {
             this.login(this.socketAuth);
             this.$router.push({ name: 'main' });
+            if (this.socketAuth.earn){
+              this.$modal.show('airdrop', { data: {promo:this.promo, page:this.airDropModal, user:this.socketAuth} });
+            }
           }
         },
         deep: true,
@@ -64,11 +69,16 @@
         });
       },
       ...mapActions('auth', ['getUserProject', 'login', 'connectSocket']),
-      ...mapActions('pages', ['getAirDropConnectPageData']),
-    },
+      ...mapActions('pages', ['getAirDropConnectPageData', 'getAirDropModalPageData']),
+      ...mapActions('project', ['getPromo']),
+
+  },
     mounted() {
       this.generateNewQRcode();
       this.getAirDropConnectPageData();
+      this.getAirDropModalPageData();
+      this.getPromo();
+ 
     },
   };
   /* eslint-disable */

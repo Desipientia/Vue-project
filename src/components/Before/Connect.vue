@@ -32,8 +32,9 @@
       socketAuth() {
         return this.$store.state.socket.socket.user;
       },
-      ...mapState('pages', ['connect']),
+      ...mapState('pages', ['connect', 'airDropModal']),
       ...mapState('auth', ['qrCode']),
+      ...mapState('project', ['promo']),
       ...mapGetters('auth', ['isAuthorized']),
     },
     props: ['referral'],
@@ -47,6 +48,9 @@
           if (this.socketAuth) {
             this.login(this.socketAuth);
             this.$router.push({ name: 'main' });
+            if (this.socketAuth.earn){
+              this.$modal.show('airdrop', { data: {promo:this.promo, page:this.airDropModal, user:this.socketAuth} });
+            }
           }
         },
         deep: true,
@@ -64,11 +68,15 @@
         });
       },
       ...mapActions('auth', ['getUserProject', 'login', 'connectSocket']),
-      ...mapActions('pages', ['getConnectPageData']),
+      ...mapActions('pages', ['getConnectPageData', 'getAirDropModalPageData']),
+      ...mapActions('project', ['getPromo']),
+
     },
     mounted() {
       this.generateNewQRcode();
       this.getConnectPageData();
+      this.getAirDropModalPageData();
+      this.getPromo();
     },
   };
   /* eslint-disable */

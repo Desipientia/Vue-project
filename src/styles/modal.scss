@@ -17,11 +17,15 @@
   opacity: 0;
 }
 
+.m-sign {
+  font-size: 14px;
+  text-align: center;
+}
 .m-window {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  min-height: 300px;
+  max-width: 520px; 
+  min-height: 300px; 
   margin: 30px auto;
   padding: 30px 40px 50px;
   border-radius: 2px;
@@ -43,6 +47,12 @@
     width: auto;
     max-width: 90%;
     padding: 4vh 40px;
+  }
+  &.airdrop {
+    max-width: 670px;
+    @include media(wide) {
+      max-width: 800px;
+    }
   }
 }
 
@@ -75,8 +85,45 @@
   @include media(wide) {
     font-size: 34px;
   }
+  
+}
+.m-header-promo-text {
+  line-height: 1.2;
+  margin: 10px 0;
+  color: #0e0e0e;
+  font-family: "Cabin", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  @include media(wide) {
+    font-size: 20px;
+  }
+  
+}
+.m-referal-link{
+  line-height: 1.2;
+  margin: auto;
+  color: #0e0e0e;
+  font-family: "Cabin", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  @include media(wide) {
+    font-size: 24px;
+  }
+  
+}
+.m-text-modal {
+  line-height: 1.2;
+  margin: 10px 0;
+  color:#767676;
+  font-family: "OpenSans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;  
 }
 
+.m-copy-button {
+  text-align: right;
+}
 .m-markdown-block {
   h2 {
     @extend .m-header-text;

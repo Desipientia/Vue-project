@@ -28,6 +28,7 @@ export default {
     qa: '',
     airDropLanding: '',
     airDropConnect: '',
+    airDropModal: '',
   },
   mutations: {
     setPageData(state, { data, field }) {
@@ -88,6 +89,11 @@ export default {
     getAirDropConnectPageData({ commit }) {
       Vue.http.get(`${URL}connect-with-cryptoid-airdrop`).then((r) => {
         commit('setPageData', { data: makeObjectFromList(r.body.contents), field: 'airDropConnect' });
+      });
+    },
+    getAirDropModalPageData({ commit }) {
+      Vue.http.get(`${URL}airdrop-modal`).then((r) => {
+        commit('setPageData', { data: makeObjectFromList(r.body.contents), field: 'airDropModal' });
       });
     },
   },
