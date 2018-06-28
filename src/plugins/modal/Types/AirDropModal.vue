@@ -2,16 +2,16 @@
     <form class="airdrop" @submit.prevent="$modal.hide">
       <vue-markdown class="m-header-promo-text"
                 :source="headString"></vue-markdown>
-      <vue-markdown class="e-markdown-block -modal m-text-modal"
+      <vue-markdown class="e-markdown-block -modal m-text-modal -m"
                 :source="bodyString"></vue-markdown>
+     <div>
       <input class="e-input -s m-referal-link"
         type="text"
         title="linkInput"
         ref="linkInput"
         v-model="referralLink"
         @keydown.prevent=""/>
-
-      <button class="e-button -grey" @click="copyLink">
+      <div class="e-button -grey m-copy-button" @click="copyLink">
         <svg xmlns="http://www.w3.org/2000/svg"
               width="15"
               height="12.5"
@@ -22,8 +22,9 @@
           </g>
         </svg>
         {{ copyButtonText }}
-      </button>
-      <vue-markdown class="e-markdown-block -modal m-text-modal"
+      </div>
+     </div>
+      <vue-markdown class="e-markdown-block m-text-modal -s"
                     :source="$modal.params().data.page.earn_token.body"></vue-markdown>
           
     </form>

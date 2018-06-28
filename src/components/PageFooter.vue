@@ -33,7 +33,6 @@
       background() {
         switch (this.$route.name) {
           case 'landing':
-          case 'airdrop':
             return '-black';
           case 'documentation':
             return '-white -docs';

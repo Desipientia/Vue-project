@@ -1,7 +1,7 @@
 <template>
   <div class="timer">
     <p class="e-label-text"
-       v-if="type === 'landing' || type == 'airdrop'"> Time left to access to <br>
+       v-if="type === 'landing'"> Time left to access to <br>
        the first token distribution</p>
     <p class="e-label-text" v-else>
       <transition name="e-fade" mode="out-in">

@@ -82,6 +82,7 @@
   font-family: "Cabin", sans-serif;
   font-weight: 600;
   font-size: 30px;
+  
   @include media(wide) {
     font-size: 34px;
   }
@@ -117,13 +118,19 @@
   margin: 10px 0;
   color:#767676;
   font-family: "OpenSans", sans-serif;
-  font-weight: 600;
-  font-size: 16px;  
+  // font-weight: 600;
+  &.-m {
+    font-size: 16px;
+  }
+  &.-s {
+    font-size: 14px;
+  }
 }
 
 .m-copy-button {
-  text-align: right;
+  display: inline-block; 
 }
+
 .m-markdown-block {
   h2 {
     @extend .m-header-text;

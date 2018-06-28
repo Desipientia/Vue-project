@@ -16,7 +16,6 @@
       background() {
         switch (this.$route.name) {
           case 'landing':
-          case 'airdrop':
             return '-black -mobile';
           case 'main':
             return '-white -half';
