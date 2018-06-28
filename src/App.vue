@@ -16,8 +16,8 @@
     computed: {
       widthClass() {
         if (this.$route.name === 'landing'
-          || this.$route.name === 'airdrop'
           || this.$route.name === 'connect'
+          || this.$route.name === 'connect-airdrop'
           || this.$route.name === 'qa') {
             return '';
           }

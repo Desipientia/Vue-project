@@ -1,7 +1,7 @@
 <template>
   <header class="page-header" :class="background">
     <div class="e-transparent-content-block -row"
-         :class="{ '-centered': $route.name === 'connect'}">
+         :class="{ '-centered': $route.name === 'connect' || $route.name === 'connect-airdrop'}">
       <router-link class="_logo" :to="{ name: 'landing' }">
         <svg class="_logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 20">
           <g>

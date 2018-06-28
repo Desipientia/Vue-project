@@ -4,7 +4,6 @@ import Router from 'vue-router';
 import store from '../store';
 
 const Landing = () => import('@/components/Before/Landing');
-const LandingAirDrop = () => import('@/components/Before/LandingAirDrop');
 const Connect = () => import('@/components/Before/Connect');
 const ConnectAirDrop = () => import('@/components/Before/ConnectAirDrop');
 const Limit = () => import('@/components/Before/Limit');
