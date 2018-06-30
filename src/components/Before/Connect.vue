@@ -4,13 +4,14 @@
                   :source="connect.main_content_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
                   :source="connect.main_content.body"></vue-markdown>
-    <div class="_qr-code-block e-hide-when-mobile" v-if="finishQrCode !== null">
-      <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>
-    </div>
+  
     <vue-markdown class="e-markdown-block -default -connect e-mobile-only"
                   :source="connect.if_not_installed_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default -connect e-hide-when-mobile"
                   :source="connect.if_not_installed.body"></vue-markdown>
+    <div class="_qr-code-block e-hide-when-mobile" v-if="finishQrCode !== null">
+      <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>
+    </div>
     <vue-markdown class="e-markdown-block -default"
                   :source="connect.support.body"></vue-markdown>
   </div>
