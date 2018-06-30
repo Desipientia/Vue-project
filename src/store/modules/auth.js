@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueNativeSock from 'vue-native-websocket';
 import { projectName, wsRoot } from '../../config';
 
-const AUTH_TOKEN_KEY = 'cid_token';
+const AUTH_TOKEN_KEY = 'token';
 const AGREEMENT_TOKEN_KEY = 'cid_agreement';
 
 const URL = `project/${projectName}/`;
@@ -21,6 +21,7 @@ export default {
   state: {
     token: null,
     qrCode: null,
+    phoneNumber: null,
   },
   getters: {
     isAuthorized: state => state.token !== null,
@@ -35,6 +36,9 @@ export default {
     setQrCode(state, qrCode) {
       state.qrCode = qrCode;
     },
+    setPhoneNubmber(state, phoneNumber) {
+      state.phoneNumber = phoneNumber;
+    },
     removeUserData(state) {
       removeStorageItem(AUTH_TOKEN_KEY);
       state.token = null;
@@ -43,13 +47,13 @@ export default {
   actions: {
     verify({ dispatch }) {
       if (getStorageItem(AUTH_TOKEN_KEY)) {
-        dispatch('login', { cid_token: getStorageItem(AUTH_TOKEN_KEY) });
+        dispatch('login', { token: getStorageItem(AUTH_TOKEN_KEY) });
       }
     },
     login({ commit }, user) {
       if (user) {
-        Vue.http.headers.common.Authorization = user.cid_token;
-        commit('setUserData', user.cid_token);
+        Vue.http.headers.common.Authorization = `Token ${user.token}`;
+        commit('setUserData', user.token);
         if (user.purchase_agreement) {
           localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
         }
@@ -85,6 +89,21 @@ export default {
     getUserProject({ commit }) {
       return Vue.http.get(`${URL}new-user-project/`).then((r) => {
         commit('setQrCode', r.body);
+      });
+    },
+    setUserProject({}) {
+      return Vue.http.put(`${URL}set-project-to-user/`);
+    },
+    validateCode({ state, dispatch }, otp) {
+      return Vue.http.post('auth/validate/', { otp, phone_number: state.phoneNumber }).then((r) => {
+        dispatch('login', r.body).then(() => {
+          dispatch('setUserProject');
+        });
+      });
+    },
+    generateCode({ commit }, phoneNumber) {
+      return Vue.http.post('auth/generate/', { phone_number: phoneNumber }).then(() => {
+        commit('setPhoneNubmber', phoneNumber);
       });
     },
     confirmAgreement({}, data) {

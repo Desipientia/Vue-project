@@ -5,7 +5,6 @@ export default {
     const Constructor = Vue.extend(ModalComponent);
     const Modal = new Constructor();
     const vm = Modal.$mount();
-
     document.body.appendChild(vm.$el);
 
     // eslint-disable-next-line no-param-reassign, no-multi-assign

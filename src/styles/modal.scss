@@ -136,3 +136,17 @@
     @extend .m-header-text;
   }
 }
+._error-block {
+  line-height: 1.43;
+  border-radius: 4px;
+  background-color: rgba(208, 2, 27, 0.1);
+  color: #d0021b;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  padding: 15px 5px;
+  margin-bottom: 19px;
+  @include media(wide) {
+    font-size: 18px;
+  }
+}
