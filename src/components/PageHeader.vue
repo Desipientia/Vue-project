@@ -35,7 +35,7 @@
         <router-link class="e-button -white -m"
                      :to="{ name: 'connect' }"
                      v-if="$route.name === 'landing' || $route.name === 'qa'">
-          <span class="e-hide-when-mobile">Get</span> full access
+          <span class="e-hide-when-mobile">Join</span> white list
         </router-link>
         <router-link class="e-button -white -m"
                      :to="{ name: 'connect-airdrop' }"

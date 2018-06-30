@@ -23,7 +23,7 @@
     </div>
     <div class="_content-block">
       <router-link class="e-button -white -l"
-                   :to="{ name: 'connect', query: this.$route.query }">Get full access</router-link>
+                   :to="{ name: 'connect', query: this.$route.query }">Join white list</router-link>
 
       <timer class="_timer -landing" type="landing" :date-range="date"></timer>
     </div>
