@@ -32,16 +32,11 @@
         </div> -->
       </transition>
       <transition name="e-fade">
-        <router-link class="e-button -white -m"
-                     :to="{ name: 'connect' }"
+        <button class="e-button -white -m"
+                     @click="openLogin"
                      v-if="$route.name === 'landing' || $route.name === 'qa'">
           <span class="e-hide-when-mobile">Join</span> white list
-        </router-link>
-        <router-link class="e-button -white -m"
-                     :to="{ name: 'connect-airdrop' }"
-                     v-if="$route.name === 'airdrop' ">
-          <span class="e-hide-when-mobile">Get</span> Your airdrop
-        </router-link>
+        </button>
       </transition>
       <transition name="e-fade">
         <button class="_sign-out-button" v-if="isAuthorized" @click="logoutAndGo">
@@ -95,7 +90,19 @@
         this.logout();
         this.$router.push({ name: 'landing' });
       },
-      ...mapActions('auth', ['logout']),
+      openLogin(){
+          this.$modal.show({
+            type:'login', 
+            params: { 
+              generateCode: phone => this.generateCode(phone),
+              validateCode: otp => this.validateCode(otp),
+            },
+            onAccept: (data) => {
+              this.$router.push({ name: 'main' });
+            },
+          });
+      },
+      ...mapActions('auth', ['logout', 'generateCode', 'validateCode']),
     },
   };
   /* eslint-disable */

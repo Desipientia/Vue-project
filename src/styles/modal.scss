@@ -21,6 +21,7 @@
   font-size: 14px;
   text-align: center;
 }
+
 .m-window {
   position: relative;
   width: 100%;
@@ -39,6 +40,14 @@
     @include media(wide) {
       max-width: 1000px;
     }
+  }
+  &.login {
+    max-width: 490px;
+    @include media(wide) {
+      max-width: 600px;
+    }
+
+
   }
   &.wallet {
     max-width: 670px;
@@ -149,4 +158,14 @@
   @include media(wide) {
     font-size: 18px;
   }
+}
+
+.m-sign-button {
+    margin-top: 22px;
+    text-decoration:underline;
+    cursor: pointer; 
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: #bcbcbc;
 }
