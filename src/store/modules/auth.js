@@ -22,7 +22,7 @@ export default {
     token: null,
     qrCode: null,
     phoneNumber: null,
-    user: null,
+    user: {},
   },
   getters: {
     isAuthorized: state => state.token !== null,
@@ -35,7 +35,10 @@ export default {
       state.token = token;
     },
     setUser(state, user) {
-      state.token = user;
+      state.user = user;
+    },
+    setCIDUser(state, user) {
+      state.user.cid_user = user;
     },
     setQrCode(state, qrCode) {
       state.qrCode = qrCode;
@@ -52,6 +55,10 @@ export default {
     verify({ dispatch }) {
       if (getStorageItem(AUTH_TOKEN_KEY)) {
         dispatch('login', { token: getStorageItem(AUTH_TOKEN_KEY) });
+        console.log('test' + this.user);
+        if (!this.user) {
+          dispatch('getUser');
+        }
       }
     },
     login({ commit }, user) {
@@ -62,6 +69,9 @@ export default {
           localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
         }
       }
+    },
+    updateCidUser({ commit }, user) {
+      commit('setCIDUser', user);
     },
     connectSocket({ state, rootState, dispatch }, userPk) {
       if ((state.token !== null && !rootState.socket.socket.isConnected) || state.token === null) {
@@ -95,9 +105,13 @@ export default {
         commit('setQrCode', r.body);
       });
     },
+    getUser({ commit }) {
+      return Vue.http.get(`${URL}user/`).then((r) => {
+        commit('setUser', r.body);
+      });
+    },
     setUserProject({ commit }) {
       return Vue.http.put(`${URL}set-project-to-user/`).then((r) => {
-        console.log(r.body);
         commit('setUser', r.body);
       });
     },

@@ -90,17 +90,17 @@
         this.logout();
         this.$router.push({ name: 'landing' });
       },
-      openLogin(){
-          this.$modal.show({
-            type:'login', 
-            params: { 
-              generateCode: phone => this.generateCode(phone),
-              validateCode: otp => this.validateCode(otp),
-            },
-            onAccept: (data) => {
-              this.$router.push({ name: 'main' });
-            },
-          });
+      openLogin() {
+        this.$modal.show({
+          type: 'login',
+          params: {
+            generateCode: phone => this.generateCode(phone),
+            validateCode: otp => this.validateCode(otp),
+          },
+          onAccept: () => {
+            this.$router.push({ name: 'main' });
+          },
+        });
       },
       ...mapActions('auth', ['logout', 'generateCode', 'validateCode']),
     },

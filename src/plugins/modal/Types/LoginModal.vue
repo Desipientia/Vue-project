@@ -1,7 +1,7 @@
 <template>
     <form class="login" @submit.prevent="$modal.hide">
         <div v-if="stage === 1">
-            <span class="m-header-text"> 
+            <span class="m-header-text">
                 Sign In
             </span>
             <div class="m-text-modal -m">
@@ -31,6 +31,7 @@
                                     <g id="Icons-/-Simple-/-Gray-/-Arrow-Back">
                                         <g id="Group" transform="translate(0.000000, 4.000000)">
                                             <rect id="Rectangle-2" fill="#BCBCBC" x="0" y="7" width="24" height="2" rx="1"></rect>
+                                           // eslint-disable-next-line
                                             <polyline id="Path-6" stroke="#BCBCBC" stroke-width="2" stroke-linecap="round" points="9 16 1 8 9 0"></polyline>
                                         </g>
                                     </g>
@@ -39,8 +40,8 @@
                         </g>
                     </g>
                 </svg>
-            </div>   
-            <span class="m-header-text"> 
+            </div>
+            <span class="m-header-text">
                 {{phoneNumber}}
             </span>
             <div class="m-text-modal -m">
@@ -73,40 +74,37 @@
   export default {
     name: 'LoginModal',
     data() {
-        return {
-            phoneNumber: '+79146682876',
-            stage: 2,
-            otp: null,
-            error: null
-        }
-      
+      return {
+        phoneNumber: '+79146682876',
+        stage: 2,
+        otp: null,
+        error: null,
+      };
     },
     computed: {
-    
+
     },
     methods: {
-        generateNewCode() {
-            this.$modal.params().generateCode(this.phoneNumber).then(() => {
-                this.stage = 2;
-                this.error = null;
-            }).catch(() => {
-                this.error = 'Wrong phone number'
-            })
-        },
-        back() {
-            this.stage = 1;
-            this.error = null
-
-        },
-        validateCode(){
-            this.$modal.params().validateCode(this.otp).then(() =>{
-                this.$modal.accept();
-                this.$modal.hide()
-
-            }).catch((r) => {
-                this.error = r.body.reason;
-            })
-        }
-    }   
-};
+      generateNewCode() {
+        this.$modal.params().generateCode(this.phoneNumber).then(() => {
+          this.stage = 2;
+          this.error = null;
+        }).catch((r) => {
+          this.error = r.body.detail;
+        });
+      },
+      back() {
+        this.stage = 1;
+        this.error = null;
+      },
+      validateCode() {
+        this.$modal.params().validateCode(this.otp).then(() => {
+          this.$modal.accept();
+          this.$modal.hide();
+        }).catch((r) => {
+          this.error = r.body.reason;
+        });
+      },
+    },
+  };
 </script>

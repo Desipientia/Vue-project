@@ -26,7 +26,7 @@
      </div>
       <vue-markdown class="e-markdown-block m-text-modal -s"
                     :source="$modal.params().data.page.earn_token.body"></vue-markdown>
-          
+
     </form>
 </template>
 
@@ -41,19 +41,19 @@
     computed: {
       referralLink() {
         const referalNumber = this.$modal.params().data.user.referal_number;
-        return `${window.location.host}/?r=${referalNumber}`;  
+        return `${window.location.host}/?r=${referalNumber}`;
       },
       headString() {
-        let promo = this.$modal.params().data.promo;
-        let head = this.$modal.params().data.page.head.body
+        const promo = this.$modal.params().data.promo;
+        let head = this.$modal.params().data.page.head.body;
         Object.keys(promo).forEach((key) => {
           head = head.replace(`{${key}}`, promo[key]);
         });
         return head;
       },
       bodyString() {
-        let promo = this.$modal.params().data.promo;
-        let body = this.$modal.params().data.page.main_context.body
+        const promo = this.$modal.params().data.promo;
+        let body = this.$modal.params().data.page.main_context.body;
         Object.keys(promo).forEach((key) => {
           body = body.replace(`{${key}}`, promo[key]);
         });
@@ -67,6 +67,6 @@
         this.copyButtonText = 'Copied';
         setTimeout(() => { this.copyButtonText = 'Copy'; }, 5000);
       },
-    }
-};
+    },
+  };
 </script>

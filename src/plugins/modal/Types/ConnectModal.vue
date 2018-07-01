@@ -6,7 +6,7 @@
                   :source="$modal.params().data.page.main_content_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
                   :source="$modal.params().data.page.main_content.body"></vue-markdown>
-  
+
     <vue-markdown class="e-markdown-block -default -connect e-mobile-only"
                   :source="$modal.params().data.page.if_not_installed_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default -connect e-hide-when-mobile"
@@ -20,8 +20,6 @@
 </template>
 
 <script>
-  import { mapState, mapGetters, mapActions } from 'vuex';
-
   const VueQrcode = () => import('@xkeshi/vue-qrcode');
 
   export default {

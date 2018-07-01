@@ -20,18 +20,18 @@
       <div class="_info-element">
         <p class="e-label-text">Total tokens distributed in this stage</p>
         <p class="e-number-text -s">{{ tokensForSale }} CID</p>
-      </div>  
+      </div>
       <div class="_info-element" v-if="isActive">
         <p class="e-label-text">Ether received in this stage</p>
         <p class="e-number-text -s">{{ ito.current_date.received_money | number }} ETH</p>
       </div>
     </div>
-    
+
     <form class="_send-block e-white-content-block"
           v-if="isActive"
           @submit.prevent="goNext">
       <div class="_inside-content">
-        
+
         <vue-autonumeric class="e-input -l"
                          type="tel"
                          placeholder="0"
@@ -75,7 +75,7 @@
         <p class="e-label-text">Balance</p>
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
         <p class="e-label-text">Total Contributed <b>{{ fullEthTransactionCount }} ETH</b></p>
-        <div class="_error-block" v-if="user.cid_user">
+        <div class="_error-block" v-if="!(user && user.cid_user)">
           <!-- eslint-disable-next-line max-len -->
           <span @click="openConnectModal">To unlock your Tokens please pass the KYC procedure with the CryptoID app.</span>
         </div>
@@ -130,7 +130,7 @@
     },
     computed: {
 
-     socketAuth() {
+      socketAuth() {
         return this.$store.state.socket.socket.user;
       },
       tokensText() {
@@ -215,7 +215,7 @@
         },
       };
     },
-    
+
     watch: {
       socketTransaction: {
         handler() {
@@ -243,7 +243,7 @@
       socketAuth: {
         handler() {
           if (this.socketAuth) {
-            this.login(this.socketAuth);
+            this.updateCidUser(this.socketAuth);
             this.$modal.hide();
           }
         },
@@ -304,16 +304,12 @@
       openConnectModal() {
         this.generateNewQRcode().then(() => {
           this.getConnectPageData().then(() => {
-            console.log(this.connect);
             this.$modal.show({
               type: 'connect',
-              params: {data : {page: this.connect, finishQrCode: this.finishQrCode }},
+              params: { data: { page: this.connect, finishQrCode: this.finishQrCode } },
             });
-          })
-
-        })
-       
-
+          });
+        });
       },
       ...mapActions('project', [
         'getITO',
@@ -328,7 +324,12 @@
         'getGetTokensPageData',
         'getConnectPageData',
       ]),
-      ...mapActions('auth', ['confirmAgreement', 'getUserProject', 'login', 'connectSocket']),
+      ...mapActions('auth', [
+        'confirmAgreement',
+        'getUserProject',
+        'updateCidUser',
+        'connectSocket',
+      ]),
       ...mapActions('web3mod', [
         'connectWeb3',
         'becomeInvestor',

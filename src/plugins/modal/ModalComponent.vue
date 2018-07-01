@@ -39,7 +39,7 @@
   const ConnectModal = () => import('./Types/ConnectModal');
 
   export default {
-    
+
     name: 'ModalComponent',
     data() {
       return {

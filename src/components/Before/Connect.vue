@@ -4,7 +4,7 @@
                   :source="connect.main_content_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
                   :source="connect.main_content.body"></vue-markdown>
-  
+
     <vue-markdown class="e-markdown-block -default -connect e-mobile-only"
                   :source="connect.if_not_installed_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default -connect e-hide-when-mobile"
@@ -49,8 +49,8 @@
           if (this.socketAuth) {
             this.login(this.socketAuth);
             this.$router.push({ name: 'main' });
-            if (this.socketAuth.earn){
-              this.$modal.show('airdrop', { data: {promo:this.promo, page:this.airDropModal, user:this.socketAuth} });
+            if (this.socketAuth.earn) {
+              this.$modal.show('airdrop', { data: { promo: this.promo, page: this.airDropModal, user: this.socketAuth } });
             }
           }
         },
