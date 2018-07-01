@@ -1,9 +1,5 @@
 <template>
     <form class="login" @submit.prevent="$modal.hide">
-        <svg class="_arrow" viewBox="0 0 10 20" xmlns="http://www.w3.org/2000/svg">
-            <!-- eslint-disable-next-line max-len -->
-            <path transform="rotate(90, 5, 10)" d="M6,15.5857864 L8.29289322,13.2928932 C8.68341751,12.9023689 9.31658249,12.9023689 9.70710678,13.2928932 C10.0976311,13.6834175 10.0976311,14.3165825 9.70710678,14.7071068 L5,19.4142136 L0.292893219,14.7071068 C-0.0976310729,14.3165825 -0.0976310729,13.6834175 0.292893219,13.2928932 C0.683417511,12.9023689 1.31658249,12.9023689 1.70710678,13.2928932 L4,15.5857864 L4,1 C4,0.44771525 4.44771525,1.01453063e-16 5,0 C5.55228475,-1.01453063e-16 6,0.44771525 6,1 L6,15.5857864 Z"></path>
-          </svg>
         <div v-if="stage === 1">
             <span class="m-header-text"> 
                 Sign In
@@ -26,6 +22,24 @@
             </div>
         </div>
         <div v-if="stage === 2">
+            <div class="m-back-button" @click="back">
+                <svg width="24px" height="18px" viewBox="0 0 24 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="ITO-[Desktop]" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Landing---short-/-Connect-with-phone---Step-2-(modal)" transform="translate(-80.000000, -81.000000)">
+                            <g id="popup" transform="translate(60.000000, 60.000000)">
+                                <g id="back" transform="translate(20.000000, 18.000000)">
+                                    <g id="Icons-/-Simple-/-Gray-/-Arrow-Back">
+                                        <g id="Group" transform="translate(0.000000, 4.000000)">
+                                            <rect id="Rectangle-2" fill="#BCBCBC" x="0" y="7" width="24" height="2" rx="1"></rect>
+                                            <polyline id="Path-6" stroke="#BCBCBC" stroke-width="2" stroke-linecap="round" points="9 16 1 8 9 0"></polyline>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>   
             <span class="m-header-text"> 
                 {{phoneNumber}}
             </span>
@@ -78,6 +92,9 @@
             }).catch(() => {
                 this.error = 'Wrong phone number'
             })
+        },
+        back() {
+            this.stage = 1;
         },
         validateCode(){
             this.$modal.params().validateCode(this.otp).then(() =>{
