@@ -4,13 +4,14 @@
                   :source="headString"></vue-markdown>
     <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
                   :source="headString"></vue-markdown>
-    <div class="_qr-code-block e-hide-when-mobile" v-if="finishQrCode !== null">
-      <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>
-    </div>
+
     <vue-markdown class="e-markdown-block -default -connect e-mobile-only"
                   :source="airDropConnect.if_not_installed_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default -connect e-hide-when-mobile"
                   :source="airDropConnect.if_not_installed.body"></vue-markdown>
+    <div class="_qr-code-block e-hide-when-mobile" v-if="finishQrCode !== null">
+      <qrcode :options="{ size: 160 }" v-model="finishQrCode"></qrcode>
+    </div>
     <vue-markdown class="e-markdown-block -default"
                   :source="airDropConnect.support.body"></vue-markdown>
 
