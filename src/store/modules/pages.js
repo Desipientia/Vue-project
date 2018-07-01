@@ -42,7 +42,7 @@ export default {
       });
     },
     getConnectPageData({ commit }) {
-      Vue.http.get(`${URL}connect-with-cryptoid`).then((r) => {
+      return Vue.http.get(`${URL}connect-with-cryptoid`).then((r) => {
         commit('setPageData', { data: makeObjectFromList(r.body.contents), field: 'connect' });
       });
     },

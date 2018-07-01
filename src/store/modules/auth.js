@@ -22,6 +22,7 @@ export default {
     token: null,
     qrCode: null,
     phoneNumber: null,
+    user: null,
   },
   getters: {
     isAuthorized: state => state.token !== null,
@@ -32,6 +33,9 @@ export default {
     setUserData(state, token) {
       setStorageItem(AUTH_TOKEN_KEY, token);
       state.token = token;
+    },
+    setUser(state, user) {
+      state.token = user;
     },
     setQrCode(state, qrCode) {
       state.qrCode = qrCode;
@@ -91,8 +95,11 @@ export default {
         commit('setQrCode', r.body);
       });
     },
-    setUserProject({}) {
-      return Vue.http.put(`${URL}set-project-to-user/`);
+    setUserProject({ commit }) {
+      return Vue.http.put(`${URL}set-project-to-user/`).then((r) => {
+        console.log(r.body);
+        commit('setUser', r.body);
+      });
     },
     validateCode({ state, dispatch }, otp) {
       return Vue.http.post('auth/validate/', { otp, phone_number: state.phoneNumber }).then((r) => {

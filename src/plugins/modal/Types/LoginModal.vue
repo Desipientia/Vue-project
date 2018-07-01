@@ -95,6 +95,8 @@
         },
         back() {
             this.stage = 1;
+            this.error = null
+
         },
         validateCode(){
             this.$modal.params().validateCode(this.otp).then(() =>{
