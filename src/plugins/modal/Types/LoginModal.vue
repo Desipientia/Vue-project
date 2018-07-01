@@ -75,8 +75,8 @@
     name: 'LoginModal',
     data() {
       return {
-        phoneNumber: '+79146682876',
-        stage: 2,
+        phoneNumber: '',
+        stage: 1,
         otp: null,
         error: null,
       };
