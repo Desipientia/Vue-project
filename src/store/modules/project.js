@@ -27,7 +27,7 @@ export default {
       }
     },
     updateITORecieve(state, { receivedMoney }) {
-      state.ito.received_money = receivedMoney.receivedMoney;
+      state.ito.current_date.received_money = receivedMoney.receivedMoney;
     },
   },
   actions: {
