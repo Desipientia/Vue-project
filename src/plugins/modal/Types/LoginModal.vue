@@ -14,17 +14,17 @@
                     ref="phoneLogin"
                     v-model="phoneNumber"
                 /> -->
-            <vue-tel-input class="e-input -s m-referal-link" v-model="phoneNumber" 
+            <vue-tel-input class="e-input -s m-referal-link" v-model="phoneNumber"
                 @onInput="onInput">
             </vue-tel-input>
 
             <div v-if="error" class="_error-block">
                 {{error}}
             </div>
-            <div class="e-button -grey" v-if="phoneValid" @click="generateNewCode">
+            <div class="e-button -black" v-if="phoneValid" @click="generateNewCode">
                 NEXT
             </div>
-            <div class="e-button -grey -disabled" v-if="!phoneValid">
+            <div class="e-button -black -disabled" v-if="!phoneValid">
                 NEXT
             </div>
         </div>
@@ -63,7 +63,10 @@
             <div v-if="error" class="_error-block">
                 {{error}}
             </div>
-            <div class="e-button -grey" @click="validateCode">
+            <div class="e-button -black -disabled" v-if="!rightOtp">
+                Confirm
+            </div>
+            <div class="e-button -black" @click="validateCode" v-if="rightOtp">
                 Confirm
             </div>
             <div class="m-sign-button">
@@ -90,7 +93,9 @@
       };
     },
     computed: {
-
+      rightOtp() {
+        return this.otp && this.otp.length === 6;
+      },
     },
     methods: {
       generateNewCode() {
@@ -101,9 +106,9 @@
           this.error = r.body.detail;
         });
       },
-     onInput({ number, isValid, country }) {
-         this.phoneValid = isValid;
-     },
+      onInput({ number, isValid, country }) {
+        this.phoneValid = isValid;
+      },
 
       back() {
         this.stage = 1;
