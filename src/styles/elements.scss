@@ -410,28 +410,37 @@
     }
   }
   &.-default {
-    table {
-      border-collapse: collapse;
-    }
-    table th, table td {
-      text-align: left;
-      border-left: 1px solid #767676;
-      padding: 4px 80px 0px 15px;
-      @include media(mobile) {
-        padding: 4px 10px 0px 4px;
-
-      }
-    }
-    table tr:first-child td,  table tr:first-child th{
-      border-top: 0;
-    }
-    table tr td:first-child, table tr th:first-child {
-      border-left: 0;
-    }
-
     counter-reset: li;
 
-    h1,  {
+    table {
+      border-collapse: collapse;
+
+      thead {
+        line-height: 1.43;
+        color: #0e0e0e;
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
+      }
+      th, td {
+        text-align: left;
+        border-left: 1px solid #bcbcbc;
+        padding: 4px 80px 0 30px;
+        @include media(mobile) {
+          padding: 4px 10px 0 4px;
+        }
+      }
+      tr:first-child {
+        td, th {
+          border-top: 0;
+        }
+      }
+      tr {
+        td:first-child, th:first-child {
+          border-left: 0;
+        }
+      }
+    }
+    h1 {
       @extend .e-header-text;
     }
     h2 {
@@ -445,7 +454,7 @@
         font-size: 34px;
       }
     }
-    h3,thead {
+    h3 {
       @extend .e-caption-text;
     }
     p, a, tbody {
@@ -468,6 +477,7 @@
     &.-connect {
       img {
         width: 188px;
+        margin: 10px 0 20px;
         @include media(wide) {
           width: 240px;
         }
@@ -475,7 +485,7 @@
           margin-right: 15px;
         }
       }
-      
+
     }
     &.-black {
       h2, h3 {

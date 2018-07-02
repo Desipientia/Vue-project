@@ -89,7 +89,7 @@
 <style lang="scss" scoped>
   .before-connect {
     ._qr-code-block {
-      margin: 20px 0 30px;
+      margin: 20px 0 30px 30px;
     }
   }
 </style>
