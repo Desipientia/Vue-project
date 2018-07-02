@@ -93,10 +93,13 @@
           <span>To receive your CID tokens please add your ETH wallet or open the CryptoID app and follow the instructions to add a wallet.</span>
         </div>
         <button class="_add-wallet-button e-label-text"
+                @click="showWalletModal">+ Add Wallet</button>
+
+        <button class="_add-wallet-button e-label-text"
                 :disabled="!web3active"
                 @click="addWallets">+ Add Metamask Wallets</button>
-        <button class="_add-wallet-button e-label-text"
-                @click="showWalletModal">+ Add Wallet</button>
+        <p class="e-info-text" v-if="!web3active">To add your Metamask Wallets please Sign in to Metamask or install Metamask.</p>
+
       </div>
     </div>
   </div>
