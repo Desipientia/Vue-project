@@ -7,17 +7,24 @@
             <div class="m-text-modal -m">
                 Please enter you phone number
             </div>
-                <input class="e-input -s m-referal-link"
+                <!-- <input class="e-input -s m-referal-link"
                     type="tel"
                     placeholder="Your phone number"
                     title="phoneLogin"
                     ref="phoneLogin"
                     v-model="phoneNumber"
-                />
-                <div v-if="error" class="_error-block">
-                    {{error}}
-                </div>
-                <div class="e-button -grey" @click="generateNewCode">
+                /> -->
+            <vue-tel-input class="e-input -s m-referal-link" v-model="phoneNumber" 
+                @onInput="onInput">
+            </vue-tel-input>
+
+            <div v-if="error" class="_error-block">
+                {{error}}
+            </div>
+            <div class="e-button -grey" v-if="phoneValid" @click="generateNewCode">
+                NEXT
+            </div>
+            <div class="e-button -grey -disabled" v-if="!phoneValid">
                 NEXT
             </div>
         </div>
@@ -77,6 +84,7 @@
       return {
         phoneNumber: '',
         stage: 1,
+        phoneValid: false,
         otp: null,
         error: null,
       };
@@ -93,6 +101,10 @@
           this.error = r.body.detail;
         });
       },
+     onInput({ number, isValid, country }) {
+         this.phoneValid = isValid;
+     },
+
       back() {
         this.stage = 1;
         this.error = null;

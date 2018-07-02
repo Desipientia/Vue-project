@@ -133,8 +133,12 @@
   text-decoration: none;
   transition: opacity .2s linear;
 
-  &:disabled {
+  &:disabled{
     opacity: .2;
+  }
+  &.-disabled{
+    opacity: .2;
+    cursor: default;
   }
   &.-black,
   &.-grey {

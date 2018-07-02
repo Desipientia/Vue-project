@@ -75,9 +75,9 @@
         <p class="e-label-text">Balance</p>
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
         <p class="e-label-text">Total Contributed <b>{{ fullEthTransactionCount }} ETH</b></p>
-        <div class="_error-block" v-if="!(user && user.cid_user)">
+        <div class="_error-block" v-if="!(user && user.cid_user)"  @click="openConnectModal">
           <!-- eslint-disable-next-line max-len -->
-          <span @click="openConnectModal">To unlock your Tokens please pass the KYC procedure with the CryptoID app.</span>
+          <span>To unlock your Tokens please </span> <span class="-underline"> pass the KYC procedure with the CryptoID app.</span>
         </div>
         <hr class="_line">
         <p class="e-label-text">Contributed in this stage</p>
@@ -576,6 +576,8 @@
       padding: 23px 30px;
     }
     ._error-block {
+      text-align: left;
+
       line-height: 1.43;
       border-radius: 4px;
       background-color: rgba(208, 2, 27, 0.1);
@@ -586,5 +588,10 @@
         font-size: 18px;
       }
     }
+    .-underline {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    
   }
 </style>

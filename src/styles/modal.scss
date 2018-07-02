@@ -41,6 +41,12 @@
       max-width: 1000px;
     }
   }
+  &.connect {
+    max-width: 820px;
+    @include media(wide) {
+      max-width: 1000px;
+    }
+  }
   &.login {
     max-width: 490px;
     @include media(wide) {

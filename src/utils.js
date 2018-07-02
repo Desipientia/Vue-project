@@ -4,11 +4,14 @@ import VueMarkdown from 'vue-markdown';
 import Toasted from 'vue-toasted';
 import VueYouTubeEmbed from 'vue-youtube-embed';
 import Meta from 'vue-meta';
+import VueTelInput from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 import Modal from './plugins/modal/modal';
 import Loader from './plugins/loader/loader';
 import ScrollJump from './plugins/scroll-jump/scroll-jump';
 import Filters from './plugins/filters/filters';
+
 
 import { root, debug } from './config';
 import store from './store';
@@ -25,6 +28,7 @@ Vue.use(Modal);
 Vue.use(Loader);
 Vue.use(ScrollJump);
 Vue.use(Filters);
+Vue.use(VueTelInput);
 
 Vue.http.options.root = `${root}/api`;
 
