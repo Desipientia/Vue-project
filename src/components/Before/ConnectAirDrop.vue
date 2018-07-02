@@ -35,8 +35,8 @@
         return this.$store.state.socket.socket.user;
       },
       headString() {
-        let promo = this.promo;
-        let head = this.airDropConnect.main_content.body
+        const promo = this.promo;
+        let head = this.airDropConnect.main_content.body;
         Object.keys(promo).forEach((key) => {
           head = head.replace(`{${key}}`, promo[key]);
         });
@@ -59,8 +59,12 @@
           if (this.socketAuth) {
             this.login(this.socketAuth);
             this.$router.push({ name: 'main' });
-            if (this.socketAuth.earn){
-              this.$modal.show('airdrop', { data: {promo:this.promo, page:this.airDropModal, user:this.socketAuth} });
+            if (this.socketAuth.earn) {
+              this.$modal.show('airdrop', { data: {
+                promo: this.promo,
+                page: this.airDropModal,
+                user: this.socketAuth,
+              } });
             }
           }
         },
@@ -81,14 +85,12 @@
       ...mapActions('auth', ['getUserProject', 'login', 'connectSocket']),
       ...mapActions('pages', ['getAirDropConnectPageData', 'getAirDropModalPageData']),
       ...mapActions('project', ['getPromo']),
-
-  },
+    },
     mounted() {
       this.generateNewQRcode();
       this.getAirDropConnectPageData();
       this.getAirDropModalPageData();
       this.getPromo();
- 
     },
   };
   /* eslint-disable */
