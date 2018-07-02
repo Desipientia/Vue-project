@@ -55,7 +55,6 @@ export default {
     verify({ dispatch }) {
       if (getStorageItem(AUTH_TOKEN_KEY)) {
         dispatch('login', { token: getStorageItem(AUTH_TOKEN_KEY) });
-        console.log('test' + this.user);
         if (!this.user) {
           dispatch('getUser');
         }
@@ -65,7 +64,7 @@ export default {
       if (user) {
         Vue.http.headers.common.Authorization = `Token ${user.token}`;
         commit('setUserData', user.token);
-        if (user.purchase_agreement) {
+        if (user.accept_terms) {
           localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
         }
       }
@@ -127,8 +126,8 @@ export default {
         commit('setPhoneNubmber', phoneNumber);
       });
     },
-    confirmAgreement({}, data) {
-      Vue.http.put(`${URL}license-agreement/`, { questions: data }).then(() => {
+    confirmAgreement({}) {
+      Vue.http.post('auth/accept_terms/', { accept_terms: true }).then(() => {
         localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
       });
     },
