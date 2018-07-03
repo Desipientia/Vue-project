@@ -98,8 +98,8 @@
         <button class="_add-wallet-button e-label-text"
                 :disabled="!web3active"
                 @click="addWallets">+ Add Metamask Wallets</button>
-        <p class="e-info-text" v-if="!web3active">To add your Metamask Wallets please Sign in to Metamask or install Metamask.</p>
-
+        <p class="e-info-text" v-if="!web3active">
+          To add your Metamask Wallets please Sign in to Metamask or install Metamask.</p>
       </div>
     </div>
   </div>

@@ -1,4 +1,3 @@
-
 <template>
   <div class="before-connect e-inside-content-block">
 
@@ -6,12 +5,12 @@
                   :source="$modal.params().data.page.main_content_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default e-hide-when-mobile"
                   :source="$modal.params().data.page.main_content.body"></vue-markdown>
-
     <vue-markdown class="e-markdown-block -default -connect e-mobile-only"
                   :source="$modal.params().data.page.if_not_installed_mobile.body"></vue-markdown>
     <vue-markdown class="e-markdown-block -default -connect e-hide-when-mobile"
                   :source="$modal.params().data.page.if_not_installed.body"></vue-markdown>
-    <div class="_qr-code-block e-hide-when-mobile" v-if="$modal.params().data.finishQrCode !== null">
+    <div class="_qr-code-block e-hide-when-mobile"
+         v-if="$modal.params().data.finishQrCode !== null">
       <qrcode :options="{ size: 160 }" v-model="$modal.params().data.finishQrCode"></qrcode>
     </div>
     <vue-markdown class="e-markdown-block -default"
@@ -24,7 +23,6 @@
 
   export default {
     name: 'Connect',
-
     components: { qrcode: VueQrcode },
     metaInfo: {
       title: 'Connect',
