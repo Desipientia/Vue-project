@@ -39,7 +39,7 @@
 
 <style lang="scss">
   html {
-    min-width: 260px;
+    min-width: 270px;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

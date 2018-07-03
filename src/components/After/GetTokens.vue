@@ -540,10 +540,6 @@
       .e-label-text {
         margin-bottom: 5px;
       }
-      ._error-block {
-        margin-top: 20px;
-        padding: 15px 20px;
-      }
       ._wallet {
         margin: 0;
         line-height: 1.56;
@@ -577,10 +573,14 @@
     ._wallets-block {
       width: 100%;
       padding: 23px 30px;
+  
+      ._error-block {
+        margin-top: 20px;
+        padding: 15px 20px;
+      }
     }
     ._error-block {
       text-align: left;
-
       line-height: 1.43;
       border-radius: 4px;
       background-color: rgba(208, 2, 27, 0.1);
