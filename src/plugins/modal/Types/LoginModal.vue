@@ -1,6 +1,6 @@
 <template>
   <form class="login" @submit.prevent="$modal.hide">
-    <div v-if="stage === 1">
+    <form v-if="stage === 1" @submit.prevent="generateNewCode(phoneValid)">
       <span class="m-header-text">Sign In</span>
       <div class="m-text-modal -m">Please enter you phone number</div>
           <!-- <input class="e-input -s m-referal-link"
@@ -14,10 +14,9 @@
                      v-model="phoneNumber"
                      @onInput="onInput"></vue-tel-input>
       <div v-if="error" class="_error-block">{{ error }}</div>
-      <div class="e-button -black" v-if="phoneValid" @click="generateNewCode">NEXT</div>
-      <div class="e-button -black -disabled" v-if="!phoneValid">NEXT</div>
-    </div>
-    <div v-if="stage === 2">
+      <button class="e-button -black" :disabled="!phoneValid">NEXT</button>
+    </form>
+    <form v-if="stage === 2" @submit.prevent="validateCode">
       <div class="m-back-button" @click="back">
         <svg width="24px" height="18px" viewBox="0 0 24 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <!-- eslint-disable max-len -->
@@ -45,12 +44,11 @@
              ref="otpIntput"
              v-model="otp"/>
       <div v-if="error" class="_error-block">{{ error }}</div>
-      <div class="e-button -black -disabled" v-if="!rightOtp">Confirm</div>
-      <div class="e-button -black" @click="validateCode" v-if="rightOtp">Confirm</div>
+      <button class="e-button -black" :disabled="!rightOtp">Confirm</button>
       <div class="m-sign-button">
-        <div  class="m-sign-button" @click="generateNewCode">Resend code</div>
+        <div  class="m-sign-button" @click="generateNewCode(true)">Resend code</div>
       </div>
-    </div>
+    </form>
   </form>
 </template>
 
@@ -72,7 +70,8 @@
       },
     },
     methods: {
-      generateNewCode() {
+      generateNewCode(flag) {
+        if (!flag) return;
         this.$modal.params().generateCode(this.phoneNumber).then(() => {
           this.stage = 2;
           this.error = null;
@@ -99,3 +98,9 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+  .e-button {
+    width: 100%;
+  }
+</style>

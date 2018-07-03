@@ -72,6 +72,9 @@
   .min-width-block {
     min-width: 1000px;
   }
+  .dropdown-item {
+    background-color: #fff;
+  }
 </style>
 
 <style lang="scss" src="./styles/elements.scss"></style>

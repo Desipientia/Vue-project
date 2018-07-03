@@ -5,7 +5,9 @@
   color: #0e0e0e;
   font-family: "Cabin", sans-serif;
   transition: border .2s linear;
-
+  @include media(mobile) {
+    max-width: 100%;
+  }
   &.-l {
     width: 330px;
     font-weight: 700;
@@ -133,11 +135,8 @@
   text-decoration: none;
   transition: opacity .2s linear;
 
-  &:disabled{
-    opacity: .2;
-  }
-  &.-disabled{
-    opacity: .2;
+  &:disabled,
+  &[disabled] {
     cursor: default;
   }
   &.-black,
@@ -163,6 +162,11 @@
     background-color: #000;
     color: #fff;
     box-shadow: 0 2px 4px 0 rgba(188, 188, 188, 0.54);
+
+    &:disabled,
+    &[disabled] {
+      background: rgba(0, 0, 0, .2);
+    }
   }
   &.-grey {
     background-color: #f6f6f6;
@@ -414,15 +418,17 @@
     }
   }
   &.-default {
+    counter-reset: li;
+
     table {
       border-collapse: collapse;
     }
     table th, table td {
       text-align: left;
       border-left: 1px solid #767676;
-      padding: 4px 80px 0px 15px;
+      padding: 4px 80px 0 15px;
       @include media(mobile) {
-        padding: 4px 10px 0px 4px;
+        padding: 4px 10px 0 4px;
 
       }
     }
@@ -431,11 +437,9 @@
     }
     table tr td:first-child, table tr th:first-child {
       border-left: 0;
+
     }
-
-    counter-reset: li;
-
-    h1,  {
+    h1 {
       @extend .e-header-text;
     }
     h2 {
@@ -479,7 +483,7 @@
           margin-right: 15px;
         }
       }
-      
+
     }
     &.-black {
       h2, h3 {

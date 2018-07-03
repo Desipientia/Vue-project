@@ -33,8 +33,8 @@
       </transition>
       <transition name="e-fade">
         <button class="e-button -white -m"
-                     @click="openLogin"
-                     v-if="$route.name === 'landing' || $route.name === 'qa'">
+                @click="openLogin"
+                v-if="$route.name === 'landing' || $route.name === 'qa'">
           <span class="e-hide-when-mobile">Join</span> white list
         </button>
       </transition>
