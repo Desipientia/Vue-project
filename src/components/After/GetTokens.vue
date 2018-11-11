@@ -26,34 +26,12 @@
         <p class="e-number-text -s">{{ ito.current_date.received_money | number }} ETH</p>
       </div>
     </div>
-    <div class="_allocation-block e-white-content-block">
-      <div class="_text-line">
-        <p class="e-label-text">Your USD/ETH limit</p>
-        <div v-if="allocation.transaction_remain">
-          <span class="e-number-text -s -black">
-            ${{ allocation.transaction_remain.usd_amount.toFixed(2) }}
-          </span>
-          <span class="e-number-text -s -black">
-            ({{ allocation.transaction_remain.eth_amount.toFixed(2) }} ETH)</span>
-          <span class="e-number-text -s">remaining</span>
-        </div>
-      </div>
-      <progress-bar class="_progress-bar -default" :value="progressValue"></progress-bar>
-      <div class="_error-block" v-if="allocation.full_transactions_count && progressValue === 0">
-        You have reached your limit. Please
-        <span class="_modal-link-text" @click="showInfoModal">Increase your limit</span>
-      </div>
-      <p class="_modal-link-text -single e-label-text"
-         v-else
-         @click="showInfoModal">How to increase?</p>
-    </div>
+
     <form class="_send-block e-white-content-block"
           v-if="isActive"
           @submit.prevent="goNext">
       <div class="_inside-content">
-        <button class="_max-button e-button"
-                type="button"
-                @click="amount = maxTransactionCountAvailable">Max</button>
+
         <vue-autonumeric class="e-input -l"
                          type="tel"
                          placeholder="0"
@@ -66,7 +44,7 @@
                          v-model="amount"></vue-autonumeric>
         <span class="e-number-text -s -black">ETH</span>
       </div>
-      <button class="e-button -black" :disabled="$v.$invalid">Next</button>
+      <button class="e-button -black">Next</button>
     </form>
     <vue-markdown class="e-markdown-block -tokens"
                   :source="tokensText.first"></vue-markdown>
@@ -97,13 +75,11 @@
         <p class="e-label-text">Balance</p>
         <p class="e-number-text -black -l">{{ cidTransactionCount }} CID</p>
         <p class="e-label-text">Total Contributed <b>{{ fullEthTransactionCount }} ETH</b></p>
-        <hr class="_line">
-        <div v-if="cidDropTransactionCount">
-          <p class="e-label-text">Airdrop</p>
-          <p class="e-number-text -black -m">{{ cidDropTransactionCount }} CID DROP</p>
-          <p class="e-info-text">We will convert your CID DROP to CID later.</p>
-          <hr class="_line">
+        <div class="_error-block" v-if="!(user && user.cid_user)"  @click="openConnectModal">
+          <!-- eslint-disable-next-line max-len -->
+          <span>To unlock your Tokens please </span> <span class="-underline"> pass the KYC procedure with the CryptoID app.</span>
         </div>
+        <hr class="_line">
         <p class="e-label-text">Contributed in this stage</p>
         <p class="e-number-text -black -m">{{ currentEthTransactionCount }} ETH</p>
         <!-- eslint-disable-next-line max-len -->
@@ -142,6 +118,7 @@
       return {
         amount: 1.00,
         address: 'null',
+        finishQrCode: null,
         data: [
           { title: 'CID Tokens Distributed', value: 65 },
           { title: 'Advisors, Ecosystem, Partners', value: 10 },
@@ -154,6 +131,10 @@
       };
     },
     computed: {
+
+      socketAuth() {
+        return this.$store.state.socket.socket.user;
+      },
       tokensText() {
         if (!this.tokens.body) return {};
         const divider = this.tokens.body.indexOf('>');
@@ -208,9 +189,14 @@
       ...mapState('pages', [
         'info',
         'tokens',
+        'connect',
       ]),
       ...mapState('web3mod', [
         'web3active',
+      ]),
+      ...mapState('auth', [
+        'qrCode',
+        'user',
       ]),
       ...mapGetters('auth', ['isAgreementConfirmed']),
     },
@@ -231,6 +217,7 @@
         },
       };
     },
+
     watch: {
       socketTransaction: {
         handler() {
@@ -252,6 +239,15 @@
               break;
           }
           this.getAllocation();
+        },
+        deep: true,
+      },
+      socketAuth: {
+        handler() {
+          if (this.socketAuth) {
+            this.updateCidUser(this.socketAuth);
+            this.$modal.hide();
+          }
         },
         deep: true,
       },
@@ -301,6 +297,22 @@
           },
         });
       },
+      generateNewQRcode() {
+        return this.getUserProject().then(() => {
+          this.finishQrCode = JSON.stringify(this.qrCode);
+          this.connectSocket(this.qrCode.pk);
+        });
+      },
+      openConnectModal() {
+        this.generateNewQRcode().then(() => {
+          this.getConnectPageData().then(() => {
+            this.$modal.show({
+              type: 'connect',
+              params: { data: { page: this.connect, finishQrCode: this.finishQrCode } },
+            });
+          });
+        });
+      },
       ...mapActions('project', [
         'getITO',
         'getAllocation',
@@ -312,8 +324,14 @@
       ...mapActions('pages', [
         'getInfoModalPageData',
         'getGetTokensPageData',
+        'getConnectPageData',
       ]),
-      ...mapActions('auth', ['confirmAgreement']),
+      ...mapActions('auth', [
+        'confirmAgreement',
+        'getUserProject',
+        'updateCidUser',
+        'connectSocket',
+      ]),
       ...mapActions('web3mod', [
         'connectWeb3',
         'becomeInvestor',
@@ -521,10 +539,6 @@
       .e-label-text {
         margin-bottom: 5px;
       }
-      ._error-block {
-        margin-top: 20px;
-        padding: 15px 20px;
-      }
       ._wallet {
         margin: 0;
         line-height: 1.56;
@@ -558,8 +572,14 @@
     ._wallets-block {
       width: 100%;
       padding: 23px 30px;
+  
+      ._error-block {
+        margin-top: 20px;
+        padding: 15px 20px;
+      }
     }
     ._error-block {
+      text-align: left;
       line-height: 1.43;
       border-radius: 4px;
       background-color: rgba(208, 2, 27, 0.1);
@@ -570,5 +590,10 @@
         font-size: 18px;
       }
     }
+    .-underline {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    
   }
 </style>

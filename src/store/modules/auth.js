@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueNativeSock from 'vue-native-websocket';
 import { projectName, wsRoot } from '../../config';
 
-const AUTH_TOKEN_KEY = 'cid_token';
+const AUTH_TOKEN_KEY = 'token';
 const AGREEMENT_TOKEN_KEY = 'cid_agreement';
 
 const URL = `project/${projectName}/`;
@@ -21,6 +21,8 @@ export default {
   state: {
     token: null,
     qrCode: null,
+    phoneNumber: null,
+    user: {},
   },
   getters: {
     isAuthorized: state => state.token !== null,
@@ -32,8 +34,17 @@ export default {
       setStorageItem(AUTH_TOKEN_KEY, token);
       state.token = token;
     },
+    setUser(state, user) {
+      state.user = user;
+    },
+    setCIDUser(state, user) {
+      state.user.cid_user = user;
+    },
     setQrCode(state, qrCode) {
       state.qrCode = qrCode;
+    },
+    setPhoneNubmber(state, phoneNumber) {
+      state.phoneNumber = phoneNumber;
     },
     removeUserData(state) {
       removeStorageItem(AUTH_TOKEN_KEY);
@@ -43,17 +54,23 @@ export default {
   actions: {
     verify({ dispatch }) {
       if (getStorageItem(AUTH_TOKEN_KEY)) {
-        dispatch('login', { cid_token: getStorageItem(AUTH_TOKEN_KEY) });
+        dispatch('login', { token: getStorageItem(AUTH_TOKEN_KEY) });
+        if (!this.user) {
+          dispatch('getUser');
+        }
       }
     },
     login({ commit }, user) {
       if (user) {
-        Vue.http.headers.common.Authorization = user.cid_token;
-        commit('setUserData', user.cid_token);
-        if (user.purchase_agreement) {
+        Vue.http.headers.common.Authorization = `Token ${user.token}`;
+        commit('setUserData', user.token);
+        if (user.accept_terms) {
           localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
         }
       }
+    },
+    updateCidUser({ commit }, user) {
+      commit('setCIDUser', user);
     },
     connectSocket({ state, rootState, dispatch }, userPk) {
       if ((state.token !== null && !rootState.socket.socket.isConnected) || state.token === null) {
@@ -87,8 +104,30 @@ export default {
         commit('setQrCode', r.body);
       });
     },
-    confirmAgreement({}, data) {
-      Vue.http.put(`${URL}license-agreement/`, { questions: data }).then(() => {
+    getUser({ commit }) {
+      return Vue.http.get(`${URL}user/`).then((r) => {
+        commit('setUser', r.body);
+      });
+    },
+    setUserProject({ commit }) {
+      return Vue.http.put(`${URL}set-project-to-user/`).then((r) => {
+        commit('setUser', r.body);
+      });
+    },
+    validateCode({ state, dispatch }, otp) {
+      return Vue.http.post('auth/validate/', { otp, phone_number: state.phoneNumber }).then((r) => {
+        dispatch('login', r.body).then(() => {
+          dispatch('setUserProject');
+        });
+      });
+    },
+    generateCode({ commit }, phoneNumber) {
+      return Vue.http.post('auth/generate/', { phone_number: phoneNumber }).then(() => {
+        commit('setPhoneNubmber', phoneNumber);
+      });
+    },
+    confirmAgreement({}) {
+      Vue.http.post('auth/accept_terms/', { accept_terms: true }).then(() => {
         localStorage.setItem(AGREEMENT_TOKEN_KEY, 'Confirmed');
       });
     },

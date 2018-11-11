@@ -35,8 +35,11 @@
   const WalletModal = () => import('./Types/WalletModal');
   const ImageViewModal = () => import('./Types/ImageViewModal');
   const AirDropModal = () => import('./Types/AirDropModal');
+  const LoginModal = () => import('./Types/LoginModal');
+  const ConnectModal = () => import('./Types/ConnectModal');
 
   export default {
+
     name: 'ModalComponent',
     data() {
       return {
@@ -53,6 +56,8 @@
       agreement: AgreementModal,
       wallet: WalletModal,
       airdrop: AirDropModal,
+      login: LoginModal,
+      connect: ConnectModal,
       'image-view': ImageViewModal,
     },
     methods: {

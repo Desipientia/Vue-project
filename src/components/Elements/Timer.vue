@@ -1,7 +1,7 @@
 <template>
   <div class="timer">
     <p class="e-label-text"
-       v-if="type === 'landing'"> TIME TO APPLY FOR A WHITE LIST </p>
+       v-if="type === 'landing'"> TIME LEFT TO APPLY </p>
     <p class="e-label-text" v-else>
       <transition name="e-fade" mode="out-in">
         <span key="active" v-if="isActive">Token distribution closes in</span>

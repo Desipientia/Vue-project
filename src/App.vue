@@ -39,7 +39,7 @@
 
 <style lang="scss">
   html {
-    min-width: 260px;
+    min-width: 270px;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -60,7 +60,7 @@
   #app {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 120vh;
   }
   .app-content {
     padding: 0 75px;
@@ -71,6 +71,9 @@
   }
   .min-width-block {
     min-width: 1000px;
+  }
+  .dropdown-item {
+    background-color: #fff;
   }
 </style>
 

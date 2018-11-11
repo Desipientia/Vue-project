@@ -22,9 +22,8 @@
       </router-link>
     </div>
     <div class="_content-block">
-      <router-link class="e-button -white -l"
-                   :to="{ name: 'connect', query: this.$route.query }">Join white list</router-link>
-
+      <button class="e-button -white -l"
+              @click="openLogin">Join white list</button>
       <timer class="_timer -landing" type="landing" :date-range="date"></timer>
     </div>
   </div>
@@ -100,6 +99,18 @@
         const width = this.$refs.content.clientWidth;
         this.playerWidth = `${width}px`;
         this.playerHeight = `${width / this.ratio}px`;
+      },
+      openLogin() {
+        this.$modal.show({
+          type: 'login',
+          params: {
+            generateCode: phone => this.generateCode(phone),
+            validateCode: otp => this.validateCode(otp),
+          },
+          onAccept: () => {
+            this.$router.push({ name: 'main' });
+          },
+        });
       },
       ...mapActions('pages', ['getLandingPageData']),
       ...mapActions('project', ['getDateList']),

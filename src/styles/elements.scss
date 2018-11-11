@@ -5,7 +5,9 @@
   color: #0e0e0e;
   font-family: "Cabin", sans-serif;
   transition: border .2s linear;
-
+  @include media(mobile) {
+    max-width: 100%;
+  }
   &.-l {
     width: 330px;
     font-weight: 700;
@@ -133,8 +135,9 @@
   text-decoration: none;
   transition: opacity .2s linear;
 
-  &:disabled {
-    opacity: .2;
+  &:disabled,
+  &[disabled] {
+    cursor: default;
   }
   &.-black,
   &.-grey {
@@ -159,6 +162,11 @@
     background-color: #000;
     color: #fff;
     box-shadow: 0 2px 4px 0 rgba(188, 188, 188, 0.54);
+
+    &:disabled,
+    &[disabled] {
+      background: rgba(0, 0, 0, .2);
+    }
   }
   &.-grey {
     background-color: #f6f6f6;
@@ -478,6 +486,7 @@
       img {
         width: 188px;
         margin: 10px 0 20px;
+        max-width: 100%;
         @include media(wide) {
           width: 240px;
         }
