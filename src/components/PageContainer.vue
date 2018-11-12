@@ -2,8 +2,10 @@
   <div class="page-container" :class="background">
     <div class="_background-block"></div>
     <div class="_content-block">
-      <transition name="e-fade" mode="out-in">
-        <router-view></router-view>
+      <transition name="e-fade" mode="out-in" @after-leave="$root.$emit('trigger-scroll')">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </transition>
     </div>
   </div>
