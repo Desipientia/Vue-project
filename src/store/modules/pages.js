@@ -37,9 +37,17 @@ export default {
   },
   actions: {
     getLandingPageData({ commit }) {
-      return Vue.http.get(`${URL}landing-short`).then((r) => {
-        commit('setPageData', { data: r.body.contents[0], field: 'landing' });
-      });
+      // return Vue.http.get(`${URL}landing-short`).then((r) => {
+      //   commit('setPageData', { data: r.body.contents[0], field: 'landing' });
+      // });
+      const data = {
+        body: '# Header\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+        files: [
+          { url: 'https://www.youtube.com/watch?v=5530I_pYjbo', name: 'Video 1' },
+          { url: 'https://www.youtube.com/watch?v=JBPU2hY7RAc', name: 'Video 2' },
+        ],
+      };
+      commit('setPageData', { data, field: 'landing' });
     },
     getConnectPageData({ commit }) {
       return Vue.http.get(`${URL}connect-with-cryptoid`).then((r) => {
@@ -77,9 +85,11 @@ export default {
       });
     },
     getQAPageData({ commit }) {
-      return Vue.http.get(`${URL}qa`).then((r) => {
-        commit('setPageData', { data: r.body.contents[0].body, field: 'qa' });
-      });
+      // return Vue.http.get(`${URL}qa`).then((r) => {
+      //   commit('setPageData', { data: r.body.contents[0].body, field: 'qa' });
+      // });
+      const data = '# Questions and Answers\n### Question 1\nSome text\n### Question 2\nSome text';
+      commit('setPageData', { data, field: 'qa' });
     },
     getAirDropLandingPageData({ commit }) {
       return Vue.http.get(`${URL}landing-short-airdrop`).then((r) => {

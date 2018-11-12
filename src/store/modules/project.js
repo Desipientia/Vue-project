@@ -61,8 +61,16 @@ export default {
       });
     },
     getDateList({ commit }) {
-      return Vue.http.get(`${URL}start-date/`).then((r) => {
-        commit('setStateData', { type: 'date', data: r.body });
+      // return Vue.http.get(`${URL}start-date/`).then((r) => {
+      //   commit('setStateData', { type: 'date', data: r.body });
+      // });
+      const today = new Date();
+      const tomorrow = new Date();
+      const yesterday = new Date();
+      tomorrow.setDate(today.getDate() + 1);
+      commit('setStateData', {
+        type: 'date',
+        data: { start_date: tomorrow, end_date: yesterday },
       });
     },
     getTeamList({ commit }) {
