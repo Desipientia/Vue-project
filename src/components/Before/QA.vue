@@ -18,5 +18,3 @@
   };
   /* eslint-disable */
 </script>
-
-<style lang="scss" scoped></style>
